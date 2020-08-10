@@ -101,7 +101,7 @@ export class ClubRegistratedUsers extends Component {
     }
 
     componentDidMount() {
-
+        this.getAllregisteredUsers();
 
     }
 
