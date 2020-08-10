@@ -58,7 +58,7 @@ export class ClubRegistratedUsers extends Component {
                                         <td>240</td>
                                         <td>200</td>
                                         <td>
-                                            <i className="fa fa-edit" />
+                                            <i className="fa fa-edit mr-2" />
                                             <i className="fa fa-trash" />
                                         </td>
                                     </tr>
@@ -72,7 +72,7 @@ export class ClubRegistratedUsers extends Component {
                                         <td>240</td>
                                         <td>200</td>
                                         <td>
-                                            <i className="fa fa-edit" />
+                                            <i className="fa fa-edit mr-2" />
                                             <i className="fa fa-trash" />
                                         </td>
                                     </tr>
@@ -86,7 +86,7 @@ export class ClubRegistratedUsers extends Component {
                                         <td>240</td>
                                         <td>200</td>
                                         <td>
-                                            <i className="fa fa-edit" />
+                                            <i className="fa fa-edit mr-2" />
                                             <i className="fa fa-trash" />
                                         </td>
                                     </tr>
