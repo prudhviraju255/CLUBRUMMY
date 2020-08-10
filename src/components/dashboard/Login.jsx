@@ -18,7 +18,7 @@ class Login extends Component {
 
   componentDidMount() {
     let isLoggedIn = localStorage.getItem("auth");
-    this.setState({login:isLoggedIn });
+    this.setState({ login: isLoggedIn });
     // this.refs["username"].focus();
   }
 
@@ -27,9 +27,9 @@ class Login extends Component {
    */
   async login() {
     if (this.state.username == "" || this.state.password == "") {
-      this.setState({error:true})
+      this.setState({ error: true })
       return false;
-    } 
+    }
     let dataObject = {
       username: this.state.username,
       password: this.state.password
@@ -39,21 +39,21 @@ class Login extends Component {
       {},
       dataObject
     );
-    console.log(userLoggedInDetails,"userloggedindetails")
-      if (userLoggedInDetails.code === 400) {
-        await this.setState({error:true});
-      } else if (userLoggedInDetails.code === 200) {
-        // this.refs["submit"].setAttribute("disabled", true);
-        // setting session cache
-        await setCacheObject(SESSION_KEY_NAME, userLoggedInDetails.data);
-        this.setState({error:false,login:true})
+    console.log(userLoggedInDetails, "userloggedindetails")
+    if (userLoggedInDetails.code === 400) {
+      await this.setState({ error: true });
+    } else if (userLoggedInDetails.code === 200) {
+      // this.refs["submit"].setAttribute("disabled", true);
+      // setting session cache
+      await setCacheObject(SESSION_KEY_NAME, userLoggedInDetails.data);
+      this.setState({ error: false, login: true })
     }
   }
 
-  handleEnterKey=(e)=>{
-if(e.keyCode==13 && e.target.name=="password"){
-  this.login();
-}
+  handleEnterKey = (e) => {
+    if (e.keyCode == 13 && e.target.name == "password") {
+      this.login();
+    }
   }
 
   /**
@@ -94,7 +94,7 @@ if(e.keyCode==13 && e.target.name=="password"){
                       </div>
                       <div className="form-group">
                         <label htmlFor="userpassword">Password</label>
-                        <input type="password" className="form-control" name="password" id="userpassword" placeholder="Enter password" onChange={this.handleChange} onKeyDown={this.handleEnterKey}/>
+                        <input type="password" className="form-control" name="password" id="userpassword" placeholder="Enter password" onChange={this.handleChange} onKeyDown={this.handleEnterKey} />
                       </div>
                       <div className="custom-control custom-checkbox">
                         <input type="checkbox" className="custom-control-input" id="customControlInline" />

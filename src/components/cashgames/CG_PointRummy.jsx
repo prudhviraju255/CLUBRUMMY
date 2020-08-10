@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import Header from '../dashboard/Header'
+import Footer from '../dashboard/Footer'
 
-export class ClubPlayers extends Component {
+export class CG_PointRummy extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -29,7 +29,7 @@ export class ClubPlayers extends Component {
               <div className="row">
                 <div className="col-12">
                   <div className="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 className="page-title mb-0 font-size-18">Players</h4>
+                    <h4 className="page-title mb-0 font-size-18">Point Rummy</h4>
                     <div className="page-title-right">
                       <ol className="breadcrumb m-0">
                         <li className="breadcrumb-item active">Welcome to ClubRummy</li>
@@ -156,4 +156,4 @@ export class ClubPlayers extends Component {
   }
 }
 
-export default ClubPlayers
+export default CG_PointRummy

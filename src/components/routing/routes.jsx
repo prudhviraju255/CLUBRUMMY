@@ -4,6 +4,9 @@ import Login from '../dashboard/Login';
 import ProtectedRoute from "./protectedRoute";
 import Dashboard from "../dashboard/Dashboard";
 import ClubPlayers from '../dashboard/ClubPlayers';
+import ClubRegistration from '../registration/ClubRegistration';
+import CG_PointRummy from '../cashgames/CG_PointRummy';
+
 
 export default class Routes extends Component {
     render() {
@@ -18,11 +21,13 @@ export default class Routes extends Component {
                             <Login />
                         </Route>
                         <ProtectedRoute exact path="/dashboard" component={Dashboard}></ProtectedRoute>
+                        <ProtectedRoute exact path="/club-registration" component={ClubRegistration}></ProtectedRoute>
                         <ProtectedRoute exact path="/club-players" component={ClubPlayers}></ProtectedRoute>
+                        <ProtectedRoute exact path="/cash-games/point-rummy" component={CG_PointRummy}></ProtectedRoute>
                         {/* <Route path="/dashboard" component={Dashboard}></Route> */}
                         <Route path="*">
-              <Redirect to="/login" />
-            </Route>
+                            <Redirect to="/login" />
+                        </Route>
                     </Switch>
                 </HashRouter>
             </React.Fragment>
