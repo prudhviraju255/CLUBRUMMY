@@ -3,6 +3,7 @@ import Header from '../dashboard/Header'
 import Footer from '../dashboard/Footer'
 import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
+import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
@@ -15,14 +16,15 @@ export class CreateClubRegisterUser extends Component {
         this.state = {
             register: false,
             clubName: "",
-            clubType: "",
+            clubType: 0,
             clubLocation: "",
             mobileno: "",
             email: "",
             username: "",
             password: "",
             error: false,
-            errorMessage: ""
+            errorMessage: "",
+            canUseAsUsername: true
         }
     }
 
@@ -36,7 +38,7 @@ export class CreateClubRegisterUser extends Component {
             <div className="row">
                 <div className="col-12">
                     <div className="card box-big-shadow">
-                        <h4 className="card-header mt-0">Add New Player</h4>
+                        <h4 className="card-header mt-0">Add New Club</h4>
                         <div className="card-body">
                             <form className="repeater" encType="multipart/form-data">
                                 <div data-repeater-list="group-a">
@@ -47,7 +49,14 @@ export class CreateClubRegisterUser extends Component {
                                         </div>
                                         <div className="form-group col-lg-3">
                                             <label htmlFor="name">Club Type</label>
-                                            <input type="text" id="clubType" ref="clubType" name="clubType" onChange={this.handleChange} className="form-control" />
+                                            <select className="form-control" ref="clubType" name="clubType" onChange={this.handleChange} id="clubType" >
+                                                <option value='0' >Bronze</option>
+                                                <option value='1'>Silver</option>
+                                                <option value='2'>Gold</option>
+                                                <option value='3'>Diamond</option>
+                                                <option value='4'>platinum</option>
+                                            </select>
+
                                         </div>
                                         <div className="form-group col-lg-3">
                                             <label htmlFor="name">Club Location</label>
@@ -55,7 +64,7 @@ export class CreateClubRegisterUser extends Component {
                                         </div>
                                         <div className="form-group col-lg-3">
                                             <label htmlFor="subject">Mobile</label>
-                                            <input type="text" id="mobileno" ref="mobileno" name="mobileno" onChange={this.handleChange} className="form-control" />
+                                            <input type="number" id="mobileno" ref="mobileno" name="mobileno" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="form-group col-lg-3">
                                             <label htmlFor="email">Email</label>
@@ -76,32 +85,59 @@ export class CreateClubRegisterUser extends Component {
                                     </div>
                                 </div>
                             </form>
+                            <p>{this.state.errorMessage}</p>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div >
         )
     }
 
     handleChange = (e) => {
         this.state[e.target.name] = e.target.value;
+        if (e.target.name == "username") {
+            this.validateUserexist(e.target.value)
+        }
+
+    }
+
+    async validateUserexist(username) {
+        let dataObject = {
+            username: username
+        };
+        var userexist = await postServiceCALLS(
+            ServiceUrls.CHECK_CLUB_USERNAME_EXIST,
+            {},
+            dataObject
+        );
+
+        if (userexist.code === 400) {
+            await this.setState({ error: true, canUseAsUsername: userexist.data ? userexist.data.canUseAsUsername : "", errorMessage: userexist.message });
+        } else if (userexist.code === 200) {
+            await this.setState({ error: false, canUseAsUsername: userexist.data ? userexist.data.canUseAsUsername : "", errorMessage: userexist.message });
+
+        }
     }
 
     async clubregistration() {
-        if (this.state.username == "" || this.state.password == "") {
-            this.setState({ error: true })
-            return false;
-        }
+        const user = getCacheObject(SESSION_KEY_NAME);
         let dataObject = {
             clubname: this.state.clubName,
-            clubtype: 1,//this.state.clubType,
+            clubtype: this.state.clubType,
             clublocation: this.state.clubLocation,
             mobileno: this.state.mobileno,
             email: this.state.email,
             username: this.state.username,
             password: this.state.username,
-            superAdminId: "5f2a8efb39e3e523d89f9feb"
+            superAdminId: user._id
         };
+        var validation = this.validateform(dataObject);
+        if (validation.error) {
+            await this.setState({ error: validation.error, errorMessage: validation.errorMessage });
+            return;
+        }
+
+
         var userRegistration = await postServiceCALLS(
             ServiceUrls.CLUB_CREATE_USER,
             {},
@@ -109,10 +145,28 @@ export class CreateClubRegisterUser extends Component {
         );
         console.log(dataObject);
         if (userRegistration.code === 400) {
-            await this.setState({ error: true });
+            await this.setState({ error: true, errorMessage: userRegistration.message.join(", ") });
         } else if (userRegistration.code === 200) {
             this.clearRegisteration();
             this.props.isUpdateUsersList(true);
+        }
+    }
+
+    validateform(dataObject) {
+        var response = { error: false, errorMessage: "" };
+
+        if (dataObject.clubname == "" || dataObject.clublocation == ""
+            || dataObject.mobileno == "" || dataObject.email == "" || dataObject.username == ""
+            || dataObject.password == "") {
+            response.error = true;
+            response.errorMessage = "Please fill all details";
+            return response;
+        } else if (!this.state.canUseAsUsername) {
+            response.error = true;
+            response.errorMessage = "Username already taken, please retry another one";
+            return response;
+        } else {
+            return response;
         }
     }
 

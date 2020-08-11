@@ -7,6 +7,9 @@ import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
 import CreateClubRegisterUser from './CreateClubRegisterUser';
+import UpdateClubRegisterUser from './UpdateClubRegisterUser';
+import DeleteClubConfirmation from './DeleteClubConfirmation';
+import $ from 'jquery';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
 
@@ -14,7 +17,11 @@ export class ClubRegistration extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      get_updated_users: false
+      get_updated_users: true,
+      show_edit_users: true,
+      show_delete_user_popup: true,
+      updated_user: {},
+      deleted_user: {},
     }
   }
 
@@ -48,8 +55,18 @@ export class ClubRegistration extends Component {
                 </div>
               </div>
               {/* end page title */}
+              <DeleteClubConfirmation
+                isUpdateUsersList={this.isUpdateUsersList}
+                deleted_user={this.state.deleted_user} />
+              <UpdateClubRegisterUser
+                isUpdateUsersList={this.isUpdateUsersList}
+                updated_user={this.state.updated_user} />
               <CreateClubRegisterUser isUpdateUsersList={this.isUpdateUsersList} />
-              <ClubRegistratedUsers isUpdateUsersList={this.isUpdateUsersList} updateusers={this.state.get_updated_users} />
+              <ClubRegistratedUsers
+                editUser={this.editUser}
+                deleteUser={this.deleteUser}
+                isUpdateUsersList={this.isUpdateUsersList}
+                updateusers={this.state.get_updated_users} />
             </div>
             {/* End Page-content */}
             <Footer />
@@ -64,6 +81,16 @@ export class ClubRegistration extends Component {
   isUpdateUsersList = (status) => {
     console.log("üpdate status", status);
     this.setState({ get_updated_users: status });
+  }
+
+  editUser = (user) => {
+    console.log("edited user", user);
+    this.setState({ updated_user: user })
+  }
+
+  deleteUser = (user) => {
+    console.log("deleted user", user);
+    this.setState({ deleted_user: user })
   }
 
 }

@@ -12,13 +12,14 @@ export class ClubRegistratedUsers extends Component {
         super(props)
         this.state = {
             clubregisterusers: [],
+            updateusers: false
         }
     }
 
 
 
     render() {
-
+        console.log('render', this.state.clubregisterusers);
         var rows = []
 
         this.state.clubregisterusers.forEach((t, sno) => {
@@ -32,8 +33,8 @@ export class ClubRegistratedUsers extends Component {
                     <td>{t.mobileno}</td>
                     <td>{t.username}</td>
                     <td>
-                        <i className="fa fa-edit" />
-                        <i className="fa fa-trash" />
+                        <i onClick={() => this.props.editUser(t)} data-toggle="modal" data-target="#exampleModal" className="fa fa-edit" />
+                        <i onClick={() => this.props.deleteUser(t)} data-toggle="modal" data-target="#deleteclubModal" className="fa fa-trash" />
                     </td>
                 </tr>
             );
@@ -73,20 +74,19 @@ export class ClubRegistratedUsers extends Component {
         )
     }
 
-    componentDidMount() {
-        this.getAllregisteredUsers();
-
+    async componentDidMount() {
+        console.log('componentDidUpdate before');
+        await this.getAllregisteredUsers();
+        this.props.isUpdateUsersList(false);
     }
+
+
 
     async getAllregisteredUsers() {
         let dataObject = {
-            clubName: this.state.clubName,
-            clubType: this.state.clubType,
-            clubLocation: this.state.clubLocation,
-            mobileno: this.state.mobileno,
-            email: this.state.email,
-            username: this.state.username,
-            password: this.state.username,
+            limit: 30,
+            search_string: "",
+            page: 0,
         };
         var clubusers = await postServiceCALLS(
             ServiceUrls.CLUB_REGISTERED_USERS,
@@ -95,28 +95,42 @@ export class ClubRegistratedUsers extends Component {
         );
         console.log(dataObject);
         if (clubusers.code === 400) {
-            await this.setState({ error: true });
+
         } else if (clubusers.code === 200) {
-            console.log()
-            this.setState({ clubregisterusers: clubusers.data.data });
+            console.log(200)
+            await this.setState({ clubregisterusers: clubusers.data.data });
+            console.log(200, this.state.clubregisterusers);
         }
     }
 
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('nextProps.isUpdateUsersList', nextProps);
-        if (nextProps.updateusers) {
-            console.log('nextProps.isUpdateUsersList', { someState: nextProps.updateusers });
-            return { someState: nextProps.updateusers };
-        }
-        else return null;
+    /*  static getDerivedStateFromProps(nextProps, prevState) {
+          console.log('getDerivedStateFromProps nextProps.updateusers', nextProps);
+          if (nextProps.updateusers) {
+              console.log('nextProps.updateusers', { someState: nextProps.updateusers });
+              return { someState: nextProps.updateusers };
+          }
+          else return null;
+      }*/
+
+    async componentDidUpdate(prevProps, prevState) {
+        console.log('componentDidUpdate before');
+        await this.getAllregisteredUsers();
+        console.log('componentDidUpdate after');
+        this.props.isUpdateUsersList(false);
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        if (prevProps.updateusers) {
-            this.getAllregisteredUsers();
-            this.props.isUpdateUsersList(false);
-        }
 
+    shouldComponentUpdate(nextProps, nextState) {
+        const {
+            updateusers
+        } = nextProps;
+        const {
+            updateusers: oldUpdateusers,
+        } = this.props;
+        console.log('shouldComponentUpdate', updateusers, oldUpdateusers);
+
+        //  return (Prakruthi !== oldPrakruthi || Vikruthi !== oldVikruthi || Frequency !== oldFrequency || FrequencyFrom !== oldFrequencyFrom || FrequencyTo !== oldFrequencyTo || Comments !== oldComments);
+        return (updateusers != oldUpdateusers);
     }
 
 }

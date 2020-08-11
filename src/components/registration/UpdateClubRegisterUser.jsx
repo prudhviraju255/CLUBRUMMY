@@ -6,21 +6,21 @@ import config from '../../config';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
+import $ from 'jquery';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
 
-export class CreateClubRegisterUser extends Component {
+export class UpdateClubRegisterUser extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            _id: "",
             register: false,
             clubName: "",
             clubType: "",
             clubLocation: "",
             mobileno: "",
             email: "",
-            username: "",
-            password: "",
             error: false,
             errorMessage: ""
         }
@@ -33,7 +33,7 @@ export class CreateClubRegisterUser extends Component {
 
     render() {
         return (
-            <div className="modal fade" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal" id="exampleModal" tabIndex={-1} role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog" role="document">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -48,42 +48,35 @@ export class CreateClubRegisterUser extends Component {
                                     <div data-repeater-item className="row">
                                         <div className="form-group col-lg-6">
                                             <label htmlFor="name">Club Name</label>
-                                            <input type="text" id="clubName" ref="clubName" name="clubName" onChange={this.handleChange} className="form-control" />
+                                            <input type="text" id="clubName" value={this.state.clubName} ref="clubName" name="clubName" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="form-group col-lg-6">
                                             <label htmlFor="name">Club Type</label>
-                                            <input type="text" id="clubType" ref="clubType" name="clubType" onChange={this.handleChange} className="form-control" />
+                                            <input type="text" id="clubType" value={this.state.clubType} ref="clubType" name="clubType" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="form-group col-lg-6">
                                             <label htmlFor="name">Club Location</label>
-                                            <input type="text" id="clubLocation" ref="clubLocation" name="clubLocation" onChange={this.handleChange} className="form-control" />
+                                            <input type="text" id="clubLocation" value={this.state.clubLocation} ref="clubLocation" name="clubLocation" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="form-group col-lg-6">
                                             <label htmlFor="subject">Mobile</label>
-                                            <input type="text" id="mobileno" ref="mobileno" name="mobileno" onChange={this.handleChange} className="form-control" />
+                                            <input type="text" id="mobileno" value={this.state.mobileno} ref="mobileno" name="mobileno" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="form-group col-lg-6">
                                             <label htmlFor="email">Email</label>
-                                            <input type="email" id="email" ref="email" name="email" onChange={this.handleChange} className="form-control" />
+                                            <input type="email" id="email" value={this.state.email} ref="email" name="email" onChange={this.handleChange} className="form-control" />
                                         </div>
 
-                                        <div className="form-group col-lg-6">
-                                            <label htmlFor="subject">Username</label>
-                                            <input type="text" id="username" ref="username" name="username" onChange={this.handleChange} className="form-control" />
-                                        </div>
-                                        <div className="form-group col-lg-6">
-                                            <label htmlFor="subject">Password</label>
-                                            <input type="password" id="password" ref="password" name="password" onChange={this.handleChange} className="form-control" />
-                                        </div>
+
 
                                     </div>
                                 </div>
                             </form>
-
+                            <p>{this.state.errorMessage}</p>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="btn btn-primary" onClick={() => this.editclubuser()}>Save changes</button>
                         </div>
                     </div>
                 </div>
@@ -92,33 +85,36 @@ export class CreateClubRegisterUser extends Component {
     }
 
     handleChange = (e) => {
-        this.state[e.target.name] = e.target.value;
+        //  this.state[e.target.name] = e.target.value;
+        this.setState({ [e.target.name]: e.target.value })
     }
 
-    async clubregistration() {
+    async editclubuser() {
         if (this.state.username == "" || this.state.password == "") {
             this.setState({ error: true })
             return false;
         }
         let dataObject = {
-            clubName: this.state.clubName,
-            clubType: this.state.clubType,
-            clubLocation: this.state.clubLocation,
+            _id: this.state._id,
+            clubname: this.state.clubName,
+            clubtype: 1,//this.state.clubType,
+            clublocation: this.state.clubLocation,
             mobileno: this.state.mobileno,
             email: this.state.email,
-            username: this.state.username,
-            password: this.state.username,
+
         };
         var userRegistration = await postServiceCALLS(
-            ServiceUrls.CLUB_REGISTERATION,
+            ServiceUrls.UPDATE_USER,
             {},
             dataObject
         );
         console.log(dataObject);
         if (userRegistration.code === 400) {
-            await this.setState({ error: true });
+            await this.setState({ error: true, errorMessage: userRegistration.message });
         } else if (userRegistration.code === 200) {
             this.clearRegisteration();
+            window.$('#exampleModal').modal('hide');
+            this.props.isUpdateUsersList(true);
         }
     }
 
@@ -129,10 +125,34 @@ export class CreateClubRegisterUser extends Component {
         this.refs.clubLocation.value = "";
         this.refs.mobileno.value = "";
         this.refs.email.value = "";
-        this.refs.username.value = "";
-        this.refs.password.value = "";
+
     }
+
+
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        return {
+            updated_user: nextProps.updated_user,
+        };
+    }
+
+    componentDidUpdate(nextProps) {
+        const { updated_user } = this.props
+        console.log('componentDidUpdate', updated_user, nextProps)
+        if (nextProps.updated_user._id !== updated_user._id) {
+            this.setState({
+                clubName: updated_user.clubname,
+                clubType: updated_user.clubtype,
+                clubLocation: updated_user.clublocation,
+                mobileno: updated_user.mobileno,
+                email: updated_user.email,
+                _id: updated_user._id,
+            })
+        }
+    }
+
+
 
 }
 
-export default CreateClubRegisterUser
+export default UpdateClubRegisterUser
