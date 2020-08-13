@@ -74,10 +74,7 @@ export class RegisteredUsers extends Component {
 
 
                 </div>
-                <DataTable
-                    columnNames={columnNames}
-                    data={this.state.registerusers}
-                ></DataTable>
+
             </>
 
         )
