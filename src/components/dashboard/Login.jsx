@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from "react-router-dom";
 import config from '../../config';
+import ServiceUrls from '../helpers/ServiceUrls';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
@@ -12,7 +13,8 @@ class Login extends Component {
       login: false,
       username: "",
       password: "",
-      error: false
+      error: false,
+      redirectto: this.props.usertype + "/dashboard"
     }
   }
 
@@ -34,8 +36,10 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
+
+    var loginurl = this.loginserviceCall();
     var userLoggedInDetails = await postServiceCALLS(
-      "/admin/superAdminLogin",
+      loginurl,
       {},
       dataObject
     );
@@ -56,6 +60,19 @@ class Login extends Component {
     }
   }
 
+  loginserviceCall() {
+    console.log("usertype>>>>>>", this.props.usertype, this.props.usertype === "/admin");
+    if (this.props.usertype === "/superadmin") {
+      return ServiceUrls.SUPER_ADMIN_LOGIN;
+    } else if (this.props.usertype === "/admin") {
+      return ServiceUrls.ADMIN_LOGIN;
+    } else if (this.props.usertype === "/user") {
+      return ServiceUrls.USER_LOGIN;
+    } else {
+      return "";
+    }
+  }
+
   /**
    * 
    * @param {handling login credentials} e 
@@ -66,7 +83,7 @@ class Login extends Component {
 
   render() {
     if (this.state.login) {
-      return <Redirect to="/dashboard" />
+      return <Redirect to={this.state.redirectto} />
     }
     return (
       <div className="account-pages my-5 pt-sm-5">
@@ -96,10 +113,10 @@ class Login extends Component {
                         <label htmlFor="userpassword">Password</label>
                         <input type="password" className="form-control" name="password" id="userpassword" placeholder="Enter password" onChange={this.handleChange} onKeyDown={this.handleEnterKey} />
                       </div>
-                      <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customControlInline" />
-                        <label className="custom-control-label" htmlFor="customControlInline">Remember me</label>
-                      </div>
+
+
+
+
                       <div className="mt-3">
                         <button type="button" className="btn btn-primary btn-block waves-effect waves-light" onClick={() => this.login()}>Log In</button>
                       </div>
@@ -120,6 +137,9 @@ class Login extends Component {
       </div>
     )
   }
+
+
+
 }
 
 export default Login

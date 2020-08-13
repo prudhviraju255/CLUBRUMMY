@@ -5,22 +5,20 @@ import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
-import ClubRegistratedUsers from './ClubRegisteredUsers';
 import $ from 'jquery';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
 
-export class UpdateClubRegisterUser extends Component {
+export class UpdateUser extends Component {
     constructor(props) {
         super(props)
         this.state = {
             _id: "",
             register: false,
-            clubName: "",
-            clubType: "",
-            clubLocation: "",
-            mobileno: "",
+            firstname: "",
+            lastname: "",
             email: "",
+            mobileno: "",
             error: false,
             errorMessage: ""
         }
@@ -47,26 +45,16 @@ export class UpdateClubRegisterUser extends Component {
                                 <div data-repeater-list="group-a">
                                     <div data-repeater-item className="row">
                                         <div className="form-group col-lg-6">
-                                            <label htmlFor="name">Club Name</label>
-                                            <input type="text" id="clubName" value={this.state.clubName} ref="clubName" name="clubName" onChange={this.handleChange} className="form-control" />
+                                            <label htmlFor="name">First Name</label>
+                                            <input type="text" id="firstname" value={this.state.firstname} ref="firstname" name="firstname" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="form-group col-lg-6">
-                                            <label htmlFor="name">Club Type</label>
-                                            <select className="form-control" ref="clubType" name="clubType" onChange={this.handleChange} id="clubType" >
-                                                <option value='0' selected={this.state.clubType == 0}>Bronze</option>
-                                                <option value='1' selected={this.state.clubType == 1}>Silver</option>
-                                                <option value='2' selected={this.state.clubType == 2}>Gold</option>
-                                                <option value='3' selected={this.state.clubType == 3}>Diamond</option>
-                                                <option value='4' selected={this.state.clubType == 4}> platinum</option>
-                                            </select>
+                                            <label htmlFor="name">Last Type</label>
+                                            <input type="text" id="lastname" value={this.state.lastname} ref="lastname" name="lastname" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="form-group col-lg-6">
-                                            <label htmlFor="name">Club Location</label>
-                                            <input type="text" id="clubLocation" value={this.state.clubLocation} ref="clubLocation" name="clubLocation" onChange={this.handleChange} className="form-control" />
-                                        </div>
-                                        <div className="form-group col-lg-6">
-                                            <label htmlFor="subject">Mobile</label>
-                                            <input type="text" id="mobileno" value={this.state.mobileno} ref="mobileno" name="mobileno" onChange={this.handleChange} className="form-control" />
+                                            <label htmlFor="name">Mobile Number</label>
+                                            <input type="number" id="mobileno" value={this.state.mobileno} ref="mobileno" name="mobileno" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="form-group col-lg-6">
                                             <label htmlFor="email">Email</label>
@@ -96,21 +84,17 @@ export class UpdateClubRegisterUser extends Component {
     }
 
     async editclubuser() {
-        if (this.state.username == "" || this.state.password == "") {
-            this.setState({ error: true })
-            return false;
-        }
+
         let dataObject = {
             _id: this.state._id,
-            clubname: this.state.clubName,
-            clubtype: this.state.clubType,
-            clublocation: this.state.clubLocation,
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
             mobileno: this.state.mobileno,
             email: this.state.email,
 
         };
         var userRegistration = await postServiceCALLS(
-            ServiceUrls.UPDATE_CLUB,
+            ServiceUrls.UPDATE_USER,
             {},
             dataObject
         );
@@ -125,13 +109,10 @@ export class UpdateClubRegisterUser extends Component {
     }
 
     clearRegisteration() {
-        this.refs.clubName.value = "";
-        this.refs.clubName.value = "";
-        this.refs.clubType.value = 0;
-        this.refs.clubLocation.value = "";
-        this.refs.mobileno.value = "";
+        this.refs.firstname.value = "";
+        this.refs.lastname.value = "";
         this.refs.email.value = "";
-
+        this.refs.mobileno.value = "";
     }
 
 
@@ -148,11 +129,10 @@ export class UpdateClubRegisterUser extends Component {
         if (nextProps.updated_user._id !== updated_user._id) {
             this.clearRegisteration();
             this.setState({
-                clubName: updated_user.clubname,
-                clubType: updated_user.clubtype,
-                clubLocation: updated_user.clublocation,
-                mobileno: updated_user.mobileno,
+                firstname: updated_user.firstname,
+                lastname: updated_user.lastname,
                 email: updated_user.email,
+                mobileno: updated_user.mobileno,
                 _id: updated_user._id,
             })
         }
@@ -162,4 +142,4 @@ export class UpdateClubRegisterUser extends Component {
 
 }
 
-export default UpdateClubRegisterUser
+export default UpdateUser

@@ -1,11 +1,8 @@
 import React, { Component } from 'react'
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
-import Login from '../dashboard/Login';
-import ProtectedRoute from "./protectedRoute";
-import Dashboard from "../dashboard/Dashboard";
-import ClubPlayers from '../dashboard/ClubPlayers';
-import ClubRegistration from '../registration/ClubRegistration';
-import CG_PointRummy from '../cashgames/CG_PointRummy';
+import RoutesAdmin from './RoutesAdmin';
+import RoutesSuperAdmin from "./RoutesSuperAdmin";
+
 
 
 export default class Routes extends Component {
@@ -14,20 +11,8 @@ export default class Routes extends Component {
             <React.Fragment>
                 <HashRouter>
                     <Switch>
-                        <Route path="/" exact>
-                            <Login />
-                        </Route>
-                        <Route path="/login" exact>
-                            <Login />
-                        </Route>
-                        <ProtectedRoute exact path="/dashboard" component={Dashboard}></ProtectedRoute>
-                        <ProtectedRoute exact path="/club-registration" component={ClubRegistration}></ProtectedRoute>
-                        <ProtectedRoute exact path="/club-players" component={ClubPlayers}></ProtectedRoute>
-                        <ProtectedRoute exact path="/cash-games/point-rummy" component={CG_PointRummy}></ProtectedRoute>
-                        {/* <Route path="/dashboard" component={Dashboard}></Route> */}
-                        <Route path="*">
-                            <Redirect to="/login" />
-                        </Route>
+                        <Route path='/admin' component={RoutesAdmin} />
+                        <Route path='/superadmin' component={RoutesSuperAdmin} />
                     </Switch>
                 </HashRouter>
             </React.Fragment>

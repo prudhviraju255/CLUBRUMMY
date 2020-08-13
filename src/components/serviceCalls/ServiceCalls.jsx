@@ -16,7 +16,7 @@ export async function postServiceCALLS(serviceURI, headers = {}, dataObject = {}
         headerConstants = {
             "Content-Type": "application/json",
             sessionId: user.session_id,
-            authenticationtoken: user.token,
+            Authorization: "Bearer " + user.token,
             accountId: user.account_id,
             userId: user.user_id,
         };

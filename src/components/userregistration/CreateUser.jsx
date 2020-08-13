@@ -6,22 +6,21 @@ import config from '../../config';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
-import ClubRegistratedUsers from './ClubRegisteredUsers';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
 
-export class CreateClubRegisterUser extends Component {
+export class CreateUser extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            register: false,
-            clubName: "",
-            clubType: 0,
-            clubLocation: "",
-            mobileno: "",
+            firstname: "",
+            lastname: "",
             email: "",
+            mobileno: "",
             username: "",
             password: "",
+            clubId: "",
+            register: false,
             error: false,
             errorMessage: "",
             canUseAsUsername: true
@@ -38,34 +37,21 @@ export class CreateClubRegisterUser extends Component {
             <div className="row">
                 <div className="col-12">
                     <div className="card box-big-shadow">
-                        <h4 className="card-header mt-0">Add New Club</h4>
+                        <h4 className="card-header mt-0">Add New User</h4>
                         <div className="card-body">
                             <form className="repeater" encType="multipart/form-data">
                                 <div data-repeater-list="group-a">
                                     <div data-repeater-item className="row">
                                         <div className="form-group col-lg-3">
-                                            <label htmlFor="name">Club Name</label>
-                                            <input type="text" id="clubName" ref="clubName" name="clubName" onChange={this.handleChange} className="form-control" />
+                                            <label htmlFor="name">First Name</label>
+                                            <input type="text" id="firstname" ref="firstname" name="firstname" onChange={this.handleChange} className="form-control" />
                                         </div>
-                                        <div className="form-group col-lg-3">
-                                            <label htmlFor="name">Club Type</label>
-                                            <select className="form-control" ref="clubType" name="clubType" onChange={this.handleChange} id="clubType" >
-                                                <option value='0' >Bronze</option>
-                                                <option value='1'>Silver</option>
-                                                <option value='2'>Gold</option>
-                                                <option value='3'>Diamond</option>
-                                                <option value='4'>platinum</option>
-                                            </select>
 
-                                        </div>
                                         <div className="form-group col-lg-3">
-                                            <label htmlFor="name">Club Location</label>
-                                            <input type="text" id="clubLocation" ref="clubLocation" name="clubLocation" onChange={this.handleChange} className="form-control" />
+                                            <label htmlFor="name">Last Name</label>
+                                            <input type="text" id="lastname" ref="lastname" name="lastname" onChange={this.handleChange} className="form-control" />
                                         </div>
-                                        <div className="form-group col-lg-3">
-                                            <label htmlFor="subject">Mobile</label>
-                                            <input type="number" id="mobileno" ref="mobileno" name="mobileno" onChange={this.handleChange} className="form-control" />
-                                        </div>
+
                                         <div className="form-group col-lg-3">
                                             <label htmlFor="email">Email</label>
                                             <input type="email" id="email" ref="email" name="email" onChange={this.handleChange} className="form-control" />
@@ -106,7 +92,7 @@ export class CreateClubRegisterUser extends Component {
             username: username
         };
         var userexist = await postServiceCALLS(
-            ServiceUrls.CHECK_CLUB_USERNAME_EXIST,
+            ServiceUrls.CHECK_USERNAME_EXIST,
             {},
             dataObject
         );
@@ -122,14 +108,12 @@ export class CreateClubRegisterUser extends Component {
     async clubregistration() {
         const user = getCacheObject(SESSION_KEY_NAME);
         let dataObject = {
-            clubname: this.state.clubName,
-            clubtype: this.state.clubType,
-            clublocation: this.state.clubLocation,
-            mobileno: this.state.mobileno,
+            firstname: this.state.firstname,
+            lastname: this.state.lastname,
             email: this.state.email,
             username: this.state.username,
             password: this.state.password,
-            superAdminId: user._id
+            clubId: "5f310e4145d54715a0c5e4f3"
         };
         var validation = this.validateform(dataObject);
         if (validation.error) {
@@ -139,7 +123,7 @@ export class CreateClubRegisterUser extends Component {
 
 
         var userRegistration = await postServiceCALLS(
-            ServiceUrls.CLUB_CREATE_USER,
+            ServiceUrls.CREATE_USER,
             {},
             dataObject
         );
@@ -171,11 +155,8 @@ export class CreateClubRegisterUser extends Component {
     }
 
     clearRegisteration() {
-        this.refs.clubName.value = "";
-        this.refs.clubName.value = "";
-        this.refs.clubType.value = "";
-        this.refs.clubLocation.value = "";
-        this.refs.mobileno.value = "";
+        this.refs.firstname.value = "";
+        this.refs.lastname.value = "";
         this.refs.email.value = "";
         this.refs.username.value = "";
         this.refs.password.value = "";
@@ -183,4 +164,4 @@ export class CreateClubRegisterUser extends Component {
 
 }
 
-export default CreateClubRegisterUser
+export default CreateUser

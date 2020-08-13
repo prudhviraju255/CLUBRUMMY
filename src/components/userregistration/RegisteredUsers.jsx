@@ -3,15 +3,17 @@ import Header from '../dashboard/Header'
 import Footer from '../dashboard/Footer'
 import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
+import DataTable from '../utils/DataTable'
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
+
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
-export class ClubRegistratedUsers extends Component {
+export class RegisteredUsers extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            clubregisterusers: [],
+            registerusers: [],
             updateusers: false
         }
     }
@@ -19,16 +21,15 @@ export class ClubRegistratedUsers extends Component {
 
 
     render() {
-        console.log('render', this.state.clubregisterusers);
+        console.log('render', this.state.registerusers);
         var rows = []
-
-        this.state.clubregisterusers.forEach((t, sno) => {
+        var columnNames = ["Sno", "FirstName", "LastName", "Ëmail", "MobileNumber", "UserName", "Actions"];
+        this.state.registerusers.forEach((t, sno) => {
             rows.push(
                 <tr>
                     <td>{sno + 1}</td>
-                    <td>{t.clubname}</td>
-                    <td>{t.clubtype}</td>
-                    <td>{t.clublocation}</td>
+                    <td>{t.firstname}</td>
+                    <td>{t.lastname}</td>
                     <td>{t.email}</td>
                     <td>{t.mobileno}</td>
                     <td>{t.username}</td>
@@ -41,35 +42,43 @@ export class ClubRegistratedUsers extends Component {
         });
 
         return (
-            <div className="row">
-                <div className="col-12">
-                    <div className="card">
-                        <div className="card-body">
-                            <h4 className="card-title mb-4">Club Players</h4>
-                            <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
-                                <thead>
-                                    <tr>
-                                        <th>S.No</th>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Location</th>
-                                        <th>Email</th>
-                                        <th>Mobile No</th>
-                                        <th>Username</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {rows}
-                                </tbody>
-                            </table>
+            <>
+                <div className="row">
+                    <div className="col-12">
+                        <div className="card">
+                            <div className="card-body">
+                                <h4 className="card-title mb-4">Club Players</h4>
+
+                                <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
+                                    <thead>
+                                        <tr>
+                                            <th>S.No</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Email</th>
+                                            <th>Mobile No</th>
+                                            <th>Username</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {rows}
+                                    </tbody>
+                                </table>
+
+
+                            </div>
                         </div>
                     </div>
+                    {/* end col */}
+
+
                 </div>
-                {/* end col */}
-
-
-            </div>
+                <DataTable
+                    columnNames={columnNames}
+                    data={this.state.registerusers}
+                ></DataTable>
+            </>
 
         )
     }
@@ -89,7 +98,7 @@ export class ClubRegistratedUsers extends Component {
             page: 0,
         };
         var clubusers = await postServiceCALLS(
-            ServiceUrls.CLUB_REGISTERED_USERS,
+            ServiceUrls.USERS_LIST,
             {},
             dataObject
         );
@@ -98,8 +107,8 @@ export class ClubRegistratedUsers extends Component {
 
         } else if (clubusers.code === 200) {
             console.log(200)
-            await this.setState({ clubregisterusers: clubusers.data.data });
-            console.log(200, this.state.clubregisterusers);
+            await this.setState({ registerusers: clubusers.data.data });
+            console.log(200, this.state.registerusers);
         }
     }
 
@@ -135,4 +144,4 @@ export class ClubRegistratedUsers extends Component {
 
 }
 
-export default ClubRegistratedUsers
+export default RegisteredUsers

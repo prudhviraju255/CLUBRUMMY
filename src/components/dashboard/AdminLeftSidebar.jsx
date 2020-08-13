@@ -34,7 +34,7 @@ export class LeftSidebar extends Component {
                             {/* Left Menu Start */}
                             <ul className="metismenu list-unstyled" id="side-menu">
                                 <li className="menu-title">Menu</li>
-                                <Link to="/dashboard">
+                                <Link to="/admin/dashboard">
                                     <li>
                                         <a className=" waves-effect">
                                             <i className="mdi mdi-calendar-text" />
@@ -42,13 +42,8 @@ export class LeftSidebar extends Component {
                                         </a>
                                     </li>
                                 </Link>
-                                <li>
-                                    <Link to="/club-registration" className=" waves-effect">
-                                        <i className="mdi mdi-calendar-text" />
-                                        <span>Clubs</span>
-                                    </Link>
-                                </li>
-                                <Link to="/club-players">
+
+                                <Link to="/admin/club-players">
                                     <li>
                                         <a className=" waves-effect">
                                             <i className="mdi mdi-calendar-text" />
@@ -56,24 +51,7 @@ export class LeftSidebar extends Component {
                                         </a>
                                     </li>
                                 </Link>
-                                <li className={this.state.cashGame == false ? "" : "mm-active"} onClick={this.cashGameStatus}>
-                                    <a href="javascript: void(0);" className="has-arrow waves-effect">
-                                        <i className="mdi mdi-file-tree" />
-                                        <span>Cash Games</span>
-                                    </a>
-                                    <ul className={this.state.cashGame == false ? "sub-menu mm-collapse" : "sub-menu mm-collapse mm-show"} aria-expanded="true">
 
-                                        <li> <Link to="/cash-games/point-rummy">Point Rummy</Link></li>
-                                        <li><a href="javascript: void(0);">Pool Rummy</a></li>
-                                        <li><a href="javascript: void(0);">Deal Rummy</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="inde.html" className=" waves-effect">
-                                        <i className="mdi mdi-calendar-text" />
-                                        <span>Table Rummy</span>
-                                    </a>
-                                </li>
 
                             </ul>
                         </div>
