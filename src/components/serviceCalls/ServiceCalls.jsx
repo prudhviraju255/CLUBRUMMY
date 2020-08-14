@@ -34,7 +34,7 @@ export async function postServiceCALLS(serviceURI, headers = {}, dataObject = {}
         dataObject
     );
     tempResponseObject = await axios
-        .post(prepareURL, dataObject, {
+        .post(serviceURI, dataObject, {
             headers: headers,
         })
         .then((response) => {

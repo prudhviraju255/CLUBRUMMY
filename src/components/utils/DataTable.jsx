@@ -14,7 +14,8 @@ export class DataTable extends Component {
             registerusers: [],
             updateusers: false,
             selectedPage: 1,
-            itemCountperPage: 10
+
+            itemCountperPage: 25
         }
     }
 
@@ -27,20 +28,29 @@ export class DataTable extends Component {
     }
 
     pagination() {
-        var datalenght = 15
-        var noofpages = datalenght / 10;
+        var datalenght = 200
+        var noofpages = datalenght / this.state.itemCountperPage;
         noofpages = Math.ceil(noofpages);
+
         var pagination = [];
-        pagination.push(<li class="paginate_button page-item previous disabled" id="dtBasicExample_previous"><a href="#" aria-controls="dtBasicExample" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>)
+        console.log('selected page', this.state.selectedPage);
+        pagination.push(<li class="paginate_button page-item previous disabled" id="dtBasicExample_previous"><a aria-controls="dtBasicExample" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>)
         for (var i = 1; i <= noofpages; i++) {
-            var selectedcondition = (this.state.selectedPage == i ? "active" : null);
+            // var selectedcondition = (this.state.selectedPage === i ? "active" : null);
+            var selectedcondition = "paginate_button page-item " + (this.state.selectedPage === i ? 'active' : '')
             pagination.push(
-                <li class="paginate_button page-item"><a aria-controls="dtBasicExample" data-dt-idx="1" tabindex="0" class="page-link">{i}</a></li>
+                <li onClick={() => this.selectePage(i)} class={selectedcondition}><a aria-controls="dtBasicExample" data-dt-idx="1" tabindex="0" class="page-link">{i}</a></li>
             )
         }
-        pagination.push(<li class="paginate_button page-item next" id="dtBasicExample_next"><a href="#" aria-controls="dtBasicExample" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>)
-
+        pagination.push(<li class="paginate_button page-item next" id="dtBasicExample_next"><a aria-controls="dtBasicExample" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>)
         return pagination;
+    }
+
+    paginationmessage() {
+        var from = 1;
+        var to = 25;
+        var total = 100
+        return (<div class="dataTables_info" id="dtBasicExample_info" role="status" aria-live="polite">Showing {from} to {to} of {total} entries</div>)
     }
 
     render() {
@@ -95,10 +105,10 @@ export class DataTable extends Component {
                                     <div class="dataTables_length bs-select" id="dtBasicExample_length">
                                         <label>Show
                                             <select name="dtBasicExample_length" aria-controls="dtBasicExample" class="custom-select custom-select-sm form-control form-control-sm">
-                                                <option value="10">10</option>
-                                                <option value="25">25</option>
-                                                <option value="50">50</option>
-                                                <option value="100">100</option>
+                                                <option value="10" selected={this.state.itemCountperPage == 10}>10</option>
+                                                <option value="25" selected={this.state.itemCountperPage == 25}>25</option>
+                                                <option value="50" selected={this.state.itemCountperPage == 50}>50</option>
+                                                <option value="100" selected={this.state.itemCountperPage == 100}>100</option>
                                             </select>
                                         </label>
                                     </div>
@@ -121,7 +131,7 @@ export class DataTable extends Component {
 
                             <div class="row">
                                 <div class="col-sm-12 col-md-5">
-                                    <div class="dataTables_info" id="dtBasicExample_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                                    {this.paginationmessage()}
                                 </div><div class="col-sm-12 col-md-7">
                                     <div class="dataTables_paginate paging_simple_numbers" id="dtBasicExample_paginate">
                                         <ul class="pagination">
@@ -143,10 +153,9 @@ export class DataTable extends Component {
         console.log('componentDidUpdate before');
     }
 
-
-
-
-
+    selectePage(pgno) {
+        this.setState({ selectedPage: pgno })
+    }
 
 }
 

@@ -4,6 +4,9 @@ import config from '../../config';
 import ServiceUrls from '../helpers/ServiceUrls';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
+import { connect } from 'react-redux';
+import { loginUser } from '../redux/actions/LoginActions'
+
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
 class Login extends Component {
@@ -36,6 +39,7 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
+    //  this.props.onUserLogin(dataObject);
 
     var loginurl = this.loginserviceCall();
     var userLoggedInDetails = await postServiceCALLS(
@@ -47,8 +51,6 @@ class Login extends Component {
     if (userLoggedInDetails.code === 400) {
       await this.setState({ error: true });
     } else if (userLoggedInDetails.code === 200) {
-      // this.refs["submit"].setAttribute("disabled", true);
-      // setting session cache
       await setCacheObject(SESSION_KEY_NAME, userLoggedInDetails.data);
       this.setState({ error: false, login: true })
     }
@@ -61,7 +63,7 @@ class Login extends Component {
   }
 
   loginserviceCall() {
-    console.log("usertype>>>>>>", this.props.usertype, this.props.usertype === "/admin");
+    console.log("loginpage>>>>>>", this.props.usertype, this.props.usertype === "/admin");
     if (this.props.usertype === "/superadmin") {
       return ServiceUrls.SUPER_ADMIN_LOGIN;
     } else if (this.props.usertype === "/admin") {
@@ -82,7 +84,9 @@ class Login extends Component {
   }
 
   render() {
+    const { loading, isUserLogIn, error } = this.props;
     if (this.state.login) {
+      console.log('this.state.redirectto', this.state.redirectto)
       return <Redirect to={this.state.redirectto} />
     }
     return (
@@ -95,7 +99,7 @@ class Login extends Component {
                   <div className="bg-login-overlay" />
                   <div className="position-relative">
                     <h5 className="text-white font-size-20">Welcome Back !</h5>
-                    <p className="text-white-50 mb-0">Sign in to continue to ClubRummy.</p>
+                    {loading ? "" : <p className="text-white-50 mb-0">Sign in to continue to ClubRummy.</p>}
                     <a href="index.html" className="logo logo-admin mt-4">
                       <img src="assets/images/logo-sm-dark.png" alt="" height={30} />
                     </a>
@@ -104,7 +108,7 @@ class Login extends Component {
                 <div className="card-body pt-5">
                   <div className="p-2">
                     <form className="form-horizontal" action="index.html">
-                      {this.state.error ? <p className="text-danger">Invalid Username/Password</p> : null}
+                      {error.length > 0 ? <p className="text-danger">{error}</p> : null}
                       <div className="form-group">
                         <label htmlFor="username">Username</label>
                         <input type="text" className="form-control" name="username" id="username" placeholder="Enter username" onChange={this.handleChange} />
@@ -138,8 +142,31 @@ class Login extends Component {
     )
   }
 
+  componentDidUpdate() {
+    if (this.props.isUserLogIn) {
+      // this.props.history.replace(this.state.redirectto);
+    }
 
+  }
 
 }
 
-export default Login
+const mapStateToProps = state => {
+  const { error, loading, user, isUserLogIn } = state.auth;
+  return {
+    error,
+    loading,
+    user,
+    isUserLogIn
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onUserLogin: user => {
+      dispatch(loginUser(user));
+    }
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+

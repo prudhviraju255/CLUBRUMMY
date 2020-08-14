@@ -1,20 +1,22 @@
+
+const BASE_URL = "http://localhost:8090";
+
 const ServiceUrls = {
 
-    CLUB_REGISTERED_USERS: '/admin/getClubList',
-    CLUB_CREATE_USER: "/admin/clubRegistration",
-    UPDATE_CLUB: "/admin/updateClub",
-    DELETE_CLUB: "/admin/deleteClub",
-    CHECK_CLUB_USERNAME_EXIST: "/admin/checkClubUsername",
+    CLUB_REGISTERED_USERS: BASE_URL + '/admin/getClubList',
+    CLUB_CREATE_USER: BASE_URL + "/admin/clubRegistration",
+    UPDATE_CLUB: BASE_URL + "/admin/updateClub",
+    DELETE_CLUB: BASE_URL + "/admin/deleteClub",
+    CHECK_CLUB_USERNAME_EXIST: BASE_URL + "/admin/checkClubUsername",
 
+    USERS_LIST: BASE_URL + '/admin/getUserList',
+    CREATE_USER: BASE_URL + "/admin/userRegistration",
+    UPDATE_USER: BASE_URL + "/admin/updateUser",
+    DELETE_USER: BASE_URL + "/admin/deleteUser",
+    CHECK_USERNAME_EXIST: BASE_URL + "/admin/checkUsername",
 
-    USERS_LIST: '/admin/getUserList',
-    CREATE_USER: "/admin/userRegistration",
-    UPDATE_USER: "/admin/updateUser",
-    DELETE_USER: "/admin/deleteUser",
-    CHECK_USERNAME_EXIST: "/admin/checkUsername",
-
-    SUPER_ADMIN_LOGIN: "/admin/superAdminLogin",
-    ADMIN_LOGIN: "/admin/clublogin",
-    USER_LOGIN: "/admin/userLogin",
+    SUPER_ADMIN_LOGIN: BASE_URL + "/admin/superAdminLogin",
+    ADMIN_LOGIN: BASE_URL + "/admin/clublogin",
+    USER_LOGIN: BASE_URL + "/admin/userLogin",
 };
 export default ServiceUrls;

@@ -6,7 +6,6 @@ import SuperAdminLeftSidebar from './SuperAdminLeftSidebar';
 import config from '../../config';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
-const userInfo = getCacheObject(SESSION_KEY_NAME);
 export class Header extends Component {
     constructor(props) {
         super(props)
@@ -23,8 +22,8 @@ export class Header extends Component {
     }
 
     renderHeader() {
-        var usertype = userInfo.userType;
-        switch (usertype) {
+        const user = getCacheObject(SESSION_KEY_NAME);
+        switch (user.userType) {
             case 1:
                 return <SuperAdminLeftSidebar />;
             case 2:

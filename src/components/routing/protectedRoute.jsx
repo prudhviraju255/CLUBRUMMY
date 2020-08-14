@@ -3,19 +3,19 @@ import { Route, Redirect } from "react-router";
 import { checkSession } from "../helpers/globalHelpers/GlobalHelperFunctions";
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
-    // check for user authentication status
-    var isAuthenticated = checkSession();
-    if (!isAuthenticated) {
-      return <Redirect to="/login" />;
-    }
-    return (
-      <Route
-        {...rest}
-        render={(props) => {
-          return <Component {...props} />;
-        }}
-      />
-    );
-  };
-  
-  export default ProtectedRoute;
+  // check for user authentication status
+  var isAuthenticated = checkSession();
+  if (!isAuthenticated) {
+    return <Redirect to="/login" />;
+  }
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        return <Component {...props} />;
+      }}
+    />
+  );
+};
+
+export default ProtectedRoute;

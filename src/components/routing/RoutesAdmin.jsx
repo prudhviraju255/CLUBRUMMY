@@ -11,6 +11,7 @@ import CG_PointRummy from '../cashgames/CG_PointRummy';
 
 export default class RoutesAdmin extends Component {
     render() {
+        console.log("üserauth", "admin")
         return (
             <React.Fragment>
                 <HashRouter>
