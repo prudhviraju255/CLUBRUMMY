@@ -1,5 +1,5 @@
 
-const BASE_URL = "http://localhost:8090";
+const BASE_URL = "http://13.235.94.100:8090";
 
 const ServiceUrls = {
 

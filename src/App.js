@@ -2,14 +2,13 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Login from './components/dashboard/Login';
-import Routes from './components/routing/routes';
-
+import AppRouter from './components/routing/AppRouter';
 
 
 function App() {
   return (
     <React.Fragment>
-      <Routes />
+      <AppRouter />
     </React.Fragment>
   );
 }

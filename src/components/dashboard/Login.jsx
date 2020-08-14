@@ -17,8 +17,10 @@ class Login extends Component {
       username: "",
       password: "",
       error: false,
-      redirectto: this.props.usertype + "/dashboard"
+      redirectto: "/" + this.props.match.params.admintype + "/dashboard"
     }
+
+    console.log("params>>>>>>>>", this.props.match.params);
   }
 
   componentDidMount() {
@@ -39,21 +41,21 @@ class Login extends Component {
       username: this.state.username,
       password: this.state.password
     };
-    //  this.props.onUserLogin(dataObject);
+    this.props.onUserLogin(dataObject);
 
-    var loginurl = this.loginserviceCall();
-    var userLoggedInDetails = await postServiceCALLS(
-      loginurl,
-      {},
-      dataObject
-    );
-    console.log(userLoggedInDetails, "userloggedindetails")
-    if (userLoggedInDetails.code === 400) {
-      await this.setState({ error: true });
-    } else if (userLoggedInDetails.code === 200) {
-      await setCacheObject(SESSION_KEY_NAME, userLoggedInDetails.data);
-      this.setState({ error: false, login: true })
-    }
+    /* var loginurl = this.loginserviceCall();
+     var userLoggedInDetails = await postServiceCALLS(
+       loginurl,
+       {},
+       dataObject
+     );
+     console.log(userLoggedInDetails, "userloggedindetails")
+     if (userLoggedInDetails.code === 400) {
+       await this.setState({ error: true });
+     } else if (userLoggedInDetails.code === 200) {
+       await setCacheObject(SESSION_KEY_NAME, userLoggedInDetails.data);
+       this.setState({ error: false, login: true })
+     } */
   }
 
   handleEnterKey = (e) => {
@@ -85,10 +87,10 @@ class Login extends Component {
 
   render() {
     const { loading, isUserLogIn, error } = this.props;
-    if (this.state.login) {
-      console.log('this.state.redirectto', this.state.redirectto)
-      return <Redirect to={this.state.redirectto} />
-    }
+    /*  if (this.state.login) {
+        console.log('this.state.redirectto', this.state.redirectto)
+        return <Redirect to={this.state.redirectto} />
+      } */
     return (
       <div className="account-pages my-5 pt-sm-5">
         <div className="container">
@@ -142,12 +144,17 @@ class Login extends Component {
     )
   }
 
-  componentDidUpdate() {
-    if (this.props.isUserLogIn) {
-      // this.props.history.replace(this.state.redirectto);
-    }
 
+
+  componentDidUpdate(prevProps, prevState) {
+    // check whether client has changed
+    if (prevProps.isUserLogIn !== this.props.isUserLogIn) {
+      console.log("this.state.redirectto", this.state.redirectto)
+      this.props.history.push(this.state.redirectto);
+    }
   }
+
+
 
 }
 

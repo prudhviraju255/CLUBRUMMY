@@ -15,7 +15,7 @@ export default (state = INITIAL_STATE, action) => {
         case LoginActionTypes.ON_LOGIN_REQUEST_SUCCESS:
             return { ...state, loading: false, user: action.payload, isUserLogIn: true }
         case LoginActionTypes.ON_LOGIN_REQUEST_FAIL:
-            return { ...state, loading: false, error: action.payload }
+            return { ...state, loading: false, error: action.payload, isUserLogIn: true }
         case LoginActionTypes.ON_LOGIN_FORM_CLEAR:
             return { ...state, ...INITIAL_STATE, user: action.payload, error: '' }
         default: return state;
