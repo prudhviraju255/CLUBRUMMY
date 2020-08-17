@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { removeSession } from '../helpers/globalHelpers/GlobalHelperFunctions'
 import { Link } from "react-router-dom";
-import LeftSidebar from './AdminLeftSidebar';
+import AdminLeftSidebar from './AdminLeftSidebar';
 import SuperAdminLeftSidebar from './SuperAdminLeftSidebar';
+import UserSidebar from './UserSidebar';
 import config from '../../config';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
@@ -27,9 +28,32 @@ export class Header extends Component {
             case 1:
                 return <SuperAdminLeftSidebar />;
             case 2:
-                return <LeftSidebar />;
+                return <AdminLeftSidebar />;
             case 3:
-                return <LeftSidebar />;
+                return <UserSidebar />;
+            default:
+                return null;
+        }
+    }
+
+    redirectbyUser() {
+        const user = getCacheObject(SESSION_KEY_NAME);
+        switch (user.userType) {
+            case 1:
+                return (
+                    <Link to='/superadmin/login' onClick={this.logout}>
+                        < a className="dropdown-item text-danger" > <i className="bx bx-power-off font-size-16 align-middle mr-1 text-danger" /> Logout</a ></Link >
+                );
+            case 2:
+                return (
+                    <Link to='/admin/login' onClick={this.logout}>
+                        <a className="dropdown-item text-danger" ><i className="bx bx-power-off font-size-16 align-middle mr-1 text-danger" /> Logout</a></Link>
+                );
+            case 3:
+                return (
+                    <Link to='/login' onClick={this.logout}>
+                        <a className="dropdown-item text-danger" ><i className="bx bx-power-off font-size-16 align-middle mr-1 text-danger" /> Logout</a></Link>
+                );
             default:
                 return null;
         }
@@ -160,8 +184,7 @@ export class Header extends Component {
                                         <a className="dropdown-item d-block" href="#"><span className="badge badge-success float-right">11</span><i className="bx bx-wrench font-size-16 align-middle mr-1" /> Settings</a>
                                         <a className="dropdown-item" href="#"><i className="bx bx-lock-open font-size-16 align-middle mr-1" /> Lock screen</a>
                                         <div className="dropdown-divider" />
-                                        <Link to="/" onClick={this.logout}>
-                                            <a className="dropdown-item text-danger" ><i className="bx bx-power-off font-size-16 align-middle mr-1 text-danger" /> Logout</a></Link>
+                                        {this.redirectbyUser()}
                                     </div>
                                 </div>
                             </div>

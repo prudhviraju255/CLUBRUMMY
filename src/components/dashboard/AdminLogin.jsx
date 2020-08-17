@@ -5,7 +5,7 @@ import ServiceUrls from '../helpers/ServiceUrls';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { connect } from 'react-redux';
-import { loginUser } from '../redux/actions/LoginActions'
+import { adminlogin } from '../redux/actions/LoginActions'
 
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
@@ -17,9 +17,8 @@ class Login extends Component {
       username: "",
       password: "",
       error: false,
-      redirectto: "/dashboard"
+      redirectto: "/admin/dashboard"
     }
-    console.log("params>>>>>>>>", this.props.match.params);
   }
 
   componentDidMount() {
@@ -172,7 +171,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onUserLogin: user => {
-      dispatch(loginUser(user));
+      dispatch(adminlogin(user));
     }
   };
 };

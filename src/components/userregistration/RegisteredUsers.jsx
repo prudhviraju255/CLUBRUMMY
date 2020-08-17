@@ -105,7 +105,7 @@ export class RegisteredUsers extends Component {
 
         } else if (clubusers.code === 200) {
             console.log(200)
-            await this.setState({ registerusers: clubusers.data.data });
+            await this.setState({ registerusers: clubusers.data.data ? clubusers.data.data : [] });
             console.log(200, this.state.registerusers);
         }
     }
