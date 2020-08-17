@@ -19,6 +19,7 @@ class Login extends Component {
       error: false,
       redirectto: "/admin/dashboard"
     }
+    console.log("params>>>>>>>>", this.props.match.params);
   }
 
   componentDidMount() {

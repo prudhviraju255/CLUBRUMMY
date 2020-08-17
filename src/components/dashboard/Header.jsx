@@ -6,6 +6,9 @@ import SuperAdminLeftSidebar from './SuperAdminLeftSidebar';
 import UserSidebar from './UserSidebar';
 import config from '../../config';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
+import { userdetails } from '../redux/actions/LoginActions';
+import { connect } from 'react-redux';
+
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 export class Header extends Component {
     constructor(props) {
@@ -13,6 +16,7 @@ export class Header extends Component {
         this.state = {
 
         }
+
     }
 
     /**
@@ -34,6 +38,11 @@ export class Header extends Component {
             default:
                 return null;
         }
+    }
+
+    componentDidMount() {
+
+        console.log("user details>>>>", this.props.user);
     }
 
     redirectbyUser() {
@@ -221,4 +230,18 @@ export class Header extends Component {
     }
 }
 
-export default Header
+const mapStateToProps = state => {
+    const { error, loading, user, isUserLogIn } = state.auth;
+    return {
+        user
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setuserdetailsfromLocalstore: user => {
+            dispatch(userdetails(user));
+        }
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

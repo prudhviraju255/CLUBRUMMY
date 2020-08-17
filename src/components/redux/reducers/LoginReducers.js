@@ -18,6 +18,8 @@ export default (state = INITIAL_STATE, action) => {
             return { ...state, loading: false, error: action.payload, isUserLogIn: false }
         case LoginActionTypes.ON_LOGIN_FORM_CLEAR:
             return { ...state, ...INITIAL_STATE, user: action.payload, error: '' }
+        case LoginActionTypes.SET_USER_INFO:
+            return { ...state, ...INITIAL_STATE, user: action.payload, error: '' }
         default: return state;
     }
 }

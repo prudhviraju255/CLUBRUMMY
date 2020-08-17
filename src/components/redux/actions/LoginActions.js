@@ -62,6 +62,12 @@ export const superAdminlogin = (user) => {
     };
 }
 
+export const userdetails = (user) => {
+    return dispatch => {
+        setuserdetails(user);
+    };
+}
+
 const loginrequeststarted = () => ({
     type: LoginActionTypes.ON_LOGIN_REQUEST_START
 });
@@ -69,6 +75,14 @@ const loginrequestSuccess = (data) => ({
     type: LoginActionTypes.ON_LOGIN_REQUEST_SUCCESS,
     payload: data
 });
+
+const setuserdetails = (data) => ({
+    type: LoginActionTypes.SET_USER_INFO,
+    payload: data
+});
+
+
+
 const loginrequestFailure = (data) => ({
     type: LoginActionTypes.ON_LOGIN_REQUEST_FAIL,
     payload: data
