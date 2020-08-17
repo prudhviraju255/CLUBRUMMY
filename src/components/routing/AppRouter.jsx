@@ -16,19 +16,19 @@ import ProtectedRoute from './protectedRoute'
 export default class AppRoutes extends Component {
     render() {
         return (
-            <div>
+            <HashRouter>
                 <Switch>
                     <Route path="/" exact component={Login} />
 
                     <Route path="/superadmin/login" exact component={SuperAdminLogin} />
-                    <SuperAdminprotectedRoute exact path="/superadmin/dashboard" component={Dashboard} />
-                    <SuperAdminprotectedRoute exact path="/superadmin/club-registration" component={ClubRegistration} />
-                    <SuperAdminprotectedRoute exact path="/superadmin/cash-games/point-rummy" component={CG_PointRummy} />
+                    <Route exact path="/superadmin/dashboard" component={Dashboard} />
+                    <Route exact path="/superadmin/club-registration" component={ClubRegistration} />
+                    <Route exact path="/superadmin/cash-games/point-rummy" component={CG_PointRummy} />
 
                     <Route path="/admin/login" exact component={AdminLogin} />
-                    <AdminProtectedRoute exact path="/admin/dashboard" component={Dashboard} />
-                    <AdminProtectedRoute exact path="/admin/club-players" component={UserRegistration} />
-                    <AdminProtectedRoute exact path="/admin/cash-games/point-rummy" component={CG_PointRummy} />
+                    <Route exact path="/admin/dashboard" component={Dashboard} />
+                    <Route exact path="/admin/club-players" component={UserRegistration} />
+                    <Route exact path="/admin/cash-games/point-rummy" component={CG_PointRummy} />
 
 
                     {/* <Route path="/dashboard" component={Dashboard}> */}
@@ -40,7 +40,7 @@ export default class AppRoutes extends Component {
                         <Redirect to="/admin/login" />
                     </Route>
                 </Switch>
-            </div>
+            </HashRouter>
         )
     }
 }
