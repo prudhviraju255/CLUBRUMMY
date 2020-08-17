@@ -27,7 +27,7 @@ export async function postServiceCALLS(serviceURI, headers = {}, dataObject = {}
     var tempResponseObject = {};
     console.log(
         "prepareURL =",
-        prepareURL,
+        serviceURI,
         "headers=",
         headers,
         "dataObject=",
