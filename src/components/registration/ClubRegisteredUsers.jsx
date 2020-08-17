@@ -23,11 +23,23 @@ export class ClubRegistratedUsers extends Component {
         var rows = []
 
         this.state.clubregisterusers.forEach((t, sno) => {
+            var clubtype = "";
+            if (t.clubtype === 0) {
+                clubtype = 'Bronze';
+            } else if (t.clubtype === 1) {
+                clubtype = 'Silver';
+            } else if (t.clubtype === 2) {
+                clubtype = 'Gold';
+            } else if (t.clubtype === 3) {
+                clubtype = 'Diamond';
+            } else if (t.clubtype === 4) {
+                clubtype = 'platinum';
+            }
             rows.push(
                 <tr>
                     <td>{sno + 1}</td>
                     <td>{t.clubname}</td>
-                    <td>{t.clubtype}</td>
+                    <td>{clubtype}</td>
                     <td>{t.clublocation}</td>
                     <td>{t.email}</td>
                     <td>{t.mobileno}</td>

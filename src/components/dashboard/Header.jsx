@@ -125,7 +125,7 @@ export class Header extends Component {
                                             </a>
                                             <a href className="text-reset notification-item">
                                                 <div className="media">
-                                                    <img src="assets/images/users/avatar-3.jpg" className="mr-3 rounded-circle avatar-xs" alt="user-pic" />
+                                                    <img src="/assets/images/users/avatar-3.jpg" className="mr-3 rounded-circle avatar-xs" alt="user-pic" />
                                                     <div className="media-body">
                                                         <h6 className="mt-0 mb-1">James Lemire</h6>
                                                         <div className="font-size-12 text-muted">
@@ -153,7 +153,7 @@ export class Header extends Component {
                                             </a>
                                             <a href className="text-reset notification-item">
                                                 <div className="media">
-                                                    <img src="assets/images/users/avatar-4.jpg" className="mr-3 rounded-circle avatar-xs" alt="user-pic" />
+                                                    <img src="/assets/images/users/avatar-4.jpg" className="mr-3 rounded-circle avatar-xs" alt="user-pic" />
                                                     <div className="media-body">
                                                         <h6 className="mt-0 mb-1">Salena Layfield</h6>
                                                         <div className="font-size-12 text-muted">
@@ -173,7 +173,7 @@ export class Header extends Component {
                                 </div>
                                 <div className="dropdown d-inline-block">
                                     <button type="button" className="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img className="rounded-circle header-profile-user" src="assets/images/users/avatar-2.jpg" alt="Header Avatar" />
+                                        <img className="rounded-circle header-profile-user" src="/assets/images/users/avatar-2.jpg" alt="Header Avatar" />
                                         <span className="d-none d-xl-inline-block ml-1">Administrator</span>
                                         <i className="mdi mdi-chevron-down d-none d-xl-inline-block" />
                                     </button>
@@ -193,18 +193,18 @@ export class Header extends Component {
                                 <div className="navbar-brand-box">
                                     <a href="index.html" className="logo logo-dark">
                                         <span className="logo-sm">
-                                            <img src="assets/images/logo-sm.png" alt="" height={20} />
+                                            <img src="/assets/images/logo-sm.png" alt="" height={20} />
                                         </span>
                                         <span className="logo-lg">
-                                            <img src="assets/images/logo-dark.png" alt="" height={17} />
+                                            <img src="/assets/images/logo-dark.png" alt="" height={17} />
                                         </span>
                                     </a>
                                     <a href="index.html" className="logo logo-light">
                                         <span className="logo-sm">
-                                            <img src="assets/images/logo-sm.png" alt="" height={20} />
+                                            <img src="/assets/images/logo-sm.png" alt="" height={20} />
                                         </span>
                                         <span className="logo-lg d-flex">
-                                            {/* <img src="assets/images/logo-light.png" alt="" height="19"> */}
+                                            {/* <img src="/assets/images/logo-light.png" alt="" height="19"> */}
                                             <h4 className="text-light pt-4">ClubRummy</h4>
                                         </span>
                                     </a>
@@ -212,163 +212,6 @@ export class Header extends Component {
                                 <button type="button" className="btn btn-sm px-3 font-size-16 header-item toggle-btn waves-effect" id="vertical-menu-btn">
                                     <i className="fa fa-fw fa-bars" />
                                 </button>
-                                <div className="dropdown dropdown-mega d-none d-lg-inline-block ml-2">
-                                    <button type="button" className="btn header-item waves-effect" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-                                        Mega Menu
-                      <i className="mdi mdi-chevron-down" />
-                                    </button>
-                                    <div className="dropdown-menu dropdown-megamenu">
-                                        <div className="row">
-                                            <div className="col-sm-6">
-                                                <div className="row">
-                                                    <div className="col-md-4">
-                                                        <h5 className="font-size-14 mt-0">UI Components</h5>
-                                                        <ul className="list-unstyled megamenu-list">
-                                                            <li>
-                                                                <a href="javascript:void(0);">Lightbox</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Range Slider</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Sweet Alert</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Rating</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Forms</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Tables</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Charts</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-md-4">
-                                                        <h5 className="font-size-14 mt-0">Applications</h5>
-                                                        <ul className="list-unstyled megamenu-list">
-                                                            <li>
-                                                                <a href="javascript:void(0);">Ecommerce</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Calendar</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Email</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Projects</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Tasks</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Contacts</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div className="col-md-4">
-                                                        <h5 className="font-size-14 mt-0">Extra Pages</h5>
-                                                        <ul className="list-unstyled megamenu-list">
-                                                            <li>
-                                                                <a href="javascript:void(0);">Light Sidebar</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Compact Sidebar</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Horizontal layout</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Maintenance</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Coming Soon</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">Timeline</a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="javascript:void(0);">FAQs</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-sm-6">
-                                                <div className="row">
-                                                    <div className="col-sm-6">
-                                                        <h5 className="font-size-14 mt-0">Components</h5>
-                                                        <div className="px-lg-2">
-                                                            <div className="row no-gutters">
-                                                                <div className="col">
-                                                                    <a className="dropdown-icon-item" href="#">
-                                                                        <img src="assets/images/brands/github.png" alt="Github" />
-                                                                        <span>GitHub</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <a className="dropdown-icon-item" href="#">
-                                                                        <img src="assets/images/brands/bitbucket.png" alt="bitbucket" />
-                                                                        <span>Bitbucket</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <a className="dropdown-icon-item" href="#">
-                                                                        <img src="assets/images/brands/dribbble.png" alt="dribbble" />
-                                                                        <span>Dribbble</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                            <div className="row no-gutters">
-                                                                <div className="col">
-                                                                    <a className="dropdown-icon-item" href="#">
-                                                                        <img src="assets/images/brands/dropbox.png" alt="dropbox" />
-                                                                        <span>Dropbox</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <a className="dropdown-icon-item" href="#">
-                                                                        <img src="assets/images/brands/mail_chimp.png" alt="mail_chimp" />
-                                                                        <span>Mail Chimp</span>
-                                                                    </a>
-                                                                </div>
-                                                                <div className="col">
-                                                                    <a className="dropdown-icon-item" href="#">
-                                                                        <img src="assets/images/brands/slack.png" alt="slack" />
-                                                                        <span>Slack</span>
-                                                                    </a>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="col-sm-6">
-                                                        <div>
-                                                            <div className="card text-white mb-0 overflow-hidden text-white-50" style={{ backgroundImage: 'url("assets/images/megamenu-img.png")', backgroundSize: 'cover' }}>
-                                                                <div className="card-img-overlay" />
-                                                                <div className="card-body">
-                                                                    <div className="row">
-                                                                        <div className="col-xl-6">
-                                                                            <h4 className="text-white mb-3">Sale</h4>
-                                                                            <h5 className="text-white-50">Up to <span className="font-size-24 text-white">50 %</span> Off</h5>
-                                                                            <p>At vero eos accusamus et iusto odio.</p>
-                                                                            <div className="mb-4">
-                                                                                <a href="#" className="btn btn-success btn-sm">View more</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
