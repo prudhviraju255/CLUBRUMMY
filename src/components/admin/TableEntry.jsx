@@ -16,7 +16,8 @@ constructor(props){
           bet:"",
           seats:"",
           tableStatus:"",
-          errors:{}
+          errors:{},
+          errorStatus:false
     }
 }
 
@@ -24,6 +25,7 @@ componentDidMount() {
 }
 
     render() {
+        console.log(this.state.tableStatus)
         return (
             <div className="container-fluid">
         {/* Begin page */}
@@ -61,25 +63,33 @@ componentDidMount() {
                                                 <option value='1'>101 pools</option>
                                                 <option value='2'>201 pools</option>
                                             </select>
-                                            {this.state.errors.pool ? <p className="text-danger">{this.state.errors.pool}</p> : null}
+                                            {this.state.errorStatus==true&&
+                                            this.state.pool==""? <p className="text-danger">Please enter Pool</p> : null
+                                            }
                                         </div>
                                         
                                         <div className="form-group col-lg-12">
                                             <label htmlFor="name">Table Name</label>
                                             <input type="text" placeholder="Enter Table Name" id="tableName" ref="tableName" name="tableName" className="form-control" onChange={this.handleChange}/>
-                                            {this.state.errors.tableName ? <p className="text-danger">{this.state.errors.tableName}</p> : null}
+                                            {this.state.errorStatus==true&&
+                                            this.state.tableName==""? <p className="text-danger">Please enter table name</p> : null
+                                            }
                                         </div>
 
                                         <div className="form-group col-lg-12">
                                             <label htmlFor="subject">Table Number</label>
                                             <input type="number" placeholder="Enter Table Number" id="tableNo" ref="tableNo" name="tableNo" onChange={this.handleChange} className="form-control removeSpinner" />
-                                            {this.state.errors.tableNo ? <p className="text-danger">{this.state.errors.tableNo}</p> : null}
+                                            {this.state.errorStatus==true&&
+                                            this.state.tableNo=="" ? <p className="text-danger">Please enter table number</p> : null
+                                            }
                                         </div>
 
                                         <div className="form-group col-lg-12">
                                             <label htmlFor="name">Bet/Entry</label>
                                             <input type="text" placeholder="Enter Bet" id="bet" ref="bet" onChange={this.handleChange} name="bet"  className="form-control" />
-                                            {this.state.errors.bet ? <p className="text-danger">{this.state.errors.bet}</p> : null}
+                                            {this.state.errorStatus==true&&
+                                            this.state.bet=="" ? <p className="text-danger">Please enter bet</p> : null
+                                            }
                                         </div>
 
                                         <div className="form-group col-lg-12">
@@ -89,7 +99,9 @@ componentDidMount() {
                                                 <option value='1'>2 Seats</option>
                                                 <option value='2'>6 Seats</option>
                                             </select>
-                                            {this.state.errors.seats ? <p className="text-danger">{this.state.errors.seats}</p> : null}
+                                            {this.state.errorStatus==true&&
+                                            this.state.seats=="" ? <p className="text-danger">Please enter seats</p> : null
+                                            }
                                         </div>
 
                                         <div className="form-group col-lg-12">
@@ -99,11 +111,13 @@ componentDidMount() {
                                                 <option value='1'>Stop</option>
                                                 <option value='2'>Live</option>
                                             </select>
-                                            {this.state.errors.tableStatus ? <p className="text-danger">{this.state.errors.tableStatus}</p> : null}
+                                            {this.state.errorStatus==true&&
+                                            this.state.tableStatus=="" ? <p className="text-danger">Please enter table status</p> : null
+                                        }
                                         </div>
                                       
                                         <div className="col-lg-2 align-self-center">
-                                            <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={this.submitTableEntry}>Submit</button>
+                                            <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={()=>this.submitTableEntry()}>Submit</button>
                                         </div>
                                 </div>
                             </form>
@@ -125,44 +139,43 @@ componentDidMount() {
         this.state[e.target.name] = e.target.value
         }
 
-        submitTableEntry=()=>{
-            this.formValidate();
-        if (!this.formValidate()) {
-            return false;
-        }
+        async submitTableEntry(){
+           await this.formValidate();
+if(this.state.errorStatus==false){
+    alert("service call")
+}
         }
 
-        async formValidate() {
-            try {
-                let formIsValid = true;
-                let errors = {};
-                if (this.state.pool == "") {
-                    errors["pool"] = "please select pool"
-                    formIsValid = false;
-                } if (this.state.tableName == "") {
-                    errors["tableName"] = "please enter table name"
-                    formIsValid = false;
-                } if (this.state.tableNo == "") {
-                    errors["tableNo"] = "please enter table number"
-                    formIsValid = false;
-                } if (this.state.bet == "") {
-                    errors["bet"] = "please enter bet"
-                    formIsValid = false;
+         formValidate() {
+             if(this.state.pool=="" && this.state.tableName == "" && this.state.tableNo == "" && this.state.bet == "" && this.state.seats == "" && this.state.tableStatus == ""){
+                this.setState({errorStatus:true})
+             }
+                else if (this.state.pool == "") {
+                    this.setState({errorStatus:true})
                 }
-                if (this.state.seats == "") {
-                    errors["seats"] = "please enter seats"
-                    formIsValid = false;
-                } 
-                if (this.state.tableStatus == "") {
-                    errors["tableStatus"] = "please enter table status"
-                    formIsValid = false;
+                
+                else if (this.state.tableName == "") {
+                    this.setState({errorStatus:true})
+
+                } else if (this.state.tableNo == "") {
+                    this.setState({errorStatus:true})
+                }
+                
+                else if (this.state.bet == "") {
+                    this.setState({errorStatus:true})
+                }
+
+                else if (this.state.seats == "") {
+                    this.setState({errorStatus:true})
                 } 
 
-               await this.setState({errors})
-                return formIsValid
-            } catch (error) {
-    
-            }
+                else if (this.state.tableStatus == "") {
+                    this.setState({errorStatus:true})
+                } 
+
+                else{
+                    this.setState({errorStatus:false})
+                }
         }    
 
 }
