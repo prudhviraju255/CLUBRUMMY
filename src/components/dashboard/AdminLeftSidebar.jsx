@@ -51,6 +51,14 @@ export class LeftSidebar extends Component {
                                         </a>
                                     </li>
                                 </Link>
+                                <Link to="/admin/table-entry">
+                                    <li>
+                                        <a className=" waves-effect">
+                                            <i className="mdi mdi-calendar-text" />
+                                            <span>Table Entry</span>
+                                        </a>
+                                    </li>
+                                </Link>
 
 
                             </ul>

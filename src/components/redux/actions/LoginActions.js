@@ -64,7 +64,8 @@ export const superAdminlogin = (user) => {
 
 export const userdetails = (user) => {
     return dispatch => {
-        setuserdetails(user);
+        console.log("user details>>>>", user);
+        dispatch(setuserdetails(user));
     };
 }
 

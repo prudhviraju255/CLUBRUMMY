@@ -19,6 +19,7 @@ export default (state = INITIAL_STATE, action) => {
         case LoginActionTypes.ON_LOGIN_FORM_CLEAR:
             return { ...state, ...INITIAL_STATE, user: action.payload, error: '' }
         case LoginActionTypes.SET_USER_INFO:
+            console.log("user details>>>>", action);
             return { ...state, ...INITIAL_STATE, user: action.payload, error: '' }
         default: return state;
     }

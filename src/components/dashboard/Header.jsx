@@ -11,12 +11,14 @@ import { connect } from 'react-redux';
 
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 export class Header extends Component {
+
     constructor(props) {
+        const user = getCacheObject(SESSION_KEY_NAME);
         super(props)
         this.state = {
 
         }
-
+        this.props.setuserdetailsfromLocalstore(user);
     }
 
     /**
@@ -40,9 +42,10 @@ export class Header extends Component {
         }
     }
 
-    componentDidMount() {
 
-        console.log("user details>>>>", this.props.user);
+
+    async componentDidUpdate(prevProps, prevState) {
+        console.log("user details>>>>componentDidUpdate", this.props.user);
     }
 
     redirectbyUser() {
@@ -240,6 +243,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setuserdetailsfromLocalstore: user => {
+
             dispatch(userdetails(user));
         }
     };
