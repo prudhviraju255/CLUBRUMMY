@@ -18,5 +18,8 @@ const ServiceUrls = {
     SUPER_ADMIN_LOGIN: BASE_URL + "/admin/superAdminLogin",
     ADMIN_LOGIN: BASE_URL + "/admin/clublogin",
     USER_LOGIN: BASE_URL + "/admin/userLogin",
+
+    TABLE_LIST: BASE_URL + "/table/getTableList",
+    DELETE_TABLE: BASE_URL + "/table/deleteTable",
 };
 export default ServiceUrls;

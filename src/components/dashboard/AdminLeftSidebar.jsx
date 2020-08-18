@@ -60,6 +60,15 @@ export class LeftSidebar extends Component {
                                     </li>
                                 </Link>
 
+                                <Link to="/admin/games">
+                                    <li>
+                                        <a className=" waves-effect">
+                                            <i className="mdi mdi-calendar-text" />
+                                            <span>Games</span>
+                                        </a>
+                                    </li>
+                                </Link>
+
 
                             </ul>
                         </div>
