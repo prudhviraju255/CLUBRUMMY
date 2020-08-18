@@ -10,16 +10,22 @@ export class TableEntry extends Component {
 constructor(props){
     super(props)
     this.state={
-          
+          pool:"",
+          tableName:"",
+          tableNo:"",
+          bet:"",
+          seats:"",
+          tableStatus:"",
+          errors:{},
+          errorStatus:false
     }
 }
 
 componentDidMount() {
-
-
 }
 
     render() {
+        console.log(this.state.tableStatus)
         return (
             <div className="container-fluid">
         {/* Begin page */}
@@ -49,54 +55,72 @@ componentDidMount() {
                         <div className="card-body">
                             <form className="repeater" encType="multipart/form-data">
                                 <div data-repeater-list="group-a">
-                                    {/* <div data-repeater-item className="row"> */}
+
                                         <div className="form-group col-lg-12">
                                             <label htmlFor="name">Pools</label>
-                                            <select className="form-control" ref="clubType" name="clubType"  id="clubType" >
+                                            <select className="form-control" ref="pool" name="pool"  id="pool" onChange={this.handleChange}>
                                                 <option>-- Select --</option>
                                                 <option value='1'>101 pools</option>
                                                 <option value='2'>201 pools</option>
                                             </select>
-
+                                            {this.state.errorStatus==true&&
+                                            this.state.pool==""? <p className="text-danger">Please enter Pool</p> : null
+                                            }
                                         </div>
+                                        
                                         <div className="form-group col-lg-12">
                                             <label htmlFor="name">Table Name</label>
-                                            <input type="text" placeholder="Enter Table Name" id="clubLocation" ref="clubLocation" name="clubLocation" className="form-control" />
+                                            <input type="text" placeholder="Enter Table Name" id="tableName" ref="tableName" name="tableName" className="form-control" onChange={this.handleChange}/>
+                                            {this.state.errorStatus==true&&
+                                            this.state.tableName==""? <p className="text-danger">Please enter table name</p> : null
+                                            }
                                         </div>
+
                                         <div className="form-group col-lg-12">
                                             <label htmlFor="subject">Table Number</label>
-                                            <input type="number" placeholder="Enter Table Number" id="mobileno" ref="mobileno" name="mobileno" className="form-control removeSpinner" />
+                                            <input type="number" placeholder="Enter Table Number" id="tableNo" ref="tableNo" name="tableNo" onChange={this.handleChange} className="form-control removeSpinner" />
+                                            {this.state.errorStatus==true&&
+                                            this.state.tableNo=="" ? <p className="text-danger">Please enter table number</p> : null
+                                            }
                                         </div>
+
                                         <div className="form-group col-lg-12">
-                                            <label htmlFor="email">Bet/Entry</label>
-                                            <input type="email" placeholder="Enter Bet" id="email" ref="email" name="email"  className="form-control" />
+                                            <label htmlFor="name">Bet/Entry</label>
+                                            <input type="text" placeholder="Enter Bet" id="bet" ref="bet" onChange={this.handleChange} name="bet"  className="form-control" />
+                                            {this.state.errorStatus==true&&
+                                            this.state.bet=="" ? <p className="text-danger">Please enter bet</p> : null
+                                            }
                                         </div>
 
                                         <div className="form-group col-lg-12">
                                             <label htmlFor="name">Sitting Capacity</label>
-                                            <select className="form-control" ref="clubType" name="clubType"  id="clubType" >
+                                            <select className="form-control" ref="seats" name="seats"  id="seats" onChange={this.handleChange}>
                                                 <option>-- Select --</option>
                                                 <option value='1'>2 Seats</option>
                                                 <option value='2'>6 Seats</option>
                                             </select>
-
+                                            {this.state.errorStatus==true&&
+                                            this.state.seats=="" ? <p className="text-danger">Please enter seats</p> : null
+                                            }
                                         </div>
+
                                         <div className="form-group col-lg-12">
                                             <label htmlFor="name">Table Status</label>
-                                            <select className="form-control" ref="clubType" name="clubType"  id="clubType" >
+                                            <select className="form-control" ref="tableStatus" name="tableStatus"  id="tableStatus" onChange={this.handleChange}>
                                                 <option>-- Select --</option>
                                                 <option value='1'>Stop</option>
                                                 <option value='2'>Live</option>
                                             </select>
-
+                                            {this.state.errorStatus==true&&
+                                            this.state.tableStatus=="" ? <p className="text-danger">Please enter table status</p> : null
+                                        }
                                         </div>
+                                      
                                         <div className="col-lg-2 align-self-center">
-                                            <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" >Submit</button>
+                                            <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={()=>this.submitTableEntry()}>Submit</button>
                                         </div>
-                                    {/* </div> */}
                                 </div>
                             </form>
-                            {/* <p>{this.state.errorMessage}</p> */}
                         </div>
                     </div>
               
@@ -110,7 +134,50 @@ componentDidMount() {
       </div>
      )
     }
-    
+   
+    handleChange = (e) => {
+        this.state[e.target.name] = e.target.value
+        }
+
+        async submitTableEntry(){
+           await this.formValidate();
+if(this.state.errorStatus==false){
+    alert("service call")
+}
+        }
+
+         formValidate() {
+             if(this.state.pool=="" && this.state.tableName == "" && this.state.tableNo == "" && this.state.bet == "" && this.state.seats == "" && this.state.tableStatus == ""){
+                this.setState({errorStatus:true})
+             }
+                else if (this.state.pool == "") {
+                    this.setState({errorStatus:true})
+                }
+                
+                else if (this.state.tableName == "") {
+                    this.setState({errorStatus:true})
+
+                } else if (this.state.tableNo == "") {
+                    this.setState({errorStatus:true})
+                }
+                
+                else if (this.state.bet == "") {
+                    this.setState({errorStatus:true})
+                }
+
+                else if (this.state.seats == "") {
+                    this.setState({errorStatus:true})
+                } 
+
+                else if (this.state.tableStatus == "") {
+                    this.setState({errorStatus:true})
+                } 
+
+                else{
+                    this.setState({errorStatus:false})
+                }
+        }    
+
 }
 
 export default TableEntry
