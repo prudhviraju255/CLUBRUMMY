@@ -2764,3 +2764,9 @@ input[switch="dark"]:checked + label {
     left: 0px;
     right: 0px;
     top: 12px; }
+
+    .removeSpinner::-webkit-inner-spin-button, 
+.removeSpinner::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}

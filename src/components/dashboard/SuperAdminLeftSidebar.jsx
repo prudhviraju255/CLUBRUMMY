@@ -48,6 +48,12 @@ export class LeftSidebar extends Component {
                                         <span>Clubs</span>
                                     </Link>
                                 </li>
+                                <li>
+                                    <Link to="/superadmin/table-entry" className=" waves-effect">
+                                        <i className="mdi mdi-calendar-text" />
+                                        <span>Table Entry</span>
+                                    </Link>
+                                </li>
                             </ul>
                         </div>
                     </div>

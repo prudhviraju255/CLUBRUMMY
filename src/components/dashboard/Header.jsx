@@ -18,7 +18,7 @@ export class Header extends Component {
         this.state = {
 
         }
-        this.props.setuserdetailsfromLocalstore(user);
+        // this.props.setuserdetailsfromLocalstore(user);
     }
 
     /**

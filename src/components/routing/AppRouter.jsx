@@ -10,6 +10,7 @@ import AdminLogin from '../dashboard/AdminLogin';
 import SuperAdminprotectedRoute from './SuperAdminprotectedRoute';
 import AdminProtectedRoute from './AdminProtectedRoute'
 import ProtectedRoute from './protectedRoute'
+import TableEntry from '../admin/TableEntry';
 
 
 
@@ -23,6 +24,7 @@ export default class AppRoutes extends Component {
                     <Route path="/superadmin/login" exact component={SuperAdminLogin} />
                     <Route exact path="/superadmin/dashboard" component={Dashboard} />
                     <Route exact path="/superadmin/club-registration" component={ClubRegistration} />
+                    <Route exact path="/superadmin/table-entry" component={TableEntry} />
                     <Route exact path="/superadmin/cash-games/point-rummy" component={CG_PointRummy} />
 
                     <Route path="/admin/login" exact component={AdminLogin} />
