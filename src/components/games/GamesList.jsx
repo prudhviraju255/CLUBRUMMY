@@ -3,6 +3,7 @@ import Header from '../dashboard/Header'
 import Footer from '../dashboard/Footer'
 import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
+import {Link} from "react-router-dom";
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
@@ -20,7 +21,6 @@ export class ClubRegistratedUsers extends Component {
 
 
     render() {
-        console.log('render', this.state.clubableslist);
         var rows = []
 
         this.state.clubableslist.forEach((t, sno) => {
