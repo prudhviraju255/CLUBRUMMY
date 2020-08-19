@@ -5,7 +5,7 @@ import ServiceUrls from '../helpers/ServiceUrls';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { connect } from 'react-redux';
-import { loginUser } from '../redux/actions/LoginActions'
+import { loginUser, errorlogin } from '../redux/actions/LoginActions'
 
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
@@ -33,7 +33,7 @@ class Login extends Component {
    */
   async login() {
     if (this.state.username == "" || this.state.password == "") {
-      this.setState({ error: true })
+      this.props.onErrorLogin('Please Enter UserName and Password');
       return false;
     }
     let dataObject = {
@@ -173,6 +173,9 @@ const mapDispatchToProps = dispatch => {
   return {
     onUserLogin: user => {
       dispatch(loginUser(user));
+    },
+    onErrorLogin: user => {
+      dispatch(errorlogin(user));
     }
   };
 };

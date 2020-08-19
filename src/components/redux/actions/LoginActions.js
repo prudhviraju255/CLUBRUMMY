@@ -64,8 +64,13 @@ export const superAdminlogin = (user) => {
 
 export const userdetails = (user) => {
     return dispatch => {
-        console.log("user details>>>>", user);
         dispatch(setuserdetails(user));
+    };
+}
+
+export const errorlogin = (msg) => {
+    return dispatch => {
+        dispatch(loginrequestFailure(msg));
     };
 }
 
