@@ -68,7 +68,7 @@ export class CreateUser extends Component {
                                             <input type="password" id="password" ref="password" name="password" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="col-lg-2 align-self-center">
-                                            <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.clubregistration()} >Add Club</button>
+                                            <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.clubregistration()} >Add User</button>
                                         </div>
                                     </div>
                                 </div>
