@@ -7,7 +7,9 @@ import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
+import Constants from '../helpers/Constans';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
+const ACTION_STATUS = Constants.ACTION_STATUS;
 
 
 export class CreateClubRegisterUser extends Component {
@@ -148,7 +150,7 @@ export class CreateClubRegisterUser extends Component {
             await this.setState({ error: true, errorMessage: userRegistration.message.join(", ") });
         } else if (userRegistration.code === 200) {
             this.clearRegisteration();
-            this.props.isUpdateUsersList(true);
+            this.props.isUpdateUsersList(true, ACTION_STATUS.CREATE);
         }
     }
 

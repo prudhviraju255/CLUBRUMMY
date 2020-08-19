@@ -9,9 +9,11 @@ import ClubRegistratedUsers from './RegisteredUsers';
 import CreateClubRegisterUser from './CreateUser';
 import UpdateClubRegisterUser from './UpdateUser';
 import DeleteClubConfirmation from './DeleteUserConfirmation';
+import { ToastContainer, toast } from 'react-toastify';
+import Constants from '../helpers/Constans';
 import $ from 'jquery';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
-
+const ACTION_STATUS = Constants.ACTION_STATUS;
 
 export class ClubRegistration extends Component {
   constructor(props) {
@@ -34,6 +36,7 @@ export class ClubRegistration extends Component {
     return (
       <div className="container-fluid">
         {/* Begin page */}
+        <ToastContainer />
         <div id="layout-wrapper">
           <Header />
 
@@ -78,8 +81,39 @@ export class ClubRegistration extends Component {
     )
   }
 
-  isUpdateUsersList = (status) => {
-    console.log("üpdate status", status);
+  isUpdateUsersList = (status, ACTION) => {
+    if (status && ACTION === ACTION_STATUS.CREATE) {
+      toast.success('Created Successfully.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
+    }
+    if (status && ACTION === ACTION_STATUS.UPDATE) {
+      toast.success('Updated Successfully.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
+    } else if (status && ACTION === ACTION_STATUS.DELETE) {
+      toast.info('Deleted Successfully.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
+    }
     this.setState({ get_updated_users: status });
   }
 

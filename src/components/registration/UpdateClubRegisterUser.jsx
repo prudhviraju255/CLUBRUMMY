@@ -7,8 +7,9 @@ import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
 import $ from 'jquery';
+import Constants from '../helpers/Constans';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
-
+const ACTION_STATUS = Constants.ACTION_STATUS;
 
 export class UpdateClubRegisterUser extends Component {
     constructor(props) {
@@ -120,7 +121,7 @@ export class UpdateClubRegisterUser extends Component {
         } else if (userRegistration.code === 200) {
             this.clearRegisteration();
             window.$('#exampleModal').modal('hide');
-            this.props.isUpdateUsersList(true);
+            this.props.isUpdateUsersList(true, ACTION_STATUS.UPDATE);
         }
     }
 

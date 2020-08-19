@@ -6,6 +6,8 @@ import config from '../../config';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
+import Constants from '../helpers/Constans';
+const ACTION_STATUS = Constants.ACTION_STATUS;
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
 
@@ -113,7 +115,7 @@ export class CreateUser extends Component {
             email: this.state.email,
             username: this.state.username,
             password: this.state.password,
-            clubId: "5f310e4145d54715a0c5e4f3"
+            clubId: user._id
         };
         var validation = this.validateform(dataObject);
         if (validation.error) {
@@ -132,7 +134,7 @@ export class CreateUser extends Component {
             await this.setState({ error: true, errorMessage: userRegistration.message.join(", ") });
         } else if (userRegistration.code === 200) {
             this.clearRegisteration();
-            this.props.isUpdateUsersList(true);
+            this.props.isUpdateUsersList(true, ACTION_STATUS.CREATE);
         }
     }
 

@@ -9,8 +9,11 @@ import ClubRegistratedUsers from './ClubRegisteredUsers';
 import CreateClubRegisterUser from './CreateClubRegisterUser';
 import UpdateClubRegisterUser from './UpdateClubRegisterUser';
 import DeleteClubConfirmation from './DeleteClubConfirmation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import $ from 'jquery';
-const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
+import Constants from '../helpers/Constans';
+const ACTION_STATUS = Constants.ACTION_STATUS;
 
 
 export class ClubRegistration extends Component {
@@ -33,6 +36,7 @@ export class ClubRegistration extends Component {
   render() {
     return (
       <div className="container-fluid">
+        <ToastContainer />
         {/* Begin page */}
         <div id="layout-wrapper">
           <Header />
@@ -55,6 +59,7 @@ export class ClubRegistration extends Component {
                 </div>
               </div>
               {/* end page title */}
+
               <DeleteClubConfirmation
                 isUpdateUsersList={this.isUpdateUsersList}
                 deleted_user={this.state.deleted_user} />
@@ -78,13 +83,47 @@ export class ClubRegistration extends Component {
     )
   }
 
-  isUpdateUsersList = (status) => {
+  isUpdateUsersList = (status, ACTION) => {
     console.log("üpdate status", status);
+    if (status && ACTION === ACTION_STATUS.CREATE) {
+      toast.success('Created Successfully.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
+    }
+    if (status && ACTION === ACTION_STATUS.UPDATE) {
+      toast.success('Updated Successfully.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
+    } else if (status && ACTION === ACTION_STATUS.DELETE) {
+      toast.info('Deleted Successfully.', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: false,
+        progress: undefined,
+      });
+    }
+
     this.setState({ get_updated_users: status });
   }
 
   editUser = (user) => {
     console.log("edited user", user);
+
     this.setState({ updated_user: user })
   }
 

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Header from '../dashboard/Header'
 import Footer from '../dashboard/Footer'
 import ServiceUrls from '../helpers/ServiceUrls';
+import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import config from '../../config';
 import DataTable from '../utils/DataTable'
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
@@ -90,10 +91,13 @@ export class RegisteredUsers extends Component {
 
 
     async getAllregisteredUsers() {
+        const user = getCacheObject(SESSION_KEY_NAME);
+
         let dataObject = {
             limit: 30,
             search_string: "",
             page: 0,
+            clubId: user._id
         };
         var clubusers = await postServiceCALLS(
             ServiceUrls.USERS_LIST,
