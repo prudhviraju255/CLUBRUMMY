@@ -4,6 +4,7 @@ import Footer from '../dashboard/Footer'
 import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
+import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
@@ -85,11 +86,12 @@ export class ClubRegistratedUsers extends Component {
 
 
     async getAllregisteredUsers() {
+        const user = getCacheObject(SESSION_KEY_NAME);
         let dataObject = {
             limit: 30,
             search_string: "",
             page: 0,
-            clubId: "5f310e4145d54715a0c5e4f3"
+            clubId: user._id
         };
         var tablelist = await postServiceCALLS(
             ServiceUrls.TABLE_LIST,

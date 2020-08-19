@@ -7,6 +7,7 @@ import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './GamesList';
 import Constants from '../helpers/Constans';
+const ACTION_STATUS = Constants.ACTION_STATUS;
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
 
@@ -67,7 +68,7 @@ export class DeleteClubConfirmation extends Component {
             await this.setState({ error: true, errorMessage: deleteclubtable.message });
         } else if (deleteclubtable.code === 200) {
             window.$('#deleteclubModal').modal('hide');
-            this.props.isUpdateUsersList(true);
+            this.props.isUpdateUsersList(true, ACTION_STATUS.DELETE);
 
         }
     }
