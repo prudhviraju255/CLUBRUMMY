@@ -25,12 +25,12 @@ export default class AppRoutes extends Component {
                     <Route path="/superadmin/login" exact component={SuperAdminLogin} />
                     <Route exact path="/superadmin/dashboard" component={Dashboard} />
                     <Route exact path="/superadmin/club-registration" component={ClubRegistration} />
-                    <Route exact path="/superadmin/table-entry" component={TableEntry} />
                     <Route exact path="/superadmin/cash-games/point-rummy" component={CG_PointRummy} />
 
                     <Route path="/admin/login" exact component={AdminLogin} />
                     <Route exact path="/admin/dashboard" component={Dashboard} />
                     <Route exact path="/admin/club-players" component={UserRegistration} />
+                    <Route exact path="/admin/table-entry" component={TableEntry} />
                     <Route exact path="/admin/games" component={Games} />
                     <Route exact path="/admin/cash-games/point-rummy" component={CG_PointRummy} />
 

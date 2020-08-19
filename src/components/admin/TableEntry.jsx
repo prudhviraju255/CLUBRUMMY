@@ -21,7 +21,7 @@ export class TableEntry extends Component {
             tableNo: "",
             bet: "",
             seats: "",
-            tableStatus:"",
+            tableStatus: "",
             error: false,
             errorMessage: "",
             noUsersFound: false,
@@ -247,17 +247,17 @@ export class TableEntry extends Component {
                 });
                 this.setState({
                     pool: 0,
-            tableName: "",
-            tableNo: "",
-            bet: "",
-            seats: "",
-            error: false,
-            errorMessage: "",
-            noUsersFound: false,
-            clubUsers: [],
-            items: [],
-            checkedItems: [],
-            createdBy: ""
+                    tableName: "",
+                    tableNo: "",
+                    bet: "",
+                    seats: "",
+                    error: false,
+                    errorMessage: "",
+                    noUsersFound: false,
+                    clubUsers: [],
+                    items: [],
+                    checkedItems: [],
+                    createdBy: ""
                 })
                 this.clearInputFields()
             }
