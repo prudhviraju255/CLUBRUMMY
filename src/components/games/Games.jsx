@@ -6,7 +6,7 @@ import config from '../../config';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import GamesList from './GamesList';
-import UpdateGame from './UpdateGame';
+import UpdateGame from '../admin/CreateTableEntry';
 import DeleteGameConfirmation from './DeleteGameConfirmation';
 import Constants from '../helpers/Constans';
 import $ from 'jquery';
@@ -20,7 +20,7 @@ export class ClubRegistration extends Component {
         super(props)
         this.state = {
             get_updated_users: true,
-            show_edit_users: true,
+            show_edit_users: false,
             show_delete_user_popup: true,
             updated_user: {},
             deleted_user: {},
@@ -61,15 +61,17 @@ export class ClubRegistration extends Component {
                             <DeleteGameConfirmation
                                 isUpdateUsersList={this.isUpdateUsersList}
                                 deleted_user={this.state.deleted_user} />
-                            <UpdateGame
-                                isUpdateUsersList={this.isUpdateUsersList}
-                                updated_user={this.state.updated_user} />
-
-                            <GamesList
-                                editUser={this.editUser}
-                                deleteUser={this.deleteUser}
-                                isUpdateUsersList={this.isUpdateUsersList}
-                                updateusers={this.state.get_updated_users} />
+                            {this.state.show_edit_users ?
+                                <UpdateGame
+                                    isUpdateUsersList={this.isUpdateUsersList}
+                                    is_edit_screen={this.state.show_edit_users}
+                                    updated_user={this.state.updated_user} /> :
+                                <GamesList
+                                    editUser={this.editUser}
+                                    deleteUser={this.deleteUser}
+                                    isUpdateUsersList={this.isUpdateUsersList}
+                                    updateusers={this.state.get_updated_users} />
+                            }
                         </div>
                         {/* End Page-content */}
                         <Footer />
@@ -82,16 +84,9 @@ export class ClubRegistration extends Component {
     }
 
     isUpdateUsersList = (status, ACTION) => {
-        if (status && ACTION === ACTION_STATUS.CREATE) {
-            toast.success('Created Successfully.', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: false,
-                progress: undefined,
-            });
+
+        if (ACTION === ACTION_STATUS.OTHERS) {
+            this.setState({ show_edit_users: false });
         }
         if (status && ACTION === ACTION_STATUS.UPDATE) {
             toast.success('Updated Successfully.', {
@@ -103,6 +98,7 @@ export class ClubRegistration extends Component {
                 draggable: false,
                 progress: undefined,
             });
+
         } else if (status && ACTION === ACTION_STATUS.DELETE) {
             toast.info('Deleted Successfully.', {
                 position: "top-right",
@@ -119,13 +115,15 @@ export class ClubRegistration extends Component {
 
     editUser = (user) => {
         console.log("edited user", user);
-        this.setState({ updated_user: user })
+        this.setState({ updated_user: user, show_edit_users: true })
     }
 
     deleteUser = (user) => {
         console.log("deleted user", user);
         this.setState({ deleted_user: user })
     }
+
+
 
 }
 

@@ -10,7 +10,9 @@ import ServiceUrls from '../helpers/ServiceUrls'
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls'
 import { ToastContainer, toast } from 'react-toastify';
 import config from '../../config';
+tabimport Constants from '../helpers/Constans';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
+const ACTION_STATUS = Constants.ACTION_STATUS;
 
 export class CreateTableEntry extends Component {
     constructor(props) {
@@ -28,7 +30,8 @@ export class CreateTableEntry extends Component {
             clubUsers: [],
             items: [],
             checkedItems: [],
-            createdBy: ""
+            createdBy: "",
+            is_edit_screen: false,
         }
     }
 
@@ -51,118 +54,109 @@ export class CreateTableEntry extends Component {
         });
 
         return (
-            <div className="container-fluid">
-                {/* Begin page */}
-                <ToastContainer />
-                <div id="layout-wrapper">
-                    {/* <Header /> */}
 
-                    {/* Start right Content here */}
-                    {/* ============================================================== */}
-                    <div className="main-content">
-                        <div className="page-content">
-                            {/* start page title */}
-                            {/* <div className="row">
-                                <div className="col-12">
-                                    <div className="page-title-box d-flex align-items-center justify-content-between">
-                                        <h4 className="page-title mb-0 font-size-18">Table Entry</h4>
-                                        <div className="page-title-right">
-                                            <ol className="breadcrumb m-0">
-                                                <li className="breadcrumb-item active">Welcome to ClubRummy</li>
-                                            </ol>
+            <>
+                <div className="row">
+                    <div className="col-12">
+                        <div className="card box-big-shadow">
+                            {this.state.is_edit_screen ?
+                                <h4 className="card-header mt-0"><span>Games</span><span>/</span><span>{this.state.tableName}</span></h4> : <h4 className="card-header mt-0">Add Table</h4>}
+                            <div className="col-lg-2 align-self-center">
+                                <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.clubregistration()} >Add User</button>
+                            </div>
+                            {this.state.noUsersFound == true && <p className="text-danger">No users found</p>}
+                            <p className="text-danger">{this.state.errorMessage}</p>
+
+                            <div className="card-body">
+                                <form className="repeater" encType="multipart/form-data">
+                                    <div data-repeater-list="group-a">
+                                        <div data-repeater-item className="row">
+
+                                            <div className="form-group col-lg-6">
+                                                <label htmlFor="name">Pools</label>
+                                                <select className="form-control" ref="pool" name="pool" id="pool" onChange={this.handleChange}>
+                                                    <option>-- Select --</option>
+                                                    <option value='1'>101 pools</option>
+                                                    <option value='2'>201 pools</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="form-group col-lg-6">
+                                                <label htmlFor="name">Table Name</label>
+                                                <input type="text" placeholder="Enter Table Name" id="tableName" ref="tableName" name="tableName" className="form-control" onChange={this.handleChange} />
+                                            </div>
+
+                                            <div className="form-group col-lg-6">
+                                                <label htmlFor="subject">Table Number</label>
+                                                <input type="number" placeholder="Enter Table Number" id="tableNo" ref="tableNo" name="tableNo" onChange={this.handleChange} className="form-control removeSpinner" />
+                                            </div>
+
+                                            <div className="form-group col-lg-6">
+                                                <label htmlFor="name">Bet/Entry</label>
+                                                <input type="text" placeholder="Enter Bet" id="bet" ref="bet" onChange={this.handleChange} name="bet" className="form-control" />
+                                            </div>
+
+                                            <div className="form-group col-lg-6">
+                                                <label htmlFor="name">Sitting Capacity</label>
+                                                <select className="form-control" ref="seats" name="seats" id="seats" onChange={this.handleChange}>
+                                                    <option>-- Select --</option>
+                                                    <option value='1'>2 Seats</option>
+                                                    <option value='2'>6 Seats</option>
+                                                </select>
+                                            </div>
+
+                                            <div className="form-group col-lg-6">
+                                                <label htmlFor="name">Table Status</label>
+                                                <select className="form-control" ref="tableStatus" name="tableStatus" id="tableStatus" onChange={this.handleChange}>
+                                                    <option>-- Select --</option>
+                                                    <option value='1'>Stop</option>
+                                                    <option value='2'>Live</option>
+                                                </select>
+                                            </div>
+
+
+
                                         </div>
                                     </div>
-                                </div>
-                            </div> */}
-                            {/* end page title */}
-                            <div className="card box-big-shadow">
-                                <h4 className="card-header mt-0">Table Details</h4>
+                                </form>
+                                <p>{this.state.errorMessage}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div >
+
+                {this.state.clubUsers.length > 0 ?
+                    <div className="row">
+                        <div className="col-12">
+                            <div className="card">
                                 <div className="card-body">
-                                    <form className="repeater" encType="multipart/form-data">
-                                        <div className="col-lg-2 align-self-center">
-                                            <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.submitTableEntry()}>Submit</button>
-                                        </div>
-                                        {this.state.noUsersFound == true && <p className="text-danger">No users found</p>}
-                                        <p className="text-danger">{this.state.errorMessage}</p>
+                                    <h4 className="card-title mb-4"><span onClick={() => this.props.isUpdateUsersList(true, ACTION_STATUS.OTHERS)}>Table Details</span><span>/edit</span></h4>
 
-                                        <div data-repeater-list="group-a">
-
-                                            <div data-repeater-item className="row">
-
-                                                <div className="form-group col-lg-6">
-                                                    <label htmlFor="name">Pools</label>
-                                                    <select className="form-control" ref="pool" name="pool" id="pool" onChange={this.handleChange}>
-                                                        <option>-- Select --</option>
-                                                        <option value='1'>101 pools</option>
-                                                        <option value='2'>201 pools</option>
-                                                    </select>
-                                                </div>
-
-                                                <div className="form-group col-lg-6">
-                                                    <label htmlFor="name">Table Name</label>
-                                                    <input type="text" placeholder="Enter Table Name" id="tableName" ref="tableName" name="tableName" className="form-control" onChange={this.handleChange} />
-                                                </div>
-
-                                                <div className="form-group col-lg-6">
-                                                    <label htmlFor="subject">Table Number</label>
-                                                    <input type="number" placeholder="Enter Table Number" id="tableNo" ref="tableNo" name="tableNo" onChange={this.handleChange} className="form-control removeSpinner" />
-                                                </div>
-
-                                                <div className="form-group col-lg-6">
-                                                    <label htmlFor="name">Bet/Entry</label>
-                                                    <input type="text" placeholder="Enter Bet" id="bet" ref="bet" onChange={this.handleChange} name="bet" className="form-control" />
-                                                </div>
-
-                                                <div className="form-group col-lg-6">
-                                                    <label htmlFor="name">Sitting Capacity</label>
-                                                    <select className="form-control" ref="seats" name="seats" id="seats" onChange={this.handleChange}>
-                                                        <option>-- Select --</option>
-                                                        <option value='1'>2 Seats</option>
-                                                        <option value='2'>6 Seats</option>
-                                                    </select>
-                                                </div>
-
-                                                <div className="form-group col-lg-6">
-                                                    <label htmlFor="name">Table Status</label>
-                                                    <select className="form-control" ref="tableStatus" name="tableStatus" id="tableStatus" onChange={this.handleChange}>
-                                                        <option>-- Select --</option>
-                                                        <option value='1'>Stop</option>
-                                                        <option value='2'>Live</option>
-                                                    </select>
-                                                </div>
+                                    <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Username</th>
+                                                <th>Email</th>
+                                                <th>Mobile</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {rows}
+                                        </tbody>
+                                    </table>
 
 
-                                                {this.state.clubUsers.length > 0 ?
-                                                    <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
-                                                        <thead>
-                                                            <tr>
-                                                                <th></th>
-                                                                <th>Username</th>
-                                                                <th>Email</th>
-                                                                <th>Mobile</th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            {rows}
-                                                        </tbody>
-                                                    </table>
-                                                    : null}
-                                            </div>
-                                        </div>
-                                    </form>
-                                    {/* {this.state.noUsersFound == true && <p className="text-danger">No users found</p>}
-                                    <p className="text-danger">{this.state.errorMessage}</p> */}
                                 </div>
                             </div>
-
                         </div>
-                        {/* End Page-content */}
-                        {/* <Footer /> */}
+                        {/* end col */}
+
+
                     </div>
-                    {/* end main content*/}
-                </div>
-                {/* END layout-wrapper */}
-            </div>
+                    : null}
+            </>
+
         )
     }
 
@@ -300,6 +294,33 @@ export class CreateTableEntry extends Component {
             return response;
         }
     }
+
+
+
+
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log('getDerivedStateFromProps>>>>>>>>>>>>>>', nextProps)
+        return {
+            updated_user: nextProps.updated_user,
+            is_edit_screen: nextProps.is_edit_screen,
+
+        };
+    }
+
+    componentDidUpdate(nextProps) {
+        const { updated_user, is_edit_screen } = nextProps
+        console.log('componentDidUpdate>>>>>>>>>>>>>>', nextProps)
+        if (nextProps.updated_user._id !== updated_user._id) {
+            this.clearInputFields();
+            this.setState({
+                tableName: updated_user.tableName,
+                _id: updated_user._id,
+                is_edit_screen: is_edit_screen
+            })
+        }
+    }
+
 
 }
 

@@ -6,28 +6,29 @@ import CreateTableEntry from './CreateTableEntry'
 
 
 export class TableEntry extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-           
-        }
-    }
-
-    componentDidMount() {
+  constructor(props) {
+    super(props)
+    this.state = {
 
     }
+  }
 
-    render() {
-        return (
-            <div className="container-fluid">
-        <ToastContainer/>
+  componentDidMount() {
+
+  }
+
+  render() {
+    return (
+      <div className="container-fluid">
         {/* Begin page */}
+        <ToastContainer />
         <div id="layout-wrapper">
-          <Header/>
+          <Header />
 
           {/* Start right Content here */}
           {/* ============================================================== */}
           <div className="main-content">
+            <div className="page-content">
               {/* start page title */}
               <div className="row">
                 <div className="col-12">
@@ -42,18 +43,17 @@ export class TableEntry extends Component {
                 </div>
               </div>
               {/* end page title */}
-
-<CreateTableEntry/>
+              <CreateTableEntry />
+            </div>
             {/* End Page-content */}
-            <Footer/>
+            <Footer />
           </div>
           {/* end main content*/}
         </div>
         {/* END layout-wrapper */}
       </div>
-    
-            )
-    }
+    )
+  }
 
 }
 

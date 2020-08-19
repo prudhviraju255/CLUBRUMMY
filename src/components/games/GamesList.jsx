@@ -3,7 +3,7 @@ import Header from '../dashboard/Header'
 import Footer from '../dashboard/Footer'
 import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
@@ -38,7 +38,7 @@ export class ClubRegistratedUsers extends Component {
                     <td>{t.bet}</td>
                     <td>{gamestatus}</td>
                     <td>
-                        <i onClick={() => this.props.editUser(t)} data-toggle="modal" data-target="#exampleModal" className="fa fa-edit" />
+                        <i onClick={() => this.props.editUser(t)} className="fa fa-edit" />
                         <i onClick={() => this.props.deleteUser(t)} data-toggle="modal" data-target="#deleteclubModal" className="fa fa-trash" />
                     </td>
                 </tr>
