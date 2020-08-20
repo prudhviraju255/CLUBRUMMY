@@ -18,7 +18,7 @@ export class UpdateClubRegisterUser extends Component {
             _id: "",
             register: false,
             clubName: "",
-            clubType: "",
+            clubType: 0,
             clubLocation: "",
             mobileno: "",
             email: "",
@@ -53,12 +53,12 @@ export class UpdateClubRegisterUser extends Component {
                                         </div>
                                         <div className="form-group col-lg-6">
                                             <label htmlFor="name">Club Type</label>
-                                            <select className="form-control" ref="clubType" name="clubType" onChange={this.handleChange} id="clubType" >
-                                                <option value='0' selected={this.state.clubType == 0}>Bronze</option>
-                                                <option value='1' selected={this.state.clubType == 1}>Silver</option>
-                                                <option value='2' selected={this.state.clubType == 2}>Gold</option>
-                                                <option value='3' selected={this.state.clubType == 3}>Diamond</option>
-                                                <option value='4' selected={this.state.clubType == 4}> platinum</option>
+                                            <select className="form-control" value={this.state.clubType} ref="clubType" name="clubType" onChange={this.handleChange} id="clubType" >
+                                                <option value='0'>Bronze</option>
+                                                <option value='1'>Silver</option>
+                                                <option value='2'>Gold</option>
+                                                <option value='3'>Diamond</option>
+                                                <option value='4'> platinum</option>
                                             </select>
                                         </div>
                                         <div className="form-group col-lg-6">

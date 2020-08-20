@@ -175,7 +175,7 @@ export class CreateClubRegisterUser extends Component {
     clearRegisteration() {
         this.refs.clubName.value = "";
         this.refs.clubName.value = "";
-        this.refs.clubType.value = "";
+        this.refs.clubType.value = 0;
         this.refs.clubLocation.value = "";
         this.refs.mobileno.value = "";
         this.refs.email.value = "";
