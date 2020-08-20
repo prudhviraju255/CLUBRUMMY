@@ -2,9 +2,9 @@
 const BASE_URL = "http://15.207.181.158:8090";
 
 const ServiceUrls = {
-    ADD_TABLE:BASE_URL + '/table/addTable',
-    CLUB_USERS:BASE_URL + '/admin/getUserList',
-    
+
+    CLUB_USERS: BASE_URL + '/admin/getUserList',
+
     CLUB_REGISTERED_USERS: BASE_URL + '/admin/getClubList',
     CLUB_CREATE_USER: BASE_URL + "/admin/clubRegistration",
     UPDATE_CLUB: BASE_URL + "/admin/updateClub",
@@ -23,5 +23,7 @@ const ServiceUrls = {
 
     TABLE_LIST: BASE_URL + "/table/getTableList",
     DELETE_TABLE: BASE_URL + "/table/deleteTable",
+    ADD_TABLE: BASE_URL + '/table/addTable',
+    UPDATE_TABLE: BASE_URL + '/table/updateTable',
 };
 export default ServiceUrls;

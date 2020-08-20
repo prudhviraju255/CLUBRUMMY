@@ -10,7 +10,7 @@ import ServiceUrls from '../helpers/ServiceUrls'
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls'
 import { ToastContainer, toast } from 'react-toastify';
 import config from '../../config';
-tabimport Constants from '../helpers/Constans';
+import Constants from '../helpers/Constans';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 const ACTION_STATUS = Constants.ACTION_STATUS;
 
@@ -18,11 +18,11 @@ export class CreateTableEntry extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            pool: 0,
+            pools: 0,
             tableName: "",
             tableNo: "",
             bet: "",
-            seats: "",
+            capacity: "",
             tableStatus: "",
             error: false,
             errorMessage: "",
@@ -36,6 +36,24 @@ export class CreateTableEntry extends Component {
     }
 
     componentDidMount() {
+        const { updated_user, is_edit_screen } = this.props;
+        console.log('componentDidMount>>>>>>>>>>>>>>', updated_user);
+        this.clearInputFields();
+        this.getuseronload();
+        if (false) {
+            this.setState({
+                is_edit_screen: is_edit_screen,
+                _id: updated_user._id,
+                pools: updated_user.pools,
+                tableName: updated_user.tableName,
+                tableNo: updated_user.tableNo,
+                bet: updated_user.bet,
+                capacity: parseInt(updated_user.capacity),
+                tableStatus: updated_user.tableStatus,
+            })
+
+        }
+
 
     }
 
@@ -52,7 +70,7 @@ export class CreateTableEntry extends Component {
                 </tr>
             );
         });
-
+        console.log('pool>>>>>>>>', this.state.pools)
         return (
 
             <>
@@ -60,9 +78,9 @@ export class CreateTableEntry extends Component {
                     <div className="col-12">
                         <div className="card box-big-shadow">
                             {this.state.is_edit_screen ?
-                                <h4 className="card-header mt-0"><span>Games</span><span>/</span><span>{this.state.tableName}</span></h4> : <h4 className="card-header mt-0">Add Table</h4>}
+                                <h4 className="card-header mt-0"><span onClick={() => this.props.isUpdateUsersList(true, ACTION_STATUS.OTHERS)}>Games</span><span>/</span><span>{this.state.tableName}</span></h4> : <h4 className="card-header mt-0">Add Table</h4>}
                             <div className="col-lg-2 align-self-center">
-                                <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.clubregistration()} >Add User</button>
+                                <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.submitTableEntry()} >Submit</button>
                             </div>
                             {this.state.noUsersFound == true && <p className="text-danger">No users found</p>}
                             <p className="text-danger">{this.state.errorMessage}</p>
@@ -74,32 +92,32 @@ export class CreateTableEntry extends Component {
 
                                             <div className="form-group col-lg-6">
                                                 <label htmlFor="name">Pools</label>
-                                                <select className="form-control" ref="pool" name="pool" id="pool" onChange={this.handleChange}>
-                                                    <option>-- Select --</option>
-                                                    <option value='1'>101 pools</option>
-                                                    <option value='2'>201 pools</option>
+                                                <select className="form-control" value={this.state.pools} ref="pools" name="pools" id="pools" onChange={this.handleChange}>
+                                                    <option value='0' >-- Select --</option>
+                                                    <option value='1' >101 pools</option>
+                                                    <option value='2' >201 pools</option>
                                                 </select>
                                             </div>
 
                                             <div className="form-group col-lg-6">
                                                 <label htmlFor="name">Table Name</label>
-                                                <input type="text" placeholder="Enter Table Name" id="tableName" ref="tableName" name="tableName" className="form-control" onChange={this.handleChange} />
+                                                <input type="text" placeholder="Enter Table Name" value={this.state.tableName} id="tableName" ref="tableName" name="tableName" className="form-control" onChange={this.handleChange} />
                                             </div>
 
                                             <div className="form-group col-lg-6">
                                                 <label htmlFor="subject">Table Number</label>
-                                                <input type="number" placeholder="Enter Table Number" id="tableNo" ref="tableNo" name="tableNo" onChange={this.handleChange} className="form-control removeSpinner" />
+                                                <input type="number" placeholder="Enter Table Number" value={this.state.tableNo} id="tableNo" ref="tableNo" name="tableNo" onChange={this.handleChange} className="form-control removeSpinner" />
                                             </div>
 
                                             <div className="form-group col-lg-6">
                                                 <label htmlFor="name">Bet/Entry</label>
-                                                <input type="text" placeholder="Enter Bet" id="bet" ref="bet" onChange={this.handleChange} name="bet" className="form-control" />
+                                                <input type="text" placeholder="Enter Bet" value={this.state.bet} id="bet" ref="bet" onChange={this.handleChange} name="bet" className="form-control" />
                                             </div>
 
                                             <div className="form-group col-lg-6">
                                                 <label htmlFor="name">Sitting Capacity</label>
-                                                <select className="form-control" ref="seats" name="seats" id="seats" onChange={this.handleChange}>
-                                                    <option>-- Select --</option>
+                                                <select className="form-control" value={this.state.capacity} ref="capacity" name="capacity" id="capacity" onChange={this.handleChange}>
+                                                    <option value='0'>-- Select --</option>
                                                     <option value='1'>2 Seats</option>
                                                     <option value='2'>6 Seats</option>
                                                 </select>
@@ -107,8 +125,8 @@ export class CreateTableEntry extends Component {
 
                                             <div className="form-group col-lg-6">
                                                 <label htmlFor="name">Table Status</label>
-                                                <select className="form-control" ref="tableStatus" name="tableStatus" id="tableStatus" onChange={this.handleChange}>
-                                                    <option>-- Select --</option>
+                                                <select className="form-control" value={this.state.tableStatus} ref="tableStatus" name="tableStatus" id="tableStatus" onChange={this.handleChange}>
+                                                    <option value='0'>-- Select --</option>
                                                     <option value='1'>Stop</option>
                                                     <option value='2'>Live</option>
                                                 </select>
@@ -130,7 +148,7 @@ export class CreateTableEntry extends Component {
                         <div className="col-12">
                             <div className="card">
                                 <div className="card-body">
-                                    <h4 className="card-title mb-4"><span onClick={() => this.props.isUpdateUsersList(true, ACTION_STATUS.OTHERS)}>Table Details</span><span>/edit</span></h4>
+                                    <h4 className="card-title mb-4"><span>Users</span></h4>
 
                                     <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
                                         <thead>
@@ -161,8 +179,9 @@ export class CreateTableEntry extends Component {
     }
 
     handleChange = async (e) => {
-        this.state[e.target.name] = e.target.value;
-        if (this.state.seats !== "") {
+        this.setState({ [e.target.name]: e.target.value });
+        // this.state[e.target.name] = e.target.value;
+        if (this.state.capacity !== "") {
             const admin = getCacheObject(SESSION_KEY_NAME);
             var clubId = admin._id;
             var clubUserList = {
@@ -190,18 +209,87 @@ export class CreateTableEntry extends Component {
         }
     }
 
+    async getuseronload() {
+        const { updated_user, is_edit_screen } = this.props
+        const admin = getCacheObject(SESSION_KEY_NAME);
+        var clubId = admin._id;
+        var clubUserList = {
+            clubId: clubId,
+            search_string: "",
+            limit: 0,
+            page: 0,
+            sorting: { "_id": 1 }
+        }
+
+        var users = await postServiceCALLS(
+            ServiceUrls.CLUB_USERS,
+            {},
+            clubUserList
+        );
+        if (users.data.data !== null) {
+            var assignCheck = users.data.data
+            assignCheck.map((data) => {
+                if (is_edit_screen && updated_user.pools.contains('searchedString')) {
+                    data["checked"] = true;
+                } else {
+                    data["checked"] = false;
+                }
+
+            })
+            if (is_edit_screen) {
+
+                this.setState({
+                    clubUsers: assignCheck,
+                    createdBy: clubId,
+                    is_edit_screen: is_edit_screen,
+                    _id: updated_user._id,
+                    pools: updated_user.pools,
+                    tableName: updated_user.tableName,
+                    tableNo: updated_user.tableNo,
+                    bet: updated_user.bet,
+                    capacity: parseInt(updated_user.capacity),
+                    tableStatus: updated_user.tableStatus,
+                })
+            } else {
+                this.setState({ clubUsers: assignCheck, createdBy: clubId })
+            }
+
+        } else {
+            //no data
+            if (is_edit_screen) {
+                this.setState({
+                    noUsersFound: true,
+                    is_edit_screen: is_edit_screen,
+                    _id: updated_user._id,
+                    pools: updated_user.pools,
+                    tableName: updated_user.tableName,
+                    tableNo: updated_user.tableNo,
+                    bet: updated_user.bet,
+                    capacity: parseInt(updated_user.capacity),
+                    tableStatus: updated_user.tableStatus,
+                })
+            } else {
+                this.setState({ noUsersFound: true })
+            }
+        }
+    }
+
     async submitTableEntry() {
+        const { updated_user, is_edit_screen } = this.props
         let dataObject = {
-            gameType: 2,
+            gameType: 1,
             pointValue: 1,
-            pools: parseInt(this.state.pool),
+            pools: parseInt(this.state.pools),
             tableName: this.state.tableName,
             tableNo: this.state.tableNo,
             bet: this.state.bet,
-            capacity: parseInt(this.state.seats),
+            capacity: parseInt(this.state.capacity),
             tableStatus: this.state.tableStatus,
             createdBy: this.state.createdBy
         };
+        if (is_edit_screen) {
+            dataObject["_id"] = updated_user._id;
+        }
 
         var validation = this.validateform(dataObject);
         if (validation.error) {
@@ -217,15 +305,15 @@ export class CreateTableEntry extends Component {
             ids.push(data._id)
         })
         var seat;
-        if (this.state.seats == 1) {
+        if (this.state.capacity == 1) {
             seat = 2
-        } if (this.state.seats == 2) {
+        } if (this.state.capacity == 2) {
             seat = 6
         }
         if (seat === ids.length) {
             dataObject["users"] = ids;
             var addTableEntry = await postServiceCALLS(
-                ServiceUrls.ADD_TABLE,
+                is_edit_screen ? ServiceUrls.UPDATE_TABLE : ServiceUrls.ADD_TABLE,
                 {},
                 dataObject
             );
@@ -240,11 +328,11 @@ export class CreateTableEntry extends Component {
                     progress: undefined,
                 });
                 this.setState({
-                    pool: 0,
+                    pools: 0,
                     tableName: "",
                     tableNo: "",
                     bet: "",
-                    seats: "",
+                    capacity: "",
                     error: false,
                     errorMessage: "",
                     noUsersFound: false,
@@ -261,12 +349,12 @@ export class CreateTableEntry extends Component {
     }
 
     clearInputFields() {
-        this.refs.pool.value = "";
+        this.refs.pools.value = 0;
         this.refs.tableName.value = "";
         this.refs.tableNo.value = "";
         this.refs.bet.value = "";
-        this.refs.seats.value = "";
-        this.refs.tableStatus.value = "";
+        this.refs.capacity.value = 0;
+        this.refs.tableStatus.value = 0;
     }
 
     async onToggle(e) {
@@ -284,8 +372,8 @@ export class CreateTableEntry extends Component {
     validateform(dataObject) {
         var response = { error: false, errorMessage: "" };
 
-        if (dataObject.pool == "" || dataObject.tableName == ""
-            || dataObject.tableNo == "" || dataObject.bet == "" || dataObject.seats == ""
+        if (dataObject.pools == "" || dataObject.tableName == ""
+            || dataObject.tableNo == "" || dataObject.bet == "" || dataObject.capacity == ""
             || dataObject.tableStatus == "") {
             response.error = true;
             response.errorMessage = "Please fill all details";
@@ -294,34 +382,6 @@ export class CreateTableEntry extends Component {
             return response;
         }
     }
-
-
-
-
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log('getDerivedStateFromProps>>>>>>>>>>>>>>', nextProps)
-        return {
-            updated_user: nextProps.updated_user,
-            is_edit_screen: nextProps.is_edit_screen,
-
-        };
-    }
-
-    componentDidUpdate(nextProps) {
-        const { updated_user, is_edit_screen } = nextProps
-        console.log('componentDidUpdate>>>>>>>>>>>>>>', nextProps)
-        if (nextProps.updated_user._id !== updated_user._id) {
-            this.clearInputFields();
-            this.setState({
-                tableName: updated_user.tableName,
-                _id: updated_user._id,
-                is_edit_screen: is_edit_screen
-            })
-        }
-    }
-
-
 }
 
 export default CreateTableEntry
