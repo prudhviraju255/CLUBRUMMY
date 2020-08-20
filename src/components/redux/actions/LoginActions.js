@@ -63,6 +63,7 @@ export const superAdminlogin = (user) => {
 }
 
 export const userdetails = (user) => {
+    console.log("header>>>", user);
     return dispatch => {
         dispatch(setuserdetails(user));
     };

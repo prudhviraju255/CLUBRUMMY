@@ -1,8 +1,14 @@
 import React, { Component } from 'react'
-import { ToastContainer } from 'react-toastify'
-import { Header } from '../dashboard/Header'
+import Header from '../dashboard/Header'
 import Footer from '../dashboard/Footer'
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import $ from 'jquery';
 import CreateTableEntry from './CreateTableEntry'
+import Constants from '../helpers/Constans';
+const ACTION_STATUS = Constants.ACTION_STATUS;
 
 
 export class TableEntry extends Component {
@@ -15,13 +21,14 @@ export class TableEntry extends Component {
 
   componentDidMount() {
 
+
   }
 
   render() {
     return (
       <div className="container-fluid">
-        {/* Begin page */}
         <ToastContainer />
+        {/* Begin page */}
         <div id="layout-wrapper">
           <Header />
 
@@ -33,7 +40,7 @@ export class TableEntry extends Component {
               <div className="row">
                 <div className="col-12">
                   <div className="page-title-box d-flex align-items-center justify-content-between">
-                    <h4 className="page-title mb-0 font-size-18">Table Entry</h4>
+                    <h4 className="page-title mb-0 font-size-18">Club Registration</h4>
                     <div className="page-title-right">
                       <ol className="breadcrumb m-0">
                         <li className="breadcrumb-item active">Welcome to ClubRummy</li>
@@ -43,6 +50,7 @@ export class TableEntry extends Component {
                 </div>
               </div>
               {/* end page title */}
+
               <CreateTableEntry />
             </div>
             {/* End Page-content */}
@@ -54,6 +62,7 @@ export class TableEntry extends Component {
       </div>
     )
   }
+
 
 }
 

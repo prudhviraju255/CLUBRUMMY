@@ -11,45 +11,25 @@ import { connect } from 'react-redux';
 
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 export class Header extends Component {
-
     constructor(props) {
-        const user = getCacheObject(SESSION_KEY_NAME);
         super(props)
         this.state = {
-
         }
-        // this.props.setuserdetailsfromLocalstore(user);
     }
-
     /**
      * Function for logout
      */
     logout = () => {
         removeSession();
-    }
 
-    renderHeader() {
-        const user = getCacheObject(SESSION_KEY_NAME);
-        switch (user.userType) {
-            case 1:
-                return <SuperAdminLeftSidebar />;
-            case 2:
-                return <AdminLeftSidebar />;
-            case 3:
-                return <UserSidebar />;
-            default:
-                return null;
-        }
-    }
-
-
-
-    async componentDidUpdate(prevProps, prevState) {
-        console.log("user details>>>>componentDidUpdate", this.props.user);
     }
 
     redirectbyUser() {
-        const user = getCacheObject(SESSION_KEY_NAME);
+        const { user } = this.props;
+        if (!user) {
+            return;
+        };
+        const usertype = user ? user.userType : false;
         switch (user.userType) {
             case 1:
                 return (
@@ -72,10 +52,12 @@ export class Header extends Component {
     }
 
     render() {
+        const { user } = this.props;
+        const username = user ? user.clubname : false;
         return (
             <React.Fragment>
 
-                {this.renderHeader()}
+                <AdminLeftSidebar />
                 <header id="page-topbar">
                     <div className="navbar-header">
                         <div className="container-fluid">
@@ -97,11 +79,7 @@ export class Header extends Component {
                                         </form>
                                     </div>
                                 </div>
-                                <div className="dropdown d-none d-lg-inline-block ml-1">
-                                    <button type="button" className="btn header-item noti-icon waves-effect" data-toggle="fullscreen">
-                                        <i className="mdi mdi-fullscreen" />
-                                    </button>
-                                </div>
+
                                 <div className="dropdown d-inline-block">
                                     <button type="button" className="btn header-item noti-icon waves-effect" id="page-header-notifications-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i className="mdi mdi-bell-outline" />
@@ -185,8 +163,7 @@ export class Header extends Component {
                                 </div>
                                 <div className="dropdown d-inline-block">
                                     <button type="button" className="btn header-item waves-effect" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <img className="rounded-circle header-profile-user" src="/assets/images/users/avatar-2.jpg" alt="Header Avatar" />
-                                        <span className="d-none d-xl-inline-block ml-1">Administrator</span>
+                                        <span className="d-none d-xl-inline-block ml-1">Profile</span>
                                         <i className="mdi mdi-chevron-down d-none d-xl-inline-block" />
                                     </button>
                                     <div className="dropdown-menu dropdown-menu-right">
@@ -231,7 +208,12 @@ export class Header extends Component {
             </React.Fragment>
         )
     }
+    componentDidMount() {
+        const user = getCacheObject(SESSION_KEY_NAME);
+        this.props.setuserdetailsfromLocalstore(user);
+    }
 }
+
 
 const mapStateToProps = state => {
     const { error, loading, user, isUserLogIn } = state.auth;
@@ -243,7 +225,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         setuserdetailsfromLocalstore: user => {
-
             dispatch(userdetails(user));
         }
     };

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from "react-router-dom";
-import Header from './Header';
-import Dashboard from './Dashboard';
+import { userdetails } from '../redux/actions/LoginActions';
+import { connect } from 'react-redux';
 
 export class LeftSidebar extends Component {
     constructor(props) {
@@ -15,6 +15,9 @@ export class LeftSidebar extends Component {
         this.setState({ cashGame: !this.state.cashGame })
     }
     render() {
+        const { user } = this.props;
+        const username = user ? user.clubname : false;
+        const usertype = user ? user.userType : false;
         return (
             <div>
                 {/* sidebar start here */}
@@ -25,52 +28,83 @@ export class LeftSidebar extends Component {
                                 <img src="assets/images/users/avatar-2.jpg" alt="" className="avatar-md mx-auto rounded-circle" />
                             </div>
                             <div className="mt-3">
-                                <a href="#" className="text-dark font-weight-medium font-size-16">Administrator</a>
-                                <p className="text-body mt-1 mb-0 font-size-13">Club Rummy</p>
+                                <a href="#" className="text-dark font-weight-medium font-size-16">{username}</a>
+
                             </div>
                         </div>
                         {/*- Sidemenu */}
                         <div id="sidebar-menu">
                             {/* Left Menu Start */}
-                            <ul className="metismenu list-unstyled" id="side-menu">
-                                <li className="menu-title">Menu</li>
-                                <Link to="/admin/dashboard">
+                            {usertype == 1 ?
+                                <ul className="metismenu list-unstyled" id="side-menu">
+                                    <li className="menu-title">Menu</li>
+                                    <Link to="/superadmin/dashboard">
+                                        <li>
+                                            <a className=" waves-effect">
+                                                <i className="mdi mdi-calendar-text" />
+                                                <span>Dashboard</span>
+                                            </a>
+                                        </li>
+                                    </Link>
                                     <li>
-                                        <a className=" waves-effect">
+                                        <Link to="/superadmin/club-registration" className=" waves-effect">
                                             <i className="mdi mdi-calendar-text" />
-                                            <span>Dashboard</span>
-                                        </a>
+                                            <span>Clubs</span>
+                                        </Link>
                                     </li>
-                                </Link>
-
-                                <Link to="/admin/club-players">
                                     <li>
-                                        <a className=" waves-effect">
-                                            <i className="mdi mdi-calendar-text" />
-                                            <span>Club Players</span>
-                                        </a>
-                                    </li>
-                                </Link>
-                                <Link to="/admin/table-entry">
-                                    <li>
-                                        <a className=" waves-effect">
+                                        <Link to="/superadmin/table-entry" className=" waves-effect">
                                             <i className="mdi mdi-calendar-text" />
                                             <span>Table Entry</span>
-                                        </a>
+                                        </Link>
                                     </li>
-                                </Link>
+                                </ul> : null}
 
-                                <Link to="/admin/games">
-                                    <li>
-                                        <a className=" waves-effect">
-                                            <i className="mdi mdi-calendar-text" />
-                                            <span>Games</span>
-                                        </a>
-                                    </li>
-                                </Link>
+                            {usertype == 2 ?
+                                <ul className="metismenu list-unstyled" id="side-menu">
+                                    <li className="menu-title">Menu</li>
+                                    <Link to="/admin/dashboard">
+                                        <li>
+                                            <a className=" waves-effect">
+                                                <i className="mdi mdi-calendar-text" />
+                                                <span>Dashboard</span>
+                                            </a>
+                                        </li>
+                                    </Link>
+
+                                    <Link to="/admin/club-players">
+                                        <li>
+                                            <a className=" waves-effect">
+                                                <i className="mdi mdi-calendar-text" />
+                                                <span>Club Players</span>
+                                            </a>
+                                        </li>
+                                    </Link>
+                                    <Link to="/admin/table-entry">
+                                        <li>
+                                            <a className=" waves-effect">
+                                                <i className="mdi mdi-calendar-text" />
+                                                <span>Table Entry</span>
+                                            </a>
+                                        </li>
+                                    </Link>
+
+                                    <Link to="/admin/games">
+                                        <li>
+                                            <a className=" waves-effect">
+                                                <i className="mdi mdi-calendar-text" />
+                                                <span>Games</span>
+                                            </a>
+                                        </li>
+                                    </Link>
+                                </ul> : null}
+
+                            {usertype == 3 ?
+                                <ul className="metismenu list-unstyled" id="side-menu">
+                                    <li className="menu-title">Menu</li>
+                                </ul> : null}
 
 
-                            </ul>
                         </div>
                     </div>
                 </div>
@@ -79,5 +113,12 @@ export class LeftSidebar extends Component {
         )
     }
 }
+const mapStateToProps = state => {
+    const { user } = state.auth;
+    return {
+        user
+    }
+};
 
-export default LeftSidebar
+export default connect(mapStateToProps, null)(LeftSidebar);
+
