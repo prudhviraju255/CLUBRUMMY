@@ -12,6 +12,7 @@ import SuperAdminprotectedRoute from './SuperAdminprotectedRoute';
 import AdminProtectedRoute from './AdminProtectedRoute'
 import ProtectedRoute from './protectedRoute'
 import TableEntry from '../admin/TableEntry';
+import Socket from '../socket/Socket';
 
 
 
@@ -35,7 +36,7 @@ export default class AppRoutes extends Component {
                     <Route exact path="/admin/table-entry" component={TableEntry} />
                     <Route exact path="/admin/games" component={Games} />
                     <Route exact path="/admin/cash-games/point-rummy" component={CG_PointRummy} />
-
+                    <Route exact path="/socket" component={Socket} />
 
                     {/* <Route path="/dashboard" component={Dashboard}> */}
 

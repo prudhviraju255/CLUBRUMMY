@@ -41,11 +41,7 @@ export class CreateClubRegisterUser extends Component {
                 <div className="col-12">
                     <div className="card box-big-shadow">
                         <div className="card-body">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a>Add New Club</a></li>
-                                </ol>
-                            </nav>
+                            <h4 className="">Add New Club</h4>
 
                             <form className="repeater" encType="multipart/form-data">
                                 <div data-repeater-list="group-a">
@@ -87,7 +83,7 @@ export class CreateClubRegisterUser extends Component {
                                             <input type="password" id="password" ref="password" name="password" onChange={this.handleChange} className="form-control" />
                                         </div>
                                         <div className="col-lg-2 align-self-cente">
-                                        <label htmlFor="subject">&nbsp;</label>
+                                            <label htmlFor="subject">&nbsp;</label>
                                             <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.clubregistration()} >Add Club</button>
                                         </div>
                                     </div>

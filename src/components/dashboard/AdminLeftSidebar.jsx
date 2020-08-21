@@ -45,14 +45,14 @@ export class LeftSidebar extends Component {
                             {usertype == 1 ?
                                 <ul className="metismenu list-unstyled" id="side-menu">
                                     <li className="menu-title">Menu</li>
-                                    <Link to="/superadmin/dashboard">
-                                        <li>
-                                            <a className=" waves-effect">
-                                                <i className="mdi mdi-airplay" />
-                                                <span>Dashboard</span>
-                                            </a>
-                                        </li>
-                                    </Link>
+
+                                    <li>
+                                        <Link to="/superadmin/dashboard" className=" waves-effect">
+                                            <i className="mdi mdi-airplay" />
+                                            <span>Dashboard</span>
+                                        </Link>
+                                    </li>
+
                                     <li>
                                         <Link to="/superadmin/club-registration" className=" waves-effect">
                                             <i className="mdi mdi-cards-club" />
@@ -65,31 +65,31 @@ export class LeftSidebar extends Component {
                             {usertype == 2 ?
                                 <ul className="metismenu list-unstyled" id="side-menu">
                                     <li className="menu-title">Menu</li>
-                                    <Link to="/admin/dashboard">
-                                        <li>
-                                            <a className=" waves-effect">
-                                                <i className="mdi mdi-airplay" />
-                                                <span>Dashboard</span>
-                                            </a>
-                                        </li>
-                                    </Link>
 
-                                    <Link to="/admin/club-players">
-                                        <li>
-                                            <a className=" waves-effect">
-                                                <i className="mdi mdi-account-circle-outline" />
-                                                <span>Club Players</span>
-                                            </a>
-                                        </li>
-                                    </Link>
-                                    <Link to="/admin/table-entry">
-                                        <li>
-                                            <a className=" waves-effect">
-                                                <i className="mdi mdi-clipboard-list-outline" />
-                                                <span>Table Entry</span>
-                                            </a>
-                                        </li>
-                                    </Link>
+                                    <li>
+                                        <Link to="/admin/dashboard" className="waves-effect">
+                                            <i className="mdi mdi-airplay" />
+                                            <span>Dashboard</span>
+                                        </Link>
+                                    </li>
+
+
+
+                                    <li>
+                                        <Link to="/admin/club-players" className=" waves-effect">
+                                            <i className="mdi mdi-account-circle-outline" />
+                                            <span>Club Players</span>
+                                        </Link>
+                                    </li>
+
+
+                                    <li>
+                                        <Link to="/admin/table-entry" className=" waves-effect">
+                                            <i className="mdi mdi-clipboard-list-outline" />
+                                            <span>Table Entry</span>
+                                        </Link>
+                                    </li>
+
 
                                     <Link to="/admin/games">
                                         <li>

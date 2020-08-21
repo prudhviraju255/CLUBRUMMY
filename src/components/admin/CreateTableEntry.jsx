@@ -74,28 +74,11 @@ export class CreateTableEntry extends Component {
                 <div className="col-12">
                     <div className="card box-big-shadow">
                         <div className="card-body">
-                            {this.state.is_edit_screen ?
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a onClick={() => this.props.isUpdateUsersList(true, ACTION_STATUS.OTHERS)}>Games</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">{this.state.tableName}</li>
-                                    </ol>
-                                </nav> :
-                                <nav aria-label="breadcrumb">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a>Create GameTable</a></li>
-                                    </ol>
-                                </nav>}
-                        </div>
-
-
-                        <div className="col-lg-2 align-self-end pr-3">
-                            <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.submitTableEntry()} >Submit</button>
-                        </div>
-                        {this.state.noUsersFound == true && <p className="text-danger">No users found</p>}
-                        <p className="text-danger">{this.state.errorMessage}</p>
-
-                        <div className="card-body">
+                            <div className="col-lg-12 align-self-end  text-right">
+                                <button type="button" data-repeater-delete type="button" className="btn btn-primary  align-self-end" onClick={() => this.submitTableEntry()} >Submit</button>
+                            </div>
+                            {this.state.noUsersFound == true && <p className="text-danger">No users found</p>}
+                            <p className="text-danger">{this.state.errorMessage}</p>
                             <form className="repeater" encType="multipart/form-data">
                                 <div data-repeater-list="group-a">
                                     <div data-repeater-item className="row">
