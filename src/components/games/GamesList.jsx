@@ -24,19 +24,13 @@ export class ClubRegistratedUsers extends Component {
         var rows = []
 
         this.state.clubableslist.forEach((t, sno) => {
-            var gamestatus = "";
-            if (t.tableStatus === 0) {
-                gamestatus = <button type="button" class="btn btn-success">Active</button>;
-            } else if (t.tableStatus === 1) {
-                gamestatus = <button type="button" class="btn btn-danger">Stop</button>;
-            }
+
             rows.push(
                 <tr>
                     <td>{sno + 1}</td>
                     <td>{t.tableName}</td>
                     <td>{t.tableNo}</td>
                     <td>{t.bet}</td>
-                    <td>{gamestatus}</td>
                     <td>
                         <i onClick={() => this.props.editUser(t)} className="fa fa-edit" />
                         <i onClick={() => this.props.deleteUser(t)} data-toggle="modal" data-target="#deleteclubModal" className="fa fa-trash" />
@@ -58,7 +52,6 @@ export class ClubRegistratedUsers extends Component {
                                         <th>tableName</th>
                                         <th>tableNo</th>
                                         <th>bet</th>
-                                        <th>tableStatus</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

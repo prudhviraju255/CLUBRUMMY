@@ -23,7 +23,6 @@ export class CreateTableEntry extends Component {
             tableNo: "",
             bet: "",
             capacity: "",
-            tableStatus: "",
             error: false,
             errorMessage: "",
             noUsersFound: false,
@@ -49,7 +48,6 @@ export class CreateTableEntry extends Component {
                 tableNo: updated_user.tableNo,
                 bet: updated_user.bet,
                 capacity: parseInt(updated_user.capacity),
-                tableStatus: updated_user.tableStatus,
             })
 
         }
@@ -63,7 +61,7 @@ export class CreateTableEntry extends Component {
         this.state.clubUsers.forEach((t, sno) => {
             rows.push(
                 <tr key={sno}>
-                    <td><input type="checkbox" value={sno} onChange={(e) => this.onToggle(e)} /></td>
+                    <td><input type="checkbox" value={sno} checked={t.checked} onChange={(e) => this.onToggle(e)} /></td>
                     <td>{t.username}</td>
                     <td>{t.email}</td>
                     <td>{t.mobileno}</td>
@@ -123,14 +121,7 @@ export class CreateTableEntry extends Component {
                                                 </select>
                                             </div>
 
-                                            <div className="form-group col-lg-6">
-                                                <label htmlFor="name">Table Status</label>
-                                                <select className="form-control" value={this.state.tableStatus} ref="tableStatus" name="tableStatus" id="tableStatus" onChange={this.handleChange}>
-                                                    <option value='0'>-- Select --</option>
-                                                    <option value='1'>Stop</option>
-                                                    <option value='2'>Live</option>
-                                                </select>
-                                            </div>
+
 
 
 
@@ -181,32 +172,7 @@ export class CreateTableEntry extends Component {
     handleChange = async (e) => {
         this.setState({ [e.target.name]: e.target.value });
         // this.state[e.target.name] = e.target.value;
-        if (this.state.capacity !== "") {
-            const admin = getCacheObject(SESSION_KEY_NAME);
-            var clubId = admin._id;
-            var clubUserList = {
-                clubId: clubId,
-                search_string: "",
-                limit: 0,
-                page: 0,
-                sorting: { "_id": 1 }
-            }
 
-            var users = await postServiceCALLS(
-                ServiceUrls.CLUB_USERS,
-                {},
-                clubUserList
-            );
-            if (users.data.data !== null) {
-                var assignCheck = users.data.data
-                assignCheck.map((data) => {
-                    data["checked"] = false;
-                })
-                this.setState({ clubUsers: assignCheck, createdBy: clubId })
-            } else {
-                this.setState({ noUsersFound: true })
-            }
-        }
     }
 
     async getuseronload() {
@@ -229,15 +195,16 @@ export class CreateTableEntry extends Component {
         if (users.data.data !== null) {
             var assignCheck = users.data.data
             assignCheck.map((data) => {
-                if (is_edit_screen && updated_user.pools.contains('searchedString')) {
+                if (is_edit_screen && updated_user.users.indexOf(data.username) > -1) {
                     data["checked"] = true;
+
                 } else {
                     data["checked"] = false;
                 }
 
             })
             if (is_edit_screen) {
-
+                var checkedItems = assignCheck.filter(item => item.checked)
                 this.setState({
                     clubUsers: assignCheck,
                     createdBy: clubId,
@@ -248,14 +215,14 @@ export class CreateTableEntry extends Component {
                     tableNo: updated_user.tableNo,
                     bet: updated_user.bet,
                     capacity: parseInt(updated_user.capacity),
-                    tableStatus: updated_user.tableStatus,
+                    checkedItems: checkedItems
                 })
             } else {
                 this.setState({ clubUsers: assignCheck, createdBy: clubId })
             }
 
         } else {
-            //no data
+            //no users list data
             if (is_edit_screen) {
                 this.setState({
                     noUsersFound: true,
@@ -266,7 +233,6 @@ export class CreateTableEntry extends Component {
                     tableNo: updated_user.tableNo,
                     bet: updated_user.bet,
                     capacity: parseInt(updated_user.capacity),
-                    tableStatus: updated_user.tableStatus,
                 })
             } else {
                 this.setState({ noUsersFound: true })
@@ -284,7 +250,6 @@ export class CreateTableEntry extends Component {
             tableNo: this.state.tableNo,
             bet: this.state.bet,
             capacity: parseInt(this.state.capacity),
-            tableStatus: this.state.tableStatus,
             createdBy: this.state.createdBy
         };
         if (is_edit_screen) {
@@ -318,29 +283,44 @@ export class CreateTableEntry extends Component {
                 dataObject
             );
             if (addTableEntry.code == 200) {
-                toast.success('Added Successfully.', {
-                    position: "top-right",
-                    autoClose: 5000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: false,
-                    progress: undefined,
-                });
-                this.setState({
-                    pools: 0,
-                    tableName: "",
-                    tableNo: "",
-                    bet: "",
-                    capacity: "",
-                    error: false,
-                    errorMessage: "",
-                    noUsersFound: false,
-                    clubUsers: [],
-                    items: [],
-                    checkedItems: [],
-                    createdBy: ""
-                })
+                if (is_edit_screen) {
+                    toast.success('Updated Successfully.', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: false,
+                        progress: undefined,
+                    });
+                    this.props.isUpdateUsersList(true, ACTION_STATUS.OTHERS);
+                    return;
+                } else {
+                    toast.success('Added Successfully.', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: false,
+                        progress: undefined,
+                    });
+                    this.setState({
+                        pools: 0,
+                        tableName: "",
+                        tableNo: "",
+                        bet: "",
+                        capacity: "",
+                        error: false,
+                        errorMessage: "",
+                        noUsersFound: false,
+                        clubUsers: [],
+                        items: [],
+                        checkedItems: [],
+                        createdBy: ""
+                    })
+                }
+
                 this.clearInputFields()
             }
         } else {
@@ -354,7 +334,6 @@ export class CreateTableEntry extends Component {
         this.refs.tableNo.value = "";
         this.refs.bet.value = "";
         this.refs.capacity.value = 0;
-        this.refs.tableStatus.value = 0;
     }
 
     async onToggle(e) {
@@ -373,8 +352,7 @@ export class CreateTableEntry extends Component {
         var response = { error: false, errorMessage: "" };
 
         if (dataObject.pools == "" || dataObject.tableName == ""
-            || dataObject.tableNo == "" || dataObject.bet == "" || dataObject.capacity == ""
-            || dataObject.tableStatus == "") {
+            || dataObject.tableNo == "" || dataObject.bet == "" || dataObject.capacity == "") {
             response.error = true;
             response.errorMessage = "Please fill all details";
             return response;

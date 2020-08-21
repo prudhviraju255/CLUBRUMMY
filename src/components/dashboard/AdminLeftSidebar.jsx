@@ -28,7 +28,7 @@ export class LeftSidebar extends Component {
                                 <img src="assets/images/users/avatar-2.jpg" alt="" className="avatar-md mx-auto rounded-circle" />
                             </div>
                             <div className="mt-3">
-                                <a href="#" className="text-dark font-weight-medium font-size-16">{username}</a>
+                                <a className="text-dark font-weight-medium font-size-16">{username}</a>
 
                             </div>
                         </div>
@@ -52,12 +52,7 @@ export class LeftSidebar extends Component {
                                             <span>Clubs</span>
                                         </Link>
                                     </li>
-                                    <li>
-                                        <Link to="/superadmin/table-entry" className=" waves-effect">
-                                            <i className="mdi mdi-calendar-text" />
-                                            <span>Table Entry</span>
-                                        </Link>
-                                    </li>
+
                                 </ul> : null}
 
                             {usertype == 2 ?
