@@ -16,8 +16,15 @@ export class LeftSidebar extends Component {
     }
     render() {
         const { user } = this.props;
-        const username = user ? user.clubname : false;
+        var username = "";
         const usertype = user ? user.userType : false;
+        if (usertype && usertype == 2) {
+            username = user ? user.clubname : false;
+        } else {
+            username = user ? user.username : false;
+        }
+
+
         return (
             <div>
                 {/* sidebar start here */}
@@ -97,6 +104,14 @@ export class LeftSidebar extends Component {
                             {usertype == 3 ?
                                 <ul className="metismenu list-unstyled" id="side-menu">
                                     <li className="menu-title">Menu</li>
+                                    <Link to="/dashboard">
+                                        <li>
+                                            <a className=" waves-effect">
+                                                <i className="mdi mdi-calendar-text" />
+                                                <span>Dashboard</span>
+                                            </a>
+                                        </li>
+                                    </Link>
                                 </ul> : null}
 
 

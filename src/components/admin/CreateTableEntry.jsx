@@ -70,101 +70,93 @@ export class CreateTableEntry extends Component {
         });
         console.log('pool>>>>>>>>', this.state.pools)
         return (
-
-            <>
-                <div className="row">
-                    <div className="col-12">
-                        <div className="card box-big-shadow">
+            <div className="row">
+                <div className="col-12">
+                    <div className="card box-big-shadow">
+                        <div className="card-body">
                             {this.state.is_edit_screen ?
-                                <h4 className="card-header mt-0"><span onClick={() => this.props.isUpdateUsersList(true, ACTION_STATUS.OTHERS)}>Games</span><span>/</span><span>{this.state.tableName}</span></h4> : <h4 className="card-header mt-0">Add Table</h4>}
-                            <div className="col-lg-2 align-self-center">
-                                <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.submitTableEntry()} >Submit</button>
-                            </div>
-                            {this.state.noUsersFound == true && <p className="text-danger">No users found</p>}
-                            <p className="text-danger">{this.state.errorMessage}</p>
-
-                            <div className="card-body">
-                                <form className="repeater" encType="multipart/form-data">
-                                    <div data-repeater-list="group-a">
-                                        <div data-repeater-item className="row">
-
-                                            <div className="form-group col-lg-6">
-                                                <label htmlFor="name">Pools</label>
-                                                <select className="form-control" value={this.state.pools} ref="pools" name="pools" id="pools" onChange={this.handleChange}>
-                                                    <option value='0' >-- Select --</option>
-                                                    <option value='1' >101 pools</option>
-                                                    <option value='2' >201 pools</option>
-                                                </select>
-                                            </div>
-
-                                            <div className="form-group col-lg-6">
-                                                <label htmlFor="name">Table Name</label>
-                                                <input type="text" placeholder="Enter Table Name" value={this.state.tableName} id="tableName" ref="tableName" name="tableName" className="form-control" onChange={this.handleChange} />
-                                            </div>
-
-                                            <div className="form-group col-lg-6">
-                                                <label htmlFor="subject">Table Number</label>
-                                                <input type="number" placeholder="Enter Table Number" value={this.state.tableNo} id="tableNo" ref="tableNo" name="tableNo" onChange={this.handleChange} className="form-control removeSpinner" />
-                                            </div>
-
-                                            <div className="form-group col-lg-6">
-                                                <label htmlFor="name">Bet/Entry</label>
-                                                <input type="text" placeholder="Enter Bet" value={this.state.bet} id="bet" ref="bet" onChange={this.handleChange} name="bet" className="form-control" />
-                                            </div>
-
-                                            <div className="form-group col-lg-6">
-                                                <label htmlFor="name">Sitting Capacity</label>
-                                                <select className="form-control" value={this.state.capacity} ref="capacity" name="capacity" id="capacity" onChange={this.handleChange}>
-                                                    <option value='0'>-- Select --</option>
-                                                    <option value='1'>2 Seats</option>
-                                                    <option value='2'>6 Seats</option>
-                                                </select>
-                                            </div>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a onClick={() => this.props.isUpdateUsersList(true, ACTION_STATUS.OTHERS)}>Games</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">{this.state.tableName}</li>
+                                    </ol>
+                                </nav> :
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a>Create GameTable</a></li>
+                                    </ol>
+                                </nav>}
+                        </div>
 
 
+                        <div className="col-lg-2 align-self-center">
+                            <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.submitTableEntry()} >Submit</button>
+                        </div>
+                        {this.state.noUsersFound == true && <p className="text-danger">No users found</p>}
+                        <p className="text-danger">{this.state.errorMessage}</p>
 
+                        <div className="card-body">
+                            <form className="repeater" encType="multipart/form-data">
+                                <div data-repeater-list="group-a">
+                                    <div data-repeater-item className="row">
 
+                                        <div className="form-group col-lg-6">
+                                            <label htmlFor="name">Pools</label>
+                                            <select className="form-control" value={this.state.pools} ref="pools" name="pools" id="pools" onChange={this.handleChange}>
+                                                <option value='0' >-- Select --</option>
+                                                <option value='1' >101 pools</option>
+                                                <option value='2' >201 pools</option>
+                                            </select>
+                                        </div>
 
+                                        <div className="form-group col-lg-6">
+                                            <label htmlFor="name">Table Name</label>
+                                            <input type="text" placeholder="Enter Table Name" value={this.state.tableName} id="tableName" ref="tableName" name="tableName" className="form-control" onChange={this.handleChange} />
+                                        </div>
+
+                                        <div className="form-group col-lg-6">
+                                            <label htmlFor="subject">Table Number</label>
+                                            <input type="number" placeholder="Enter Table Number" value={this.state.tableNo} id="tableNo" ref="tableNo" name="tableNo" onChange={this.handleChange} className="form-control removeSpinner" />
+                                        </div>
+
+                                        <div className="form-group col-lg-6">
+                                            <label htmlFor="name">Bet/Entry</label>
+                                            <input type="text" placeholder="Enter Bet" value={this.state.bet} id="bet" ref="bet" onChange={this.handleChange} name="bet" className="form-control" />
+                                        </div>
+
+                                        <div className="form-group col-lg-6">
+                                            <label htmlFor="name">Sitting Capacity</label>
+                                            <select className="form-control" value={this.state.capacity} ref="capacity" name="capacity" id="capacity" onChange={this.handleChange}>
+                                                <option value='0'>-- Select --</option>
+                                                <option value='1'>2 Seats</option>
+                                                <option value='2'>6 Seats</option>
+                                            </select>
                                         </div>
                                     </div>
-                                </form>
-                                <p>{this.state.errorMessage}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div >
-
-                {this.state.clubUsers.length > 0 ?
-                    <div className="row">
-                        <div className="col-12">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h4 className="card-title mb-4"><span>Users</span></h4>
-
-                                    <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
-                                        <thead>
-                                            <tr>
-                                                <th></th>
-                                                <th>Username</th>
-                                                <th>Email</th>
-                                                <th>Mobile</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {rows}
-                                        </tbody>
-                                    </table>
-
-
                                 </div>
-                            </div>
+                            </form>
                         </div>
-                        {/* end col */}
-
-
+                        {this.state.clubUsers.length > 0 ?
+                            <div className="card-body">
+                                <h4 className="card-title mb-4"><span>Users</span></h4>
+                                <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Username</th>
+                                            <th>Email</th>
+                                            <th>Mobile</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {rows}
+                                    </tbody>
+                                </table>
+                            </div> : null}
                     </div>
-                    : null}
-            </>
+                </div>
+            </div >
+
 
         )
     }

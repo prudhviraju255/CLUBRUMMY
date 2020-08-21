@@ -44,7 +44,11 @@ export class ClubRegistratedUsers extends Component {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-body">
-                            <h4 className="card-title mb-4">Games</h4>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a>Games</a></li>
+                                </ol>
+                            </nav>
                             <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
                                 <thead>
                                     <tr>

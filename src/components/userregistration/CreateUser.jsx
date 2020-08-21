@@ -39,8 +39,13 @@ export class CreateUser extends Component {
             <div className="row">
                 <div className="col-12">
                     <div className="card box-big-shadow">
-                        <h4 className="card-header mt-0">Add New User</h4>
                         <div className="card-body">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a>Add New User</a></li>
+                                </ol>
+                            </nav>
+
                             <form className="repeater" encType="multipart/form-data">
                                 <div data-repeater-list="group-a">
                                     <div data-repeater-item className="row">
@@ -57,6 +62,11 @@ export class CreateUser extends Component {
                                         <div className="form-group col-lg-3">
                                             <label htmlFor="email">Email</label>
                                             <input type="email" id="email" ref="email" name="email" onChange={this.handleChange} className="form-control" />
+                                        </div>
+
+                                        <div className="form-group col-lg-3">
+                                            <label htmlFor="email">MobileNo</label>
+                                            <input type="email" id="mobileno" ref="mobileno" name="mobileno" onChange={this.handleChange} className="form-control" />
                                         </div>
 
                                         <div className="form-group col-lg-3">
@@ -113,6 +123,7 @@ export class CreateUser extends Component {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
             email: this.state.email,
+            mobileno: this.state.mobileno,
             username: this.state.username,
             password: this.state.password,
             clubId: user._id
@@ -161,6 +172,7 @@ export class CreateUser extends Component {
         this.refs.lastname.value = "";
         this.refs.email.value = "";
         this.refs.username.value = "";
+        this.refs.mobileno.value = "";
         this.refs.password.value = "";
     }
 

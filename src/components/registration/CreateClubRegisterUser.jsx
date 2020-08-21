@@ -40,8 +40,13 @@ export class CreateClubRegisterUser extends Component {
             <div className="row">
                 <div className="col-12">
                     <div className="card box-big-shadow">
-                        <h4 className="card-header mt-0">Add New Club</h4>
                         <div className="card-body">
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a>Add New Club</a></li>
+                                </ol>
+                            </nav>
+
                             <form className="repeater" encType="multipart/form-data">
                                 <div data-repeater-list="group-a">
                                     <div data-repeater-item className="row">

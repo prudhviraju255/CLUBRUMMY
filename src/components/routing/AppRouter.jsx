@@ -21,6 +21,8 @@ export default class AppRoutes extends Component {
             <HashRouter>
                 <Switch>
                     <Route path="/" exact component={Login} />
+                    <Route path="/login" exact component={Login} />
+                    <Route path="/dashboard" exact component={Dashboard} />
 
                     <Route path="/superadmin/login" exact component={SuperAdminLogin} />
                     <Route exact path="/superadmin/dashboard" component={Dashboard} />
