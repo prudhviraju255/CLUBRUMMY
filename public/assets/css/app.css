@@ -2770,3 +2770,11 @@ input[switch="dark"]:checked + label {
   -webkit-appearance: none; 
   margin: 0; 
 }
+
+.table thead th{
+  font-weight: 700;
+  background-color: #f0f0f0;
+}
+.vertical-menu{
+  min-height: calc(100vh - 100px);
+}

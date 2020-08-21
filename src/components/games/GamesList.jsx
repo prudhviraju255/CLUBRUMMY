@@ -32,8 +32,8 @@ export class ClubRegistratedUsers extends Component {
                     <td>{t.tableNo}</td>
                     <td>{t.bet}</td>
                     <td>
-                        <i onClick={() => this.props.editUser(t)} className="fa fa-edit" />
-                        <i onClick={() => this.props.deleteUser(t)} data-toggle="modal" data-target="#deleteclubModal" className="fa fa-trash" />
+                        <i onClick={() => this.props.editUser(t)} className="fa fa-edit pr-2 text-info" />
+                        <i onClick={() => this.props.deleteUser(t)} data-toggle="modal" data-target="#deleteclubModal" className="fa fa-trash text-danger" />
                     </td>
                 </tr>
             );
@@ -42,13 +42,19 @@ export class ClubRegistratedUsers extends Component {
         return (
             <div className="row">
                 <div className="col-12">
-                    <div className="card">
-                        <div className="card-body">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
+                <div className="card">
+                        <div className="card-body p-0">
+                        <nav aria-label="breadcrumb mb-0">
+                                <ol class="breadcrumb m-0 bg-white">
                                     <li class="breadcrumb-item"><a>Games</a></li>
                                 </ol>
                             </nav>
+                            </div>
+                            
+                        </div>
+
+                    <div className="card">
+                        <div className="card-body">
                             <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
                                 <thead>
                                     <tr>

@@ -38,13 +38,20 @@ export class CreateUser extends Component {
         return (
             <div className="row">
                 <div className="col-12">
-                    <div className="card box-big-shadow">
-                        <div className="card-body">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
+                    <div className="card">
+                        <div className="card-body p-0">
+                        <nav aria-label="breadcrumb mb-0">
+                                <ol class="breadcrumb m-0 bg-white">
                                     <li class="breadcrumb-item"><a>Add New User</a></li>
                                 </ol>
                             </nav>
+                            </div>
+                            
+                        </div>
+                    <div className="card box-big-shadow">
+                        <div className="card-body">
+                            
+                            <h4 className="">Add New User</h4>
 
                             <form className="repeater" encType="multipart/form-data">
                                 <div data-repeater-list="group-a">
@@ -77,7 +84,8 @@ export class CreateUser extends Component {
                                             <label htmlFor="subject">Password</label>
                                             <input type="password" id="password" ref="password" name="password" onChange={this.handleChange} className="form-control" />
                                         </div>
-                                        <div className="col-lg-2 align-self-center">
+                                        <div className="col-lg-2 align-self-cente">
+                                        <label htmlFor="subject">&nbsp;</label>
                                             <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.clubregistration()} >Add User</button>
                                         </div>
                                     </div>

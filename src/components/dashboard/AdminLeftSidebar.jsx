@@ -68,7 +68,7 @@ export class LeftSidebar extends Component {
                                     <Link to="/admin/dashboard">
                                         <li>
                                             <a className=" waves-effect">
-                                                <i className="mdi mdi-calendar-text" />
+                                                <i className="mdi mdi-airplay" />
                                                 <span>Dashboard</span>
                                             </a>
                                         </li>
@@ -77,7 +77,7 @@ export class LeftSidebar extends Component {
                                     <Link to="/admin/club-players">
                                         <li>
                                             <a className=" waves-effect">
-                                                <i className="mdi mdi-calendar-text" />
+                                                <i className="mdi mdi-account-circle-outline" />
                                                 <span>Club Players</span>
                                             </a>
                                         </li>
@@ -85,7 +85,7 @@ export class LeftSidebar extends Component {
                                     <Link to="/admin/table-entry">
                                         <li>
                                             <a className=" waves-effect">
-                                                <i className="mdi mdi-calendar-text" />
+                                                <i className="mdi mdi-clipboard-list-outline" />
                                                 <span>Table Entry</span>
                                             </a>
                                         </li>
@@ -94,7 +94,7 @@ export class LeftSidebar extends Component {
                                     <Link to="/admin/games">
                                         <li>
                                             <a className=" waves-effect">
-                                                <i className="mdi mdi-calendar-text" />
+                                                <i className="mdi mdi-gamepad-variant-outline" />
                                                 <span>Games</span>
                                             </a>
                                         </li>

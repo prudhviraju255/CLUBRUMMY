@@ -36,8 +36,8 @@ export class RegisteredUsers extends Component {
                     <td>{t.mobileno}</td>
                     <td>{t.username}</td>
                     <td>
-                        <i onClick={() => this.props.editUser(t)} data-toggle="modal" data-target="#exampleModal" className="fa fa-edit" />
-                        <i onClick={() => this.props.deleteUser(t)} data-toggle="modal" data-target="#deleteclubModal" className="fa fa-trash" />
+                        <i onClick={() => this.props.editUser(t)} data-toggle="modal" data-target="#exampleModal" className="fa fa-edit pr-2 text-info" />
+                        <i onClick={() => this.props.deleteUser(t)} data-toggle="modal" data-target="#deleteclubModal" className="fa fa-trash text-danger" />
                     </td>
                 </tr>
             );

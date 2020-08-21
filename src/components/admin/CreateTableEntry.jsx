@@ -89,7 +89,7 @@ export class CreateTableEntry extends Component {
                         </div>
 
 
-                        <div className="col-lg-2 align-self-center">
+                        <div className="col-lg-2 align-self-end pr-3">
                             <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.submitTableEntry()} >Submit</button>
                         </div>
                         {this.state.noUsersFound == true && <p className="text-danger">No users found</p>}
@@ -138,7 +138,7 @@ export class CreateTableEntry extends Component {
                         </div>
                         {this.state.clubUsers.length > 0 ?
                             <div className="card-body">
-                                <h4 className="card-title mb-4"><span>Users</span></h4>
+                                <h4 className="card-title mb-4"><b>Users</b></h4>
                                 <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
                                     <thead>
                                         <tr>

@@ -86,7 +86,8 @@ export class CreateClubRegisterUser extends Component {
                                             <label htmlFor="subject">Password</label>
                                             <input type="password" id="password" ref="password" name="password" onChange={this.handleChange} className="form-control" />
                                         </div>
-                                        <div className="col-lg-2 align-self-center">
+                                        <div className="col-lg-2 align-self-cente">
+                                        <label htmlFor="subject">&nbsp;</label>
                                             <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.clubregistration()} >Add Club</button>
                                         </div>
                                     </div>
