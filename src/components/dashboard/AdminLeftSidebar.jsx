@@ -48,14 +48,14 @@ export class LeftSidebar extends Component {
                                     <Link to="/superadmin/dashboard">
                                         <li>
                                             <a className=" waves-effect">
-                                                <i className="mdi mdi-calendar-text" />
+                                                <i className="mdi mdi-airplay" />
                                                 <span>Dashboard</span>
                                             </a>
                                         </li>
                                     </Link>
                                     <li>
                                         <Link to="/superadmin/club-registration" className=" waves-effect">
-                                            <i className="mdi mdi-calendar-text" />
+                                            <i className="mdi mdi-cards-club" />
                                             <span>Clubs</span>
                                         </Link>
                                     </li>
@@ -107,7 +107,7 @@ export class LeftSidebar extends Component {
                                     <Link to="/dashboard">
                                         <li>
                                             <a className=" waves-effect">
-                                                <i className="mdi mdi-calendar-text" />
+                                                <i className="mdi mdi-airplay" />
                                                 <span>Dashboard</span>
                                             </a>
                                         </li>
