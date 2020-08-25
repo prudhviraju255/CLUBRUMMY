@@ -5,6 +5,7 @@ import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
+import { hasWhiteSpace } from '../helpers/globalHelpers/Utils';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
 import Constants from '../helpers/Constans';
@@ -100,6 +101,10 @@ export class CreateClubRegisterUser extends Component {
     handleChange = (e) => {
         this.state[e.target.name] = e.target.value;
         if (e.target.name == "username") {
+            if (hasWhiteSpace(e.target.value)) {
+                this.setState({ error: true, canUseAsUsername: false, errorMessage: "username should not contain space" });
+                return;
+            }
             this.validateUserexist(e.target.value)
         }
 
@@ -159,11 +164,15 @@ export class CreateClubRegisterUser extends Component {
     validateform(dataObject) {
         var response = { error: false, errorMessage: "" };
 
-        if (dataObject.clubname == "" || dataObject.clublocation == ""
-            || dataObject.mobileno == "" || dataObject.email == "" || dataObject.username == ""
+        if (dataObject.clubname.trim() == "" || dataObject.clublocation == ""
+            || dataObject.mobileno.trim() == "" || dataObject.email.trim() == "" || dataObject.username == ""
             || dataObject.password == "") {
             response.error = true;
             response.errorMessage = "Please fill all details";
+            return response;
+        } else if (hasWhiteSpace(dataObject.username)) {
+            response.error = true;
+            response.errorMessage = "username should not contain space";
             return response;
         } else if (!this.state.canUseAsUsername) {
             response.error = true;

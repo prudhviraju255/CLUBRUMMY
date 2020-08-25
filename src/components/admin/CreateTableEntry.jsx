@@ -320,8 +320,8 @@ export class CreateTableEntry extends Component {
     validateform(dataObject) {
         var response = { error: false, errorMessage: "" };
 
-        if (dataObject.pools == "" || dataObject.tableName == ""
-            || dataObject.tableNo == "" || dataObject.bet == "" || dataObject.capacity == "") {
+        if (dataObject.pools == "" || dataObject.tableName.trim() == ""
+            || dataObject.tableNo.trim() == "" || dataObject.bet.trim() == "" || dataObject.capacity == "") {
             response.error = true;
             response.errorMessage = "Please fill all details";
             return response;

@@ -145,8 +145,6 @@ class Login extends Component {
     )
   }
 
-
-
   async componentDidUpdate(prevProps, prevState) {
     // check whether client has changed
     if (prevProps.isUserLogIn !== this.props.isUserLogIn) {
