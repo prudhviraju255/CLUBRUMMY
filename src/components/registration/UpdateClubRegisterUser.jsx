@@ -154,6 +154,7 @@ export class UpdateClubRegisterUser extends Component {
                 clubLocation: updated_user.clublocation,
                 mobileno: updated_user.mobileno,
                 email: updated_user.email,
+                errorMessage: "",
                 _id: updated_user._id,
             })
         }

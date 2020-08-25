@@ -39,20 +39,6 @@ export class CreateTableEntry extends Component {
         console.log('componentDidMount>>>>>>>>>>>>>>', updated_user);
         this.clearInputFields();
         this.getuseronload();
-        if (false) {
-            this.setState({
-                is_edit_screen: is_edit_screen,
-                _id: updated_user._id,
-                pools: updated_user.pools,
-                tableName: updated_user.tableName,
-                tableNo: updated_user.tableNo,
-                bet: updated_user.bet,
-                capacity: parseInt(updated_user.capacity),
-            })
-
-        }
-
-
     }
 
     render() {
@@ -271,6 +257,15 @@ export class CreateTableEntry extends Component {
                     this.props.isUpdateUsersList(true, ACTION_STATUS.OTHERS);
                     return;
                 } else {
+
+                    this.state.clubUsers.map((data) => {
+                        if (data.checked) {
+                            data["checked"] = false;
+                        }
+                    });
+                    var updatedclubusers = this.state.clubUsers;
+                    console.log("updated club users", updatedclubusers);
+
                     toast.success('Added Successfully.', {
                         position: "top-right",
                         autoClose: 5000,
@@ -289,10 +284,9 @@ export class CreateTableEntry extends Component {
                         error: false,
                         errorMessage: "",
                         noUsersFound: false,
-                        clubUsers: [],
+                        clubUsers: updatedclubusers,
                         items: [],
                         checkedItems: [],
-                        createdBy: ""
                     })
                 }
 

@@ -135,6 +135,7 @@ export class UpdateUser extends Component {
                 lastname: updated_user.lastname,
                 email: updated_user.email,
                 mobileno: updated_user.mobileno,
+                errorMessage: "",
                 _id: updated_user._id,
             })
         }
