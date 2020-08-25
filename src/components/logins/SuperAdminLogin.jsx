@@ -102,7 +102,7 @@ class Login extends Component {
                   <div className="bg-login-overlay" />
                   <div className="position-relative">
                     <h5 className="text-white font-size-20">Welcome Back !</h5>
-                    {loading ? "" : <p className="text-white-50 mb-0">Sign in to continue to ClubRummy.</p>}
+                    <p className="text-white-50 mb-0">Sign in to continue to ClubRummy.</p>
                     <a href="index.html" className="logo logo-admin mt-4">
                       <img src="assets/images/logo-sm-dark.png" alt="" height={30} />
                     </a>
@@ -127,16 +127,12 @@ class Login extends Component {
                       <div className="mt-3">
                         <button type="button" className="btn btn-primary btn-block waves-effect waves-light" onClick={() => this.login()}>Log In</button>
                       </div>
-                      <div className="mt-4 text-center">
-                        <a className="text-muted"><i className="mdi mdi-lock mr-1" /> Forgot your password?</a>
-                      </div>
+
                     </form>
                   </div>
                 </div>
               </div>
               <div className="mt-5 text-center">
-                <p>Don't have an account ? <a href="pages-register.html" className="font-weight-medium text-primary"> Signup now </a> </p>
-                <p>© 2020 Qovex. Crafted with <i className="mdi mdi-heart text-danger" /> by Themesbrand</p>
               </div>
             </div>
           </div>
