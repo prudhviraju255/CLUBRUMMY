@@ -97,10 +97,7 @@ export class UpdateClubRegisterUser extends Component {
     }
 
     async editclubuser() {
-        if (this.state.username == "" || this.state.password == "") {
-            this.setState({ error: true })
-            return false;
-        }
+
         let dataObject = {
             _id: this.state._id,
             clubname: this.state.clubName,
@@ -110,6 +107,12 @@ export class UpdateClubRegisterUser extends Component {
             email: this.state.email,
 
         };
+        var validation = this.validateform(dataObject);
+        if (validation.error) {
+            await this.setState({ error: validation.error, errorMessage: validation.errorMessage });
+            return;
+        }
+
         var userRegistration = await postServiceCALLS(
             ServiceUrls.UPDATE_CLUB,
             {},
@@ -124,6 +127,20 @@ export class UpdateClubRegisterUser extends Component {
             this.props.isUpdateUsersList(true, ACTION_STATUS.UPDATE);
         }
     }
+
+    validateform(dataObject) {
+        var response = { error: false, errorMessage: "" };
+
+        if (dataObject.clubname.trim() == "" || dataObject.clublocation == ""
+            || dataObject.mobileno == "" || dataObject.email.trim() == "") {
+            response.error = true;
+            response.errorMessage = "Please fill all details";
+            return response;
+        } else {
+            return response;
+        }
+    }
+
 
     clearRegisteration() {
         this.refs.clubName.value = "";

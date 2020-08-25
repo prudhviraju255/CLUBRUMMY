@@ -161,8 +161,8 @@ export class CreateUser extends Component {
     validateform(dataObject) {
         var response = { error: false, errorMessage: "" };
 
-        if (dataObject.clubname.trim() == "" || dataObject.clublocation.trim() == ""
-            || dataObject.mobileno.trim() == "" || dataObject.email.trim() == "" || dataObject.username == ""
+        if (dataObject.firstname.trim() == "" || dataObject.lastname.trim() == ""
+            || dataObject.email.trim() == "" || dataObject.mobileno == "" || dataObject.username == ""
             || dataObject.password == "") {
             response.error = true;
             response.errorMessage = "Please fill all details";

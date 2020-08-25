@@ -165,7 +165,7 @@ export class CreateClubRegisterUser extends Component {
         var response = { error: false, errorMessage: "" };
 
         if (dataObject.clubname.trim() == "" || dataObject.clublocation == ""
-            || dataObject.mobileno.trim() == "" || dataObject.email.trim() == "" || dataObject.username == ""
+            || dataObject.mobileno == "" || dataObject.email.trim() == "" || dataObject.username == ""
             || dataObject.password == "") {
             response.error = true;
             response.errorMessage = "Please fill all details";
