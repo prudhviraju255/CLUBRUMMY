@@ -37,8 +37,6 @@ export default class AppRoutes extends Component {
                     <AdminProtectedRoute exact path="/admin/cash-games/point-rummy" component={CG_PointRummy} />
                     <Route exact path="/socket" component={Socket} />
 
-                    {/* <Route path="/dashboard" component={Dashboard}> */}
-
                     <Route path="/superadmin"><Redirect to="/superadmin/login" /></Route>
                     <Route path="/admin"><Redirect to="/admin/login" /></Route>
                     <Route path="/"><Redirect to="/login" /></Route>

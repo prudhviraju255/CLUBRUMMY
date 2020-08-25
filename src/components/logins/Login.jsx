@@ -3,6 +3,7 @@ import { Redirect } from "react-router-dom";
 import config from '../../config';
 import ServiceUrls from '../helpers/ServiceUrls';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
+import { removeSession } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { connect } from 'react-redux';
 import { loginUser, errorlogin } from '../redux/actions/LoginActions'
@@ -23,6 +24,7 @@ class Login extends Component {
   }
 
   componentDidMount() {
+    removeSession();
     let isLoggedIn = localStorage.getItem("auth");
     this.setState({ login: isLoggedIn });
     // this.refs["username"].focus();
