@@ -90,7 +90,7 @@ export class CreateTableEntry extends Component {
 
                                         <div className="form-group col-lg-6">
                                             <label htmlFor="name">Bet/Entry</label>
-                                            <input type="text" placeholder="Enter Bet" value={this.state.bet} id="bet" ref="bet" onChange={this.handleChange} name="bet" className="form-control" />
+                                            <input type="number" placeholder="Enter Bet" value={this.state.bet} id="bet" ref="bet" onChange={this.handleChange} name="bet" className="form-control removeSpinner" />
                                         </div>
 
                                         <div className="form-group col-lg-6">
@@ -321,7 +321,7 @@ export class CreateTableEntry extends Component {
         var response = { error: false, errorMessage: "" };
 
         if (dataObject.pools == "" || dataObject.tableName.trim() == ""
-            || dataObject.tableNo.trim() == "" || dataObject.bet.trim() == "" || dataObject.capacity == "") {
+            || dataObject.tableNo == "" || dataObject.bet == "" || dataObject.capacity == "") {
             response.error = true;
             response.errorMessage = "Please fill all details";
             return response;

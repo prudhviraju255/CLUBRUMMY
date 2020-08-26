@@ -5,7 +5,7 @@ import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
-import { hasWhiteSpace } from '../helpers/globalHelpers/Utils';
+import { hasWhiteSpace, validateEmail } from '../helpers/globalHelpers/Utils';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
 import Constants from '../helpers/Constans';
@@ -107,7 +107,6 @@ export class CreateClubRegisterUser extends Component {
             }
             this.validateUserexist(e.target.value)
         }
-
     }
 
     async validateUserexist(username) {
@@ -157,6 +156,8 @@ export class CreateClubRegisterUser extends Component {
             await this.setState({ error: true, errorMessage: userRegistration.message.join(", ") });
         } else if (userRegistration.code === 200) {
             this.clearRegisteration();
+            await this.setState({ error: false, errorMessage: "" });
+
             this.props.isUpdateUsersList(true, ACTION_STATUS.CREATE);
         }
     }
@@ -169,6 +170,10 @@ export class CreateClubRegisterUser extends Component {
             || dataObject.password == "") {
             response.error = true;
             response.errorMessage = "Please fill all details";
+            return response;
+        } else if (!validateEmail(dataObject.email)) {
+            response.error = true;
+            response.errorMessage = "Enter valid Email.";
             return response;
         } else if (hasWhiteSpace(dataObject.username)) {
             response.error = true;

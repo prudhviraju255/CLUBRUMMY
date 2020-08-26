@@ -4,6 +4,7 @@ import Footer from '../dashboard/Footer'
 import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
+import { hasWhiteSpace, validateEmail } from '../helpers/globalHelpers/Utils';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
 import $ from 'jquery';
@@ -93,7 +94,12 @@ export class UpdateClubRegisterUser extends Component {
 
     handleChange = (e) => {
         //  this.state[e.target.name] = e.target.value;
-        this.setState({ [e.target.name]: e.target.value })
+        if (e.target.name == "email") {
+            this.setState({ error: true, canUseAsUsername: false, [e.target.name]: e.target.value, errorMessage: "Enter valid Email." });
+            return;
+        } else {
+            this.setState({ [e.target.name]: e.target.value })
+        }
     }
 
     async editclubuser() {
@@ -135,6 +141,10 @@ export class UpdateClubRegisterUser extends Component {
             || dataObject.mobileno == "" || dataObject.email.trim() == "") {
             response.error = true;
             response.errorMessage = "Please fill all details";
+            return response;
+        } else if (!validateEmail(dataObject.email)) {
+            response.error = true;
+            response.errorMessage = "Enter valid Email.";
             return response;
         } else {
             return response;
