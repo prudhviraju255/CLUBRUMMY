@@ -93,13 +93,7 @@ export class UpdateClubRegisterUser extends Component {
     }
 
     handleChange = (e) => {
-        //  this.state[e.target.name] = e.target.value;
-        if (e.target.name == "email") {
-            this.setState({ error: true, canUseAsUsername: false, [e.target.name]: e.target.value, errorMessage: "Enter valid Email." });
-            return;
-        } else {
-            this.setState({ [e.target.name]: e.target.value })
-        }
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     async editclubuser() {
