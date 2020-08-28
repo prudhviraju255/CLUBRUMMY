@@ -6,6 +6,9 @@ import config from '../../config';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
+import { isupdateclub } from '../redux/actions/ClubPlayersRegistrationActions';
+import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 import Constants from '../helpers/Constans';
 const ACTION_STATUS = Constants.ACTION_STATUS;
 
@@ -67,7 +70,16 @@ export class DeleteClubConfirmation extends Component {
             await this.setState({ error: true, errorMessage: userRegistration.message });
         } else if (userRegistration.code === 200) {
             window.$('#deleteclubModal').modal('hide');
-            this.props.isUpdateUsersList(true, ACTION_STATUS.DELETE);
+            toast.success('Deleted Successfully.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+            });
+            this.props.isupdateclub(true);
 
         }
     }
@@ -98,4 +110,13 @@ export class DeleteClubConfirmation extends Component {
 
 }
 
-export default DeleteClubConfirmation
+
+
+const mapDispatchToProps = dispatch => {
+    return {
+        isupdateclub: (tf) => {
+            dispatch(isupdateclub(tf));
+        }
+    };
+};
+export default connect(null, mapDispatchToProps)(DeleteClubConfirmation);

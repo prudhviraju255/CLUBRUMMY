@@ -8,6 +8,9 @@ import { hasWhiteSpace } from '../helpers/globalHelpers/Utils';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import $ from 'jquery';
 import Constants from '../helpers/Constans';
+import { isupdateclub } from '../redux/actions/ClubPlayersRegistrationActions';
+import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 const ACTION_STATUS = Constants.ACTION_STATUS;
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
@@ -112,7 +115,16 @@ export class UpdateUser extends Component {
         } else if (userRegistration.code === 200) {
             this.clearRegisteration();
             window.$('#exampleModal').modal('hide');
-            this.props.isUpdateUsersList(true, ACTION_STATUS.UPDATE);
+            toast.success('Update Successfully.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+            });
+            this.props.isupdateclub(true);
         }
     }
 
@@ -164,4 +176,12 @@ export class UpdateUser extends Component {
 
 }
 
-export default UpdateUser
+
+const mapDispatchToProps = dispatch => {
+    return {
+        isupdateclub: (tf) => {
+            dispatch(isupdateclub(tf));
+        }
+    };
+};
+export default connect(null, mapDispatchToProps)(UpdateUser);

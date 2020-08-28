@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import Header from '../dashboard/Header'
-import Footer from '../dashboard/Footer'
-import ServiceUrls from '../helpers/ServiceUrls';
 import config from '../../config';
-import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
-import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
+import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
+import { getClub } from '../redux/actions/ClubPlayersRegistrationActions';
+import { connect } from 'react-redux';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
 export class DataTable extends Component {
@@ -13,9 +11,9 @@ export class DataTable extends Component {
         this.state = {
             registerusers: [],
             updateusers: false,
-            selectedPage: 1,
-
-            itemCountperPage: 25
+            selectedPage: 0,
+            itemCountperPage: 10,
+            search: ""
         }
     }
 
@@ -26,72 +24,73 @@ export class DataTable extends Component {
         })
         return allrowdata;
     }
+    calculatePagecount() {
 
-    pagination() {
-        var datalenght = 200
-        var noofpages = datalenght / this.state.itemCountperPage;
-        noofpages = Math.ceil(noofpages);
+    }
 
+    pagination(datalenght) {
+        var pagecount = datalenght / this.state.itemCountperPage;
+        pagecount = Math.ceil(pagecount);
+        const noofpages = Array.from(Array(pagecount).keys());
         var pagination = [];
-        console.log('selected page', this.state.selectedPage);
-        pagination.push(<li class="paginate_button page-item previous disabled" id="dtBasicExample_previous"><a aria-controls="dtBasicExample" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>)
-        for (var i = 1; i <= noofpages; i++) {
+
+        pagination.push(<li onClick={(() => this.previousPage(pagecount))} className="page-item"><a className="page-link">Previous</a></li>)
+        noofpages.forEach((t, i) => {
             // var selectedcondition = (this.state.selectedPage === i ? "active" : null);
-            var selectedcondition = "paginate_button page-item " + (this.state.selectedPage === i ? 'active' : '')
+            // i = i + 1;
+            var selectedcondition = "page-item " + (this.state.selectedPage === i ? 'active' : '');
+
             pagination.push(
-                <li onClick={() => this.selectePage(i)} class={selectedcondition}><a aria-controls="dtBasicExample" data-dt-idx="1" tabindex="0" class="page-link">{i}</a></li>
+                <li onClick={(() => this.selectePage(i))} className={selectedcondition}><a className="page-link">{i + 1}</a></li>
             )
-        }
-        pagination.push(<li class="paginate_button page-item next" id="dtBasicExample_next"><a aria-controls="dtBasicExample" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>)
+        })
+        pagination.push(<li onClick={(() => this.nextPage(pagecount))} className="page-item"><a className="page-link">Next</a></li>)
         return pagination;
     }
 
-    paginationmessage() {
-        var from = 1;
-        var to = 25;
-        var total = 100
-        return (<div class="dataTables_info" id="dtBasicExample_info" role="status" aria-live="polite">Showing {from} to {to} of {total} entries</div>)
-    }
+
 
     render() {
-        console.log('datatable', this.props.data);
+        const { clubs } = this.props;
         var rows = [];
         var columns_th = [];
         var actions_th = [];
         var columnNames = this.props.columnNames;
-        var data = this.props.data;
-        var rowdata_names = ["firstname", "firstname", "firstname", "firstname", "firstname", "firstname"];
+        var data = clubs.data ? clubs.data : [];
+        var totalrows = clubs.totalCount ? clubs.totalCount : 0;
+        var rowdata_names = this.props.rowdata_names;
         var actionsNames = ["edit", "delete"];
-        var paginationUI = this.pagination;
 
-        data.forEach((t, s) => {
-            rows.push(<tr>
-                {this.columndata(t, rowdata_names)}
-                <td>
-                    <i onClick={() => this.props.edit(t)} data-toggle="modal" data-target="#editModal" className="fa fa-edit" />
-                    <i onClick={() => this.props.delete(t)} data-toggle="modal" data-target="#deleteModal" className="fa fa-trash" />
-                </td>
-            </tr>)
-        });
-        /*     data.forEach((t, sno) => {
-                 rows.push(
-                     <tr>
-                         <td>{t[rowdata_names[sno]]}</td>
-                         <td>
-                             <i onClick={() => this.props.edit(t)} data-toggle="modal" data-target="#editModal" className="fa fa-edit" />
-                             <i onClick={() => this.props.delete(t)} data-toggle="modal" data-target="#deleteModal" className="fa fa-trash" />
-                         </td>
-                     </tr>
-                 );
-             }); */
 
-        columnNames.forEach((t, sno) => {
-            columns_th.push(
-                <th>{t}</th>
+        data.forEach((t, sno) => {
+            var clubtype = "";
+            if (t.clubtype === 0) {
+                clubtype = 'Bronze';
+            } else if (t.clubtype === 1) {
+                clubtype = 'Silver';
+            } else if (t.clubtype === 2) {
+                clubtype = 'Gold';
+            } else if (t.clubtype === 3) {
+                clubtype = 'Diamond';
+            } else if (t.clubtype === 4) {
+                clubtype = 'platinum';
+            }
+            rows.push(
+                <tr>
+                    <td>{sno + 1}</td>
+                    <td>{t.clubname}</td>
+                    <td>{clubtype}</td>
+                    <td>{t.clublocation}</td>
+                    <td>{t.email}</td>
+                    <td>{t.mobileno}</td>
+                    <td>{t.username}</td>
+                    <td>
+                        <i onClick={() => this.props.editUser(t)} data-toggle="modal" data-target="#exampleModal" className="fa fa-edit text-info pr-2" />
+                        <i onClick={() => this.props.deleteUser(t)} data-toggle="modal" data-target="#deleteclubModal" className="fa fa-trash text-danger" />
+                    </td>
+                </tr>
             );
         });
-        //    var actions = actionsNames.length > 0 ? <th>Actions</th> : null;
-
 
 
         return (
@@ -99,12 +98,11 @@ export class DataTable extends Component {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-body">
-                            <h4 className="card-title mb-4">Club Players</h4>
                             <div class="row">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="dataTables_length bs-select" id="dtBasicExample_length">
                                         <label>Show
-                                            <select name="dtBasicExample_length" aria-controls="dtBasicExample" class="custom-select custom-select-sm form-control form-control-sm">
+                                            <select name="dtBasicExample_length" aria-controls="dtBasicExample" name="itemCountperPage" onChange={this.handleChange} id="itemCountperPage" class="custom-select custom-select-sm form-control form-control-sm">
                                                 <option value="10" selected={this.state.itemCountperPage == 10}>10</option>
                                                 <option value="25" selected={this.state.itemCountperPage == 25}>25</option>
                                                 <option value="50" selected={this.state.itemCountperPage == 50}>50</option>
@@ -114,14 +112,21 @@ export class DataTable extends Component {
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6">
-                                    <div id="dtBasicExample_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dtBasicExample" /></label></div>
+                                    <div id="dtBasicExample_filter" class="dataTables_filter"><label>Search:<input type="search" name="search" onChange={this.handleChange} id="search" class="form-control form-control-sm" placeholder="" aria-controls="dtBasicExample" /></label></div>
                                 </div>
                             </div>
 
                             <table className="table table-bordered dt-responsive nowrap" style={{ borderCollapse: 'collapse', borderSpacing: 0, width: '100%' }}>
                                 <thead>
                                     <tr>
-                                        {columns_th}
+                                        <th>S.No</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Location</th>
+                                        <th>Email</th>
+                                        <th>Mobile No</th>
+                                        <th>Username</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -129,16 +134,11 @@ export class DataTable extends Component {
                                 </tbody>
                             </table>
 
-                            <div class="row">
-                                <div class="col-sm-12 col-md-5">
-                                    {this.paginationmessage()}
-                                </div><div class="col-sm-12 col-md-7">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="dtBasicExample_paginate">
-                                        <ul class="pagination">
-                                            {this.pagination()}
-                                        </ul>
-                                    </div>
-                                </div>
+                            <div className="mt-3">
+                                <ul className="pagination pagination-rounded justify-content-center mb-0">
+
+                                    {totalrows && totalrows > 0 ? this.pagination(totalrows) : null}
+                                </ul>
                             </div>
 
                         </div>
@@ -150,13 +150,109 @@ export class DataTable extends Component {
     }
 
     async componentDidMount() {
-        console.log('componentDidUpdate before');
+        const user = getCacheObject(SESSION_KEY_NAME);
+        let dataObject = { limit: this.state.itemCountperPage, search_string: this.state.search, page: this.state.selectedPage, clubId: user._id };
+        const headers = {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + user.token,
+        }
+        this.props.getClubs(dataObject, headers);
+    }
+
+    handleChange = (e) => {
+        const { user } = this.props;
+        var dataObject = null;
+
+        if (e.target.name == 'itemCountperPage') {
+            dataObject = { limit: parseInt(e.target.value), search_string: this.state.search, page: 0, clubId: user._id };
+        } else if (e.target.name == 'search') {
+            dataObject = { limit: parseInt(this.state.itemCountperPage), search_string: e.target.value, page: (this.state.selectedPage), clubId: user._id };
+        }
+        const headers = {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + user.token,
+        }
+        this.setState({ [e.target.name]: e.target.value, selectedPage: 0 });
+        if (dataObject) {
+            console.log('dataObject>>>>>', dataObject, user)
+            this.props.getClubs(dataObject, headers);
+        }
+
+
+    }
+
+    previousPage(totalcount) {
+        const { user } = this.props;
+        if (this.state.selectedPage > 0) {
+            let dataObject = { limit: parseInt(this.state.itemCountperPage), search_string: this.state.search, page: (this.state.selectedPage - 1), clubId: user._id };
+            this.setState({ selectedPage: this.state.selectedPage - 1 })
+            const headers = {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + user.token,
+            }
+            this.props.getClubs(dataObject, headers);
+
+
+        }
+    }
+
+    nextPage(totalcount) {
+        const { user } = this.props;
+        if ((this.state.selectedPage + 1) < totalcount) {
+            let dataObject = { limit: parseInt(this.state.itemCountperPage), search_string: this.state.search, page: (this.state.selectedPage + 1), clubId: user._id };
+            this.setState({ selectedPage: this.state.selectedPage + 1 })
+            const headers = {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + user.token,
+            }
+            this.props.getClubs(dataObject, headers);
+
+        }
     }
 
     selectePage(pgno) {
-        this.setState({ selectedPage: pgno })
+        const { user } = this.props;
+        this.setState({ selectedPage: pgno });
+        let dataObject = { limit: parseInt(this.state.itemCountperPage), search_string: this.state.search, page: pgno, clubId: user._id };
+        const headers = {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + user.token,
+        }
+        this.props.getClubs(dataObject, headers);
     }
 
+
+    async componentDidUpdate(prevProps, prevState) {
+        // check whether client has changed
+        if (prevProps.isupdateClubs !== this.props.isupdateClubs) {
+            if (this.props.isupdateClubs) {
+                const { user } = this.props;
+                let dataObject = { limit: parseInt(this.state.itemCountperPage), search_string: "", page: 0, clubId: user._id };
+                const headers = {
+                    "Content-Type": "application/json",
+                    Authorization: "Bearer " + user.token,
+                }
+                this.props.getClubs(dataObject, headers);
+            }
+        }
+    }
 }
 
-export default DataTable
+const mapStateToProps = state => {
+    const { error, loading, clubs, isupdateClubs } = state.clubsInfo;
+    const { user } = state.auth;
+    return {
+        clubs,
+        user,
+        isupdateClubs
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        getClubs: (input, headers) => {
+            dispatch(getClub(input, headers));
+        }
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(DataTable);

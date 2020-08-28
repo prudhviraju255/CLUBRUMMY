@@ -8,6 +8,9 @@ import { hasWhiteSpace } from '../helpers/globalHelpers/Utils';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import Constants from '../helpers/Constans';
+import { isupdateclub } from '../redux/actions/ClubPlayersRegistrationActions';
+import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 const ACTION_STATUS = Constants.ACTION_STATUS;
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
@@ -127,7 +130,7 @@ export class CreateUser extends Component {
     }
 
     async clubregistration() {
-        const user = getCacheObject(SESSION_KEY_NAME);
+        const { user } = this.props;
         let dataObject = {
             firstname: this.state.firstname,
             lastname: this.state.lastname,
@@ -154,7 +157,16 @@ export class CreateUser extends Component {
             await this.setState({ error: true, errorMessage: userRegistration.message.join(", ") });
         } else if (userRegistration.code === 200) {
             this.clearRegisteration();
-            this.props.isUpdateUsersList(true, ACTION_STATUS.CREATE);
+            toast.success('Created Successfully.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+            });
+            this.props.isupdateclub(true);
         }
     }
 
@@ -191,4 +203,21 @@ export class CreateUser extends Component {
 
 }
 
-export default CreateUser
+
+const mapStateToProps = state => {
+    const { error, loading, clubs } = state.clubsInfo;
+    const { user } = state.auth;
+    return {
+        clubs,
+        user
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        isupdateclub: (tf) => {
+            dispatch(isupdateclub(tf));
+        }
+    };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(CreateUser);

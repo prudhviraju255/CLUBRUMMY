@@ -9,6 +9,9 @@ import { hasWhiteSpace, validateEmail } from '../helpers/globalHelpers/Utils';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import ClubRegistratedUsers from './ClubRegisteredUsers';
 import Constants from '../helpers/Constans';
+import { toast } from 'react-toastify';
+import { isupdateclub } from '../redux/actions/ClubPlayersRegistrationActions';
+import { connect } from 'react-redux';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 const ACTION_STATUS = Constants.ACTION_STATUS;
 
@@ -157,8 +160,16 @@ export class CreateClubRegisterUser extends Component {
         } else if (userRegistration.code === 200) {
             this.clearRegisteration();
             await this.setState({ error: false, errorMessage: "" });
-
-            this.props.isUpdateUsersList(true, ACTION_STATUS.CREATE);
+            toast.success('Created Successfully.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: false,
+                progress: undefined,
+            });
+            this.props.isupdateclub(true);
         }
     }
 
@@ -201,4 +212,12 @@ export class CreateClubRegisterUser extends Component {
 
 }
 
-export default CreateClubRegisterUser
+
+const mapDispatchToProps = dispatch => {
+    return {
+        isupdateclub: (tf) => {
+            dispatch(isupdateclub(tf));
+        }
+    };
+};
+export default connect(null, mapDispatchToProps)(CreateClubRegisterUser);
