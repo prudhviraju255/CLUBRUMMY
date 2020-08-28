@@ -12,7 +12,7 @@ export class RegisteredUsers extends Component {
             registerusers: [],
             updateusers: false,
             selectedPage: 0,
-            itemCountperPage: 3,
+            itemCountperPage: 10,
             search: ""
         }
     }
@@ -90,7 +90,7 @@ export class RegisteredUsers extends Component {
                                     <div class="dataTables_length bs-select" id="dtBasicExample_length">
                                         <label>Show
                                             <select name="dtBasicExample_length" aria-controls="dtBasicExample" name="itemCountperPage" onChange={this.handleChange} id="itemCountperPage" class="custom-select custom-select-sm form-control form-control-sm">
-                                                <option value="3" selected={this.state.itemCountperPage == 3}>3</option>
+                                                <option value="10" selected={this.state.itemCountperPage == 10}>10</option>
                                                 <option value="25" selected={this.state.itemCountperPage == 25}>25</option>
                                                 <option value="50" selected={this.state.itemCountperPage == 50}>50</option>
                                                 <option value="100" selected={this.state.itemCountperPage == 100}>100</option>

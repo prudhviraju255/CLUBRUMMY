@@ -6,6 +6,7 @@ import config from '../../config';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import GamesList from './GamesList';
+import GamesList1 from '../utils/DataTable';
 import UpdateGame from '../admin/CreateTableEntry';
 import DeleteGameConfirmation from './DeleteGameConfirmation';
 import Constants from '../helpers/Constans';

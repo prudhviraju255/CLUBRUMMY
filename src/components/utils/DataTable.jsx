@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import config from '../../config';
 import { getCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
-import { getClub } from '../redux/actions/ClubPlayersRegistrationActions';
+import { getClubTables } from '../redux/actions/ClubPlayersRegistrationActions';
 import { connect } from 'react-redux';
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
@@ -53,39 +53,19 @@ export class DataTable extends Component {
     render() {
         const { clubs } = this.props;
         var rows = [];
-        var columns_th = [];
-        var actions_th = [];
-        var columnNames = this.props.columnNames;
         var data = clubs.data ? clubs.data : [];
-        var totalrows = clubs.totalCount ? clubs.totalCount : 0;
-        var rowdata_names = this.props.rowdata_names;
-        var actionsNames = ["edit", "delete"];
-
+        var totalrows = clubs.total_record ? clubs.total_record : 0;
 
         data.forEach((t, sno) => {
-            var clubtype = "";
-            if (t.clubtype === 0) {
-                clubtype = 'Bronze';
-            } else if (t.clubtype === 1) {
-                clubtype = 'Silver';
-            } else if (t.clubtype === 2) {
-                clubtype = 'Gold';
-            } else if (t.clubtype === 3) {
-                clubtype = 'Diamond';
-            } else if (t.clubtype === 4) {
-                clubtype = 'platinum';
-            }
+
             rows.push(
                 <tr>
                     <td>{sno + 1}</td>
-                    <td>{t.clubname}</td>
-                    <td>{clubtype}</td>
-                    <td>{t.clublocation}</td>
-                    <td>{t.email}</td>
-                    <td>{t.mobileno}</td>
-                    <td>{t.username}</td>
+                    <td>{t.tableName}</td>
+                    <td>{t.tableNo}</td>
+                    <td>{t.bet}</td>
                     <td>
-                        <i onClick={() => this.props.editUser(t)} data-toggle="modal" data-target="#exampleModal" className="fa fa-edit text-info pr-2" />
+                        <i onClick={() => this.props.editUser(t)} className="fa fa-edit pr-2 text-info" />
                         <i onClick={() => this.props.deleteUser(t)} data-toggle="modal" data-target="#deleteclubModal" className="fa fa-trash text-danger" />
                     </td>
                 </tr>
@@ -120,12 +100,9 @@ export class DataTable extends Component {
                                 <thead>
                                     <tr>
                                         <th>S.No</th>
-                                        <th>Name</th>
-                                        <th>Type</th>
-                                        <th>Location</th>
-                                        <th>Email</th>
-                                        <th>Mobile No</th>
-                                        <th>Username</th>
+                                        <th>tableName</th>
+                                        <th>tableNo</th>
+                                        <th>bet</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -251,7 +228,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         getClubs: (input, headers) => {
-            dispatch(getClub(input, headers));
+            dispatch(getClubTables(input, headers));
         }
     };
 };

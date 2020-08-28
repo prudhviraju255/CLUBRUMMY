@@ -48,6 +48,29 @@ export const getClub = (user, headers) => {
     };
 }
 
+export const getClubTables = (user, headers) => {
+    return dispatch => {
+        console.log("getregisterUsers>>>>>", user);
+        dispatch(clubrequeststarted());
+        axios.post(ServiceUrls.TABLE_LIST, user, {
+            headers: headers
+        })
+            .then(res => {
+                let resCode = res.data.code;
+                if (resCode === 200) {
+                    console.log("getregisterUsers>>>>>", res.data);
+                    dispatch(requestSuccess(res.data));
+                } else {
+                    dispatch(requestFailure(res.data.message));
+                }
+
+            })
+            .catch(err => {
+                dispatch(requestFailure(err.message));
+            });
+    };
+}
+
 export const addclubUsers = (clubuser, headers) => {
     return dispatch => {
         console.log("addclubUsers>>>>>", clubuser);
