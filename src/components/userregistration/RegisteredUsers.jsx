@@ -88,14 +88,14 @@ export class RegisteredUsers extends Component {
                             <div class="row mb-3">
                                 <div class="col-sm-12 col-md-6">
                                     <div class="dataTables_length bs-select d-flex" id="dtBasicExample_length">
-                                        <label className="mr-3">Show:</label>
-                                            <select name="dtBasicExample_length" aria-controls="dtBasicExample" name="itemCountperPage" onChange={this.handleChange} id="itemCountperPage" class="custom-select custom-select-sm form-control form-control-sm col-2">
-                                                <option value="10" selected={this.state.itemCountperPage == 10}>10</option>
-                                                <option value="25" selected={this.state.itemCountperPage == 25}>25</option>
-                                                <option value="50" selected={this.state.itemCountperPage == 50}>50</option>
-                                                <option value="100" selected={this.state.itemCountperPage == 100}>100</option>
-                                            </select>
-                                        
+                                        <label className="mr-2">Show:</label>
+                                        <select name="dtBasicExample_length" aria-controls="dtBasicExample" name="itemCountperPage" onChange={this.handleChange} id="itemCountperPage" class="custom-select custom-select-sm form-control form-control-sm col-2">
+                                            <option value="10" selected={this.state.itemCountperPage == 10}>10</option>
+                                            <option value="25" selected={this.state.itemCountperPage == 25}>25</option>
+                                            <option value="50" selected={this.state.itemCountperPage == 50}>50</option>
+                                            <option value="100" selected={this.state.itemCountperPage == 100}>100</option>
+                                        </select>
+                                        <label className="ml-2">Entries</label>
                                     </div>
                                 </div>
                                 <div class="col-sm-12 col-md-6 ">
