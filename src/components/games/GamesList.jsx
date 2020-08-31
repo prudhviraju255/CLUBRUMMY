@@ -60,7 +60,7 @@ export class GamesList extends Component {
 
             rows.push(
                 <tr>
-                    <td>{sno + 1}</td>
+                    <td>{(sno + 1) + (this.state.selectedPage * this.state.itemCountperPage)}</td>
                     <td>{t.tableName}</td>
                     <td>{t.tableNo}</td>
                     <td>{t.bet}</td>

@@ -65,7 +65,7 @@ export class RegisteredUsers extends Component {
         data.forEach((t, sno) => {
             rows.push(
                 <tr>
-                    <td>{sno + 1}</td>
+                    <td>{(sno + 1) + (this.state.selectedPage * this.state.itemCountperPage)}</td>
                     <td>{t.firstname}</td>
                     <td>{t.lastname}</td>
                     <td>{t.email}</td>

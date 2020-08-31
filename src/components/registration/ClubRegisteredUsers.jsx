@@ -77,7 +77,7 @@ export class ClubRegisteredUsers extends Component {
             }
             rows.push(
                 <tr>
-                    <td>{sno + 1}</td>
+                    <td>{(sno + 1) + (this.state.selectedPage * this.state.itemCountperPage)}</td>
                     <td>{t.clubname}</td>
                     <td>{clubtype}</td>
                     <td>{t.clublocation}</td>
