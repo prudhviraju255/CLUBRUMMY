@@ -85,21 +85,21 @@ export class RegisteredUsers extends Component {
                 <div className="col-12">
                     <div className="card">
                         <div className="card-body">
-                            <div class="row">
+                            <div class="row mb-3">
                                 <div class="col-sm-12 col-md-6">
-                                    <div class="dataTables_length bs-select" id="dtBasicExample_length">
-                                        <label>Show
-                                            <select name="dtBasicExample_length" aria-controls="dtBasicExample" name="itemCountperPage" onChange={this.handleChange} id="itemCountperPage" class="custom-select custom-select-sm form-control form-control-sm">
+                                    <div class="dataTables_length bs-select d-flex" id="dtBasicExample_length">
+                                        <label className="mr-3">Show:</label>
+                                            <select name="dtBasicExample_length" aria-controls="dtBasicExample" name="itemCountperPage" onChange={this.handleChange} id="itemCountperPage" class="custom-select custom-select-sm form-control form-control-sm col-2">
                                                 <option value="10" selected={this.state.itemCountperPage == 10}>10</option>
                                                 <option value="25" selected={this.state.itemCountperPage == 25}>25</option>
                                                 <option value="50" selected={this.state.itemCountperPage == 50}>50</option>
                                                 <option value="100" selected={this.state.itemCountperPage == 100}>100</option>
                                             </select>
-                                        </label>
+                                        
                                     </div>
                                 </div>
-                                <div class="col-sm-12 col-md-6">
-                                    <div id="dtBasicExample_filter" class="dataTables_filter"><label>Search:<input type="search" name="search" onChange={this.handleChange} id="search" class="form-control form-control-sm" placeholder="" aria-controls="dtBasicExample" /></label></div>
+                                <div class="col-sm-12 col-md-6 ">
+                                    <div id="dtBasicExample_filter" class="dataTables_filter d-flex justify-content-end"><label class="mr-3">Search:</label><input type="search" name="search" onChange={this.handleChange} id="search" class="form-control col-4 form-control-sm" placeholder="" aria-controls="dtBasicExample" /></div>
                                 </div>
                             </div>
 

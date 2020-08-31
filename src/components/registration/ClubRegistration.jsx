@@ -75,8 +75,9 @@ export class ClubRegistration extends Component {
                 updateusers={this.state.get_updated_users} />
             </div>
             {/* End Page-content */}
-            <Footer />
+            
           </div>
+          <Footer />
           {/* end main content*/}
         </div>
         {/* END layout-wrapper */}
