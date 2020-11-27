@@ -82,6 +82,11 @@ export class CreateUser extends Component {
                                             <label htmlFor="subject">Password</label>
                                             <input type="password" id="password" ref="password" name="password" onChange={this.handleChange} className="form-control" />
                                         </div>
+                                        <div class="form-group col-lg-3">
+                                            <label for="subject">Add Chips</label>
+                                            <input type="text" id="subject" class="form-control" />
+                                            <small>you have <span class="text-primary">20,325</span> chips</small>
+                                        </div>
                                         <div className="col-lg-2 align-self-cente">
                                             <label htmlFor="subject">&nbsp;</label>
                                             <button type="button" data-repeater-delete type="button" className="btn btn-primary btn-block" onClick={() => this.clubregistration()} >Add User</button>

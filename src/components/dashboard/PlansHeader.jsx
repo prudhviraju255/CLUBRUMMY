@@ -57,7 +57,7 @@ export class Header extends Component {
         return (
             <React.Fragment>
 
-                <AdminLeftSidebar />
+
                 <header id="page-topbar">
                     <div className="navbar-header">
                         <div className="container-fluid">

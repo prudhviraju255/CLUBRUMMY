@@ -7,6 +7,8 @@ import CG_PointRummy from '../cashgames/CG_PointRummy';
 import Login from '../logins/Login';
 import SuperAdminLogin from '../logins/SuperAdminLogin';
 import AdminLogin from '../logins/AdminLogin';
+import AdminSignup from '../logins/AdminSignup';
+import Plans from '../dashboard/Plans';
 import Games from '../games/Games';
 import SuperAdminprotectedRoute from './SuperAdminprotectedRoute';
 import AdminProtectedRoute from './AdminProtectedRoute'
@@ -35,11 +37,15 @@ export default class AppRoutes extends Component {
                     <AdminProtectedRoute exact path="/admin/table-entry" component={TableEntry} />
                     <AdminProtectedRoute exact path="/admin/games" component={Games} />
                     <AdminProtectedRoute exact path="/admin/cash-games/point-rummy" component={CG_PointRummy} />
+                    <Route path="/admin/sign-up" component={AdminSignup} />
+                    <Route path="/admin/plans" component={Plans} />
+
                     <Route exact path="/socket" component={Socket} />
 
                     <Route path="/superadmin"><Redirect to="/superadmin/login" /></Route>
                     <Route path="/admin"><Redirect to="/admin/login" /></Route>
                     <Route path="/"><Redirect to="/login" /></Route>
+
 
                     <Route path="/superadmin/*"> <Redirect to="/superadmin/login" /></Route>
                     <Route path="/admin/*">  <Redirect to="/admin/login" /></Route>

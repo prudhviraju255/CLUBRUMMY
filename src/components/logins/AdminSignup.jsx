@@ -6,7 +6,7 @@ import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
 import { removeSession } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { setCacheObject } from '../helpers/globalHelpers/GlobalHelperFunctions';
 import { connect } from 'react-redux';
-import { adminlogin, errorlogin } from '../redux/actions/LoginActions'
+import { loginUser, errorlogin } from '../redux/actions/LoginActions'
 
 const SESSION_KEY_NAME = config.SESSION_KEY_NAME;
 
@@ -18,9 +18,7 @@ class Login extends Component {
       username: "",
       password: "",
       error: false,
-      redirectto: "/admin/dashboard"
     }
-    console.log("params>>>>>>>>", this.props.match.params);
   }
 
   componentDidMount() {
@@ -99,12 +97,11 @@ class Login extends Component {
             <div className="col-md-8 col-lg-6 col-xl-5">
               <div className="card overflow-hidden">
                 <div className="bg-logi text-center">
-
                   <div className="position-relative pt-4">
                     <a href="index.html">
                       <img src="assets/images/logo.png" height="80px" class="mb-3" alt="" /></a>
                     <h5 className="text-white font-size-20">Welcome Back !</h5>
-                    <p className="text-white-50 mb-0">Sign in to continue to ClubRummy.</p>
+                    <p className="text-white-50 mb-0">Sign up to continue to ClubRummy.</p>
 
                   </div>
                 </div>
@@ -112,6 +109,10 @@ class Login extends Component {
                   <div className="p-2">
                     <form className="form-horizontal" action="index.html">
                       {error.length > 0 ? <p className="text-danger">{error}</p> : null}
+                      <div className="form-group">
+                        <label htmlFor="username">Email</label>
+                        <input type="text" className="form-control" name="email" id="email" placeholder="Enter Email" onChange={this.handleChange} />
+                      </div>
                       <div className="form-group">
                         <label htmlFor="username">Username</label>
                         <input type="text" className="form-control" name="username" id="username" placeholder="Enter username" onChange={this.handleChange} />
@@ -121,18 +122,19 @@ class Login extends Component {
                         <input type="password" className="form-control" name="password" id="userpassword" placeholder="Enter password" onChange={this.handleChange} onKeyDown={this.handleEnterKey} />
                       </div>
 
-                      <div className="mt-5">
+
+
+
+                      <div className="mt-4">
                         <button type="button" className="btn btn-primary btn-block waves-effect waves-light" onClick={() => this.login()}>Log In</button>
                       </div>
 
                     </form>
                   </div>
                 </div>
-
               </div>
               <div className="mt-5 text-center">
-
-                <p>Don't have an account ? <a href="pages-register.html" class="font-weight-medium text-primary"> Signup now </a> </p>
+                <p>Already have an account ? <a href="pages-register.html" class="font-weight-medium text-primary"> Login now </a> </p>
                 <p>© 2020 ClubRummy. Crafted by DevRabbit</p>
 
               </div>
@@ -150,7 +152,7 @@ class Login extends Component {
     if (prevProps.isUserLogIn !== this.props.isUserLogIn) {
       if (this.props.isUserLogIn) {
         await setCacheObject(SESSION_KEY_NAME, this.props.user.data);
-        this.props.history.push(this.state.redirectto);
+        this.props.history.push("");
       }
     }
   }
@@ -172,8 +174,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onUserLogin: user => {
-      dispatch(adminlogin(user));
-    }, onErrorLogin: user => {
+      dispatch(loginUser(user));
+    },
+    onErrorLogin: user => {
       dispatch(errorlogin(user));
     }
   };

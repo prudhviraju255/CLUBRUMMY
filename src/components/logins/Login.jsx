@@ -98,17 +98,16 @@ class Login extends Component {
           <div className="row justify-content-center">
             <div className="col-md-8 col-lg-6 col-xl-5">
               <div className="card overflow-hidden">
-                <div className="bg-login text-center">
-                  <div className="bg-login-overlay" />
-                  <div className="position-relative">
+                <div className="bg-logi text-center">
+                  <div className="position-relative pt-4">
+                    <a href="index.html">
+                      <img src="assets/images/logo.png" height="80px" class="mb-3" alt="" /></a>
                     <h5 className="text-white font-size-20">Welcome Back !</h5>
                     <p className="text-white-50 mb-0">Sign in to continue to ClubRummy.</p>
-                    <a href="index.html" className="logo logo-admin mt-4">
-                      <img src="assets/images/logo-sm-dark.png" alt="" height={30} />
-                    </a>
+
                   </div>
                 </div>
-                <div className="card-body pt-5">
+                <div className="card-body pt-4">
                   <div className="p-2">
                     <form className="form-horizontal" action="index.html">
                       {error.length > 0 ? <p className="text-danger">{error}</p> : null}
