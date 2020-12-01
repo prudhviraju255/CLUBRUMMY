@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import config from '../../config';
 import ServiceUrls from '../helpers/ServiceUrls';
 import { postServiceCALLS } from '../serviceCalls/ServiceCalls';
@@ -132,7 +132,7 @@ class Login extends Component {
               </div>
               <div className="mt-5 text-center">
 
-                <p>Don't have an account ? <a href="pages-register.html" class="font-weight-medium text-primary"> Signup now </a> </p>
+                <p>Don't have an account ? <Link to="/admin/sign-up" class="font-weight-medium text-primary"> Signup now </Link> </p>
                 <p>© 2020 ClubRummy. Crafted by DevRabbit</p>
 
               </div>

@@ -49,10 +49,12 @@ class Dashboard extends Component {
                             <h1 className="m-0"><sup><small>$</small></sup> 19/ <span className="font-size-13">2000 Chips</span></h1>
                           </div>
                           <div className="plan-features p-4 text-muted mt-2">
-
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />2 Game Tables</p>
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />Unlimited Players</p>
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />No Visitors Allowed</p>
                           </div>
                           <div className="text-center">
-                            <a href="#" className="btn btn-primary waves-effect waves-light">Select Plan</a>
+                            <a href="" className="btn btn-primary waves-effect waves-light">Select Plan</a>
                           </div>
                         </div>
                       </div>
@@ -73,10 +75,12 @@ class Dashboard extends Component {
                             <h1 className="m-0"><sup><small>$</small></sup> 29/ <span className="font-size-13">5000 Chips</span></h1>
                           </div>
                           <div className="plan-features p-4 text-muted mt-2">
-
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />4 Game Tables</p>
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />Unlimited Players</p>
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />No Visitors Allowed</p>
                           </div>
                           <div className="text-center">
-                            <a href="#" className="btn btn-primary waves-effect waves-light">Select Plan</a>
+                            <a href="" className="btn btn-primary waves-effect waves-light">Select Plan</a>
                           </div>
                         </div>
                       </div>
@@ -97,10 +101,13 @@ class Dashboard extends Component {
                             <h1 className="m-0"><sup><small>$</small></sup> 39/ <span className="font-size-13">8000 Chips</span></h1>
                           </div>
                           <div className="plan-features p-4 text-muted mt-2">
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />6 Game Tables</p>
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />Unlimited Players</p>
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />Visitors Allowed</p>
 
                           </div>
                           <div className="text-center">
-                            <a href="#" className="btn btn-primary waves-effect waves-light">Select Plan</a>
+                            <a href="" className="btn btn-primary waves-effect waves-light">Select Plan</a>
                           </div>
                         </div>
                       </div>
@@ -121,10 +128,12 @@ class Dashboard extends Component {
                             <h1 className="m-0"><sup><small>$</small></sup> 49/ <span className="font-size-13">20000 Chips</span></h1>
                           </div>
                           <div className="plan-features p-4 text-muted mt-2">
-
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />8 Game Tables</p>
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />Unlimited Players</p>
+                            <p><i className="mdi mdi-check-bold text-primary mr-4" />Visitors Allowed</p>
                           </div>
                           <div className="text-center">
-                            <a href="#" className="btn btn-primary waves-effect waves-light">Select Plan</a>
+                            <a href="" className="btn btn-primary waves-effect waves-light">Select Plan</a>
                           </div>
                         </div>
                       </div>
