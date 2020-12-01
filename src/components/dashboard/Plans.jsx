@@ -17,7 +17,7 @@ class Dashboard extends Component {
       <div>
         <div className="container-fluid">
 
-          <div id="layout-wrapper">
+          <div id="layout-wrappe">
             <PlansHeader />
 
             {/* dashboard main content */}
@@ -144,10 +144,10 @@ class Dashboard extends Component {
               </div>
 
 
-              <Footer />
-
             </div>
             {/* dashboard content ends here */}
+
+            <Footer />
 
           </div>
 
